@@ -1,0 +1,15 @@
+{
+  "name": "yui",
+  "version": "1.0.0",
+  "description": "Yui bot js rewrite",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dodo#1797",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "random-puppy": "^1.1.0"
+  }
+}
