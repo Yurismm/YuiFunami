@@ -12,6 +12,6 @@ module.exports = {
             .setTitle("Ping!")
             .setDescription(`Gateway: **${client.ws.ping.toFixed(2)}**\nMessage: **${sent.createdTimestamp - message.createdTimestamp}ms**`)
 
-        return sent.edit(embed);
+        return sent.edit("", { embed });
     }
 };
