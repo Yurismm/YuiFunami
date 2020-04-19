@@ -22,10 +22,10 @@ module.exports = {
         message.channel.send({
           embed: {
             fields: [
-              { name: "Core:", value: `\`${core.join("` ` ")}\``, inline: false },
-              { name: "Misc:", value: `\`${misc.join("` ` ")}\``, inline: false },
-              { name: "Fun:", value: `\`${fun.join("` ` ")}\``, inline: false },
-              { name: "developer", value:`\`${dev.join("` ` ")}\``, inline: false }
+              { name: "Core:", value: `\`${core.join("` `")}\``, inline: false },
+              { name: "Misc:", value: `\`${misc.join("` `")}\``, inline: false },
+              { name: "Fun:", value: `\`${fun.join("` `")}\``, inline: false },
+              { name: "developer", value:`\`${dev.join("` `")}\``, inline: false }
             ],
             footer: { text: `use ${PREFIX}help [command] for more info on a command`},
             color: 0x000FFF,
