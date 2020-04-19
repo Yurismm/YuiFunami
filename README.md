@@ -1,4 +1,4 @@
-# YuiBotRewrite-Js-
+# Yui Funami Rewrite
 This is the github repo for Yui Funami, A discord bot.
 
 If you're just interested in inviting the bot, invite it here; https://discordapp.com/oauth2/authorize?client_id=456910763504697363&scope=bot&permissions=8

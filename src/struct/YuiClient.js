@@ -14,8 +14,8 @@ class YuiClient extends Client {
         super(props);
         
         this.InviteURL = "https://discordapp.com/oauth2/authorize?client_id=456910763504697363&scope=bot&permissions=8";
-        this.githubURL = "https://github.com/Yurismm/YuiBotRewrite-Js-";
-        this.githubAPI = "https://api.github.com/repos/Yurismm/YuiBotRewrite-Js-";
+        this.githubURL = "https://github.com/xgrvaeli/YuiFunami";
+        this.githubAPI = "https://api.github.com/repos/xgrvaeli/YuiFumani";
 
         this.developers = [
             "228872946557386752",  //xgrvaeli
