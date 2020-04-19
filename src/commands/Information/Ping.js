@@ -5,7 +5,7 @@ module.exports = {
     description: "Return the bots response times.",
     category: "Information",
     async execute(message, args, client) {
-        const sent = await message.channel.send("Preforming calculations...");
+        const sent = await message.channel.send("Performing calculations...");
     
         const embed = new MessageEmbed()
             .setColor("2f3136")

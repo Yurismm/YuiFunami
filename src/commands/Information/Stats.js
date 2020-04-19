@@ -8,7 +8,7 @@ module.exports = {
     aliases: ["statistics"],
     category: "Information",
     async execute(message, args, client) {
-        const sent = await message.channel.send("Preforming calculations...");
+        const sent = await message.channel.send("Performing calculations...");
 
         const { data: updated } = await axios({
             url: client.githubAPI + "/commits",
