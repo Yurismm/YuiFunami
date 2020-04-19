@@ -15,7 +15,7 @@ class YuiClient extends Client {
         
         this.InviteURL = "https://discordapp.com/oauth2/authorize?client_id=456910763504697363&scope=bot&permissions=8";
         this.githubURL = "https://github.com/xgrvaeli/YuiFunami";
-        this.githubAPI = "https://api.github.com/repos/xgrvaeli/YuiFumani";
+        this.githubAPI = "https://api.github.com/repos/xgrvaeli/YuiFunami";
 
         this.developers = [
             "228872946557386752",  //xgrvaeli
@@ -159,9 +159,9 @@ class YuiClient extends Client {
      * @property {string} text The text to clean
      */
     clean(text) {
-        let cleanRegex = new RegExp(this.config.secret.token, "g");
+        let cleanRegex = new RegExp(`${this.config.secret.token}|${this.config.secret["cb-token"]}`, "g");
 
-        if (text.indexOf(this.config.secret.token) !== -1) text = text.replace(cleanRegex, this.util.randomElementFromArray(["[redacted]", "[DATA EXPUNGED]", "[REMOVED]", "[SEE APPENDIUM INDEX A494-A]"]));
+        if (text.indexOf(this.config.secret.token) !== -1 && text.indexOf(this.config.secret["cb-token"]) !== -1) text = text.replace(cleanRegex, this.util.randomElementFromArray(["[redacted]", "[DATA EXPUNGED]", "[REMOVED]", "[SEE APPENDIUM INDEX A494-A]"]));
         
         if (typeof (text) === "string") text = text.replace(/` /g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
 
