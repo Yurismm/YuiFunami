@@ -23,7 +23,7 @@ module.exports = {
             .setDescription(
                 commits.map(commit => {
                     const hash = `[\`${commit.sha.slice(0, 7)}\`](${commit.html_url})`;
-                    return `${hash} - ${commit.author.login} - ${client.util.string.shorten(commit.commit.message.split("\n")[0], 50)}`;
+                    return `${hash} - ${commit.author.login} - ${client.util.shorten(commit.commit.message.split("\n")[0], 50)}`;
                 }).join("\n")
             )
             .setFooter(`Code last updated ${new Date(commits[0].commit.author.date).toLocaleDateString("en-CA", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}`);
