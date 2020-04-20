@@ -7,7 +7,7 @@ module.exports = {
     description: "Important and general information related to Yui.",
     aliases: ["information"],
     category: "Information",
-    async execute(message, args, client) {
+    async execute(message,client) {
         const { data: updated } = await axios({
             url: client.githubAPI + "/commits",
             method: "get",

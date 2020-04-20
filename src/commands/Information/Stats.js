@@ -7,7 +7,7 @@ module.exports = {
     description: "On the dot statistics.",
     aliases: ["statistics"],
     category: "Information",
-    async execute(message, args, client) {
+    async execute(message,client) {
         const sent = await message.channel.send("Performing calculations...");
 
         const { data: updated } = await axios({
