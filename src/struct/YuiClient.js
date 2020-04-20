@@ -163,7 +163,7 @@ class YuiClient extends Client {
 
         if (text.indexOf(this.config.secret.token) !== -1 && text.indexOf(this.config.secret["cb-token"]) !== -1) text = text.replace(cleanRegex, this.util.randomElementFromArray(["[redacted]", "[DATA EXPUNGED]", "[REMOVED]", "[SEE APPENDIUM INDEX A494-A]"]));
         
-        if (typeof (text) === "string") text = text.replace(/` /g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+        if (typeof (text) === "string") text = text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203),false);
 
         text = js(text, {
             indent_size: 4,
