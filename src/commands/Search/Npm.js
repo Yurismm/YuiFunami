@@ -35,7 +35,11 @@ module.exports = {
             .addField("Author:", res.author.name, true)
             .addField("License:", res.license, true)
             .addField("Main File:", version.main || "index.js", true)
+<<<<<<< HEAD
             .addField("Version:", res["dist-tags"].latest, true)
+=======
+            .addField("Version:", version.deprecated ? `${res["dist-tags"].latest} (DEPRECATED)` : res["dist-tags"].latest, true)
+>>>>>>> b027eec6c2bc431ff09a3c5e7d3617f1293aedf4
             .addField("Created:", format(new Date(res.time.created), "dd/mm/yyyy"), true)
             .addField("Modified:", format(new Date(res.time.modified), "dd/mm/yyyy"), true)
             .addField("Dependencies:", dependencies ? dependencies.join(", ") : "None", false)

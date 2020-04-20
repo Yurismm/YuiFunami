@@ -24,6 +24,10 @@ module.exports = {
             .addField("(not sharding)", `Gateway: **${client.ws.ping.toFixed(2)}**\nMessage: **${sent.createdTimestamp - message.createdTimestamp}ms**\nUptime: **${client.util.uptime().formatted}**\nRAM: **${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB**`, true)
             .setFooter(`Code last updated ${format(new Date(updated[0].commit.author.date), "EEEE, MMMM dd, yyyy")}.`);
 
+<<<<<<< HEAD
         return sent.edit("",{embed:embed});
+=======
+        return sent.edit("", { embed });
+>>>>>>> b027eec6c2bc431ff09a3c5e7d3617f1293aedf4
     }
 };

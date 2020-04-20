@@ -28,6 +28,7 @@
   resolved "https://registry.yarnpkg.com/@discordjs/collection/-/collection-0.1.5.tgz#1781c620b4c88d619bd0373a1548e5a6025e3d3a"
   integrity sha512-CU1q0UXQUpFNzNB7gufgoisDHP7n+T3tkqTsp3MNUkVJ5+hS3BCvME8uCXAUFlz+6T2FbTCu75A+yQ7HMKqRKw==
 
+<<<<<<< HEAD
 "@discordjs/form-data@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@discordjs/form-data/-/form-data-3.0.1.tgz#5c9e6be992e2e57d0dfa0e39979a850225fb4697"
@@ -37,6 +38,8 @@
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
+=======
+>>>>>>> b027eec6c2bc431ff09a3c5e7d3617f1293aedf4
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -189,6 +192,14 @@ cli-width@^2.0.0:
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
   integrity sha1-/xnt6Kml5XkyQUewwR8PvLq+1jk=
 
+<<<<<<< HEAD
+=======
+cloc@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/cloc/-/cloc-2.5.1.tgz#d62d077f6a5f3f3c22482f47e00c213de1bb899e"
+  integrity sha512-ZHJ592HbnHAshQ7gtnrgeZaVyvou+a+7TM/E/oTZth2c9Mycp4Ymp3/npQ/Qhxgq9ksf8GjTLB9bEyCMTf42BA==
+
+>>>>>>> b027eec6c2bc431ff09a3c5e7d3617f1293aedf4
 color-convert@^1.9.0, color-convert@^1.9.1:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
@@ -326,6 +337,7 @@ diagnostics@^1.1.1:
     enabled "1.0.x"
     kuler "1.0.x"
 
+<<<<<<< HEAD
 discord.js@discordjs/discord.js:
   version "12.2.0"
   resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/5af1a552bc7ffde85e375d046888f4c0f4e69636"
@@ -333,6 +345,16 @@ discord.js@discordjs/discord.js:
     "@discordjs/collection" "^0.1.5"
     "@discordjs/form-data" "^3.0.1"
     abort-controller "^3.0.0"
+=======
+discord.js@^12.0.2:
+  version "12.0.2"
+  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-12.0.2.tgz#c4d68f1363d7fc05ed71a42dba6b930966ed8602"
+  integrity sha512-iZiEA4Y61gqq/EjFfLXnkRK9pLapnax/vTVDUhs/mAhyqozAy0GOlk/MZI9rSa1iIoKTWRq6P9CRKhLNT2wUnA==
+  dependencies:
+    "@discordjs/collection" "^0.1.5"
+    abort-controller "^3.0.0"
+    form-data "^3.0.0"
+>>>>>>> b027eec6c2bc431ff09a3c5e7d3617f1293aedf4
     node-fetch "^2.6.0"
     prism-media "^1.2.0"
     setimmediate "^1.0.5"
@@ -568,10 +590,21 @@ follow-redirects@1.5.10:
   dependencies:
     debug "=3.1.0"
 
+<<<<<<< HEAD
 fs-nextra@^0.3.2:
   version "0.3.8"
   resolved "https://registry.yarnpkg.com/fs-nextra/-/fs-nextra-0.3.8.tgz#2a0c860a7a3c5d4b398548059d481d6155aac3c8"
   integrity sha512-zHTMl89RbxuUUoGhG+Jx1Y2UkuOGnK4Q0Ibq6o/QHexhA91e0rtZf1Vo7G4iP2xdnUAnsDXvnfIa+r2Ffr29Lg==
+=======
+form-data@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-3.0.0.tgz#31b7e39c85f1355b7139ee0c647cf0de7f83c682"
+  integrity sha512-CKMFDglpbMi6PyN+brwB9Q/GOw0eAnsrEZDgcsH5Krhz5Od/haKHAX0NmQfha2zPPz0JpWzA7GJHGSnvCRLWsg==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
+>>>>>>> b027eec6c2bc431ff09a3c5e7d3617f1293aedf4
 
 fs.realpath@^1.0.0:
   version "1.0.0"
@@ -762,6 +795,7 @@ json-stable-stringify-without-jsonify@^1.0.1:
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
   integrity sha1-nbe1lJatPzz+8wp1FC0tkwrXJlE=
 
+<<<<<<< HEAD
 klasa@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/klasa/-/klasa-0.4.0.tgz#313ffc27d92c9f6fe6d2157af1233f64432981de"
@@ -770,6 +804,8 @@ klasa@^0.4.0:
     fs-nextra "^0.3.2"
     moment "^2.19.3"
 
+=======
+>>>>>>> b027eec6c2bc431ff09a3c5e7d3617f1293aedf4
 kuler@1.0.x:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/kuler/-/kuler-1.0.1.tgz#ef7c784f36c9fb6e16dd3150d152677b2b0228a6"
@@ -852,11 +888,14 @@ mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
+<<<<<<< HEAD
 moment@^2.19.3:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
+=======
+>>>>>>> b027eec6c2bc431ff09a3c5e7d3617f1293aedf4
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
