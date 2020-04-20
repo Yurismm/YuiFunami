@@ -55,9 +55,9 @@ class YuiClient extends Client {
 
         this._presence = {
             activities: [
-                { title: "with Axel", type: 1 },
-                { title: "with Cherie", type: 1 },
-                { title: "Dodo", type: 1 }
+                { title: "with Axel", type: 0 },
+                { title: "with Cherie", type: 0 },
+                { title: "Dodo", type: 0 }
             ],  
             random: () => {
                 return util.randomElementFromArray(this._presence.activities);
