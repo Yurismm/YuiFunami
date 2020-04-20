@@ -10,14 +10,8 @@ module.exports = {
         const embed = new MessageEmbed()
             .setColor("2f3136")
             .setTitle("Ping!")
-<<<<<<< HEAD
-            .setDescription(`Gateway: **${client.ws.ping.toFixed(2)}**\nMessage: **${sent.createdTimestamp - message.createdTimestamp}ms**`);
-
-        return sent.edit(embed);
-=======
             .setDescription(`Gateway: **${client.ws.ping.toFixed(2)}**\nMessage: **${sent.createdTimestamp - message.createdTimestamp}ms**`)
 
         return sent.edit("", { embed });
->>>>>>> b027eec6c2bc431ff09a3c5e7d3617f1293aedf4
     }
 };
