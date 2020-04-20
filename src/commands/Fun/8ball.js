@@ -17,7 +17,7 @@ module.exports = {
         let msg = await message.channel.send("Predicting the future...");
         let color = "ffffff";
         let phrase = "Phrase Template";
-        switch(choice[randomRange(0,choice.length)]){
+        switch(choice[randomRange(0,choice.length-1)]){
             case "positive":
                 color = colors.positive;
                 phrase = positive[randomRange(0,positive.length)];
