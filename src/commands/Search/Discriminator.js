@@ -10,7 +10,7 @@ module.exports = {
             return message.channel.send("Discriminator was invalid.");
         }
         
-        const users = client.users.cache.filter(user => user.discriminator === discrim).map(user => user.username + " (" + user.id + ")")
+        const users = client.users.cache.filter(user => user.discriminator === discrim).map(user => user.username + " (" + user.id + ")");
         return message.channel.send(`I found **${users.length}** ${(users.length === 1) ? "user"  : "users"} with the discriminator **#${discrim}**:\n${client.util.trimArray(users, 50).join(", ")}`);
     }
 };
