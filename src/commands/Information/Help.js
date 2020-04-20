@@ -64,7 +64,7 @@ module.exports = {
 
             const embed = new MessageEmbed()
                 .setDescription(`${categoryDescriptions[result.toLowerCase()]}`)
-                .addField("Available Commands:", cmds.join(", "))
+                .addField("Available Commands:", cmds.sort().join(", "))
                 .setColor("2f3136")
                 .setFooter(`Use ${prefix}help [COMMAND] to see more information about a command.`);
 

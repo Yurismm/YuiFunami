@@ -16,7 +16,8 @@ module.exports = {
 
         const embed = new MessageEmbed()
             .setImage(dog.data)
-            .setColor("2f3136");
+            .setColor("2f3136")
+            .setFooter("Powered by api.chewey-bot.top");
         
         message.channel.send(embed);
     }
