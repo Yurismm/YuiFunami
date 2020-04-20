@@ -5,7 +5,7 @@ module.exports = {
     name: "dog",
     description: "Fetches dog.",
     category: "Fun",
-    async execute(message,client) {
+    async execute(message, args, client) {
         const { data: dog } = await axios({
             url: "https://api.chewey-bot.top/dog",
             method: "get",

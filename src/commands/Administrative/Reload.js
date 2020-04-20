@@ -1,3 +1,4 @@
+const Config = require("../../helper/Config");
 const { join } = require("path");
 const { performance } = require("perf_hooks");
 
@@ -6,7 +7,7 @@ module.exports = {
     description: "Reload a command within the bot process",
     category: "Administrative",
     args: true,
-    usage: "<command|all>",
+    usage: "<command|all|config>",
     aliases: ["rl"],
     adminOnly: true,
     async execute(message, args, client) {
@@ -32,6 +33,13 @@ module.exports = {
             let stop = performance.now();
 
             return progress.edit(`Done. Reloaded ${toReload.length} command${toReload.length > 1 ? "s" : ""} in ${(stop - start).toFixed(2)} ms. It's recommended you run \`$rebuild_auto\` now.`);
+        } else if(args[0].toLowerCase() == "config" || args[0].toLowerCase() == "c") {
+            let config = new Config(join(__dirname, "..", "..", "..", "Config.toml"));
+
+            client.config = config;
+
+            message.channel.send("Successfully reloaded config.");
+
         } else {          
             let command = client.commands.get(args[0]);
 

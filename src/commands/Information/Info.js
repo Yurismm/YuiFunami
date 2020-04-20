@@ -7,11 +7,12 @@ module.exports = {
     description: "Important and general information related to Yui.",
     aliases: ["information"],
     category: "Information",
-    async execute(message,client) {
+    async execute(message, args, client) {
         const { data: updated } = await axios({
             url: client.githubAPI + "/commits",
             method: "get",
             headers: {
+                "Authorization": `token ${client.config.secret["repo-token"]}`,
                 "User-Agent": "Yui Funami"
             }
         });

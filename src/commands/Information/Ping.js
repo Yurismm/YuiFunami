@@ -4,7 +4,7 @@ module.exports = {
     name: "ping",
     description: "Return the bots response times.",
     category: "Information",
-    async execute(message,client) {
+    async execute(message, args, client) {
         const sent = await message.channel.send("Performing calculations...");
     
         const embed = new MessageEmbed()

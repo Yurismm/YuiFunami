@@ -159,9 +159,9 @@ class YuiClient extends Client {
      * @property {string} text The text to clean
      */
     clean(text) {
-        let cleanRegex = new RegExp(`${this.config.secret.token}|${this.config.secret["cb-token"]}`, "g");
+        let cleanRegex = new RegExp(`${this.config.secret.token}|${this.config.secret["cb-token"]}|${this.config.secret["repo-token"]}`, "g");
 
-        if (text.indexOf(this.config.secret.token) !== -1 && text.indexOf(this.config.secret["cb-token"]) !== -1) text = text.replace(cleanRegex, this.util.randomElementFromArray(["[redacted]", "[DATA EXPUNGED]", "[REMOVED]", "[SEE APPENDIUM INDEX A494-A]"]));
+        if (text.indexOf(this.config.secret.token) !== -1 || text.indexOf(this.config.secret["cb-token"]) !== -1 || text.indexOf(this.config.secret["repo-token"] !== -1)) text = text.replace(cleanRegex, this.util.randomElementFromArray(["[redacted]", "[DATA EXPUNGED]", "[REMOVED]", "[SEE APPENDIUM INDEX A494-A]"]));
         
         if (typeof (text) === "string") text = text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203),false);
 

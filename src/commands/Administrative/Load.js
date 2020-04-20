@@ -22,7 +22,7 @@ module.exports = {
             client.util.getDirectories(join(__dirname, "..")).forEach(d => {
                 let commands = readdirSync(join(__dirname, "..", d)).filter(file => file.endsWith(".js")).map(path => `${d}/${path}`);
                 Commands = Commands.concat(...commands);
-                progress.edit(`Scraped ${commands.length} commands from directories. Reloading them...`);
+                progress.edit(`Scraped ${commands.length} commands from directories. Loading them...`);
             });
 
             Commands.forEach(c => {
@@ -69,7 +69,7 @@ module.exports = {
                 });
             }
 
-            if (!client.rawCategories.includes(cmd.category.toUpperCase())) return message.channel.send(`${cmd.name}'s category must match one of ${client.rawCategories}. Got ${cmd.category} instead.`);
+            if (!client.rawCategories.includes(cmd.category.toUpperCase()) || !cmd.category) return message.channel.send(`${cmd.name}'s category must match one of ${client.rawCategories}. Got ${cmd.category ? cmd.category : "no category"} instead.`);
 
             cmd.ABSOLUTE_PATH = path;
             client.commands.set(cmd.name, cmd);

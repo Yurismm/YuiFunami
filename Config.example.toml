@@ -4,3 +4,4 @@
 [secret]
     token = "token"
     cb-token = "cb-token"
+    repo-token = "repo-token"
