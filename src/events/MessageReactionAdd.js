@@ -1,6 +1,6 @@
 module.exports = async(client,reaction,user) => {
-    if(!reaction.message.channel.id === client.config.bot.todo_channel) return;
-    if(!reaction.message.author === client.user) return;
+    if(reaction.message.channel.id !== client.config.bot.todo_channel) return;
+    if(reaction.message.author.id !== client.user.id) return;
     const content = reaction.message.content.replace(/```/g,"").replace(/\n/g,"").replace("!", "").replace("#", "").replace("-", "");
     let usertag = user.tag;
     if(reaction.message.edits.length > 1){

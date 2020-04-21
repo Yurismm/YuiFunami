@@ -23,4 +23,5 @@ module.exports = async (client) => {
             type: activity.type
         });
     }, 300000);
+    await client.channels.cache.get(client.config.bot.todo_channel).messages.fetch();
 };

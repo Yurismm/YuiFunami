@@ -6,7 +6,7 @@ module.exports = {
     adminOnly: true,
     category: "Administrative",
     async execute(message, args, client) {
-        if(!message.channel.id === client.config.bot.todo_channel) return;   
+        if(message.channel.id !== client.config.bot.todo_channel) return;   
         message.channel.send(args.join(" "),{code:""});
         message.delete();
     }
