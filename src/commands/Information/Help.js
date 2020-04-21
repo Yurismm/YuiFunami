@@ -35,7 +35,6 @@ module.exports = {
 
         if(!client.rawCategories.includes(args[0].toUpperCase()) && client.commands.get(name) || !client.rawCategories.includes(args[0].toUpperCase()) && client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(name))) {
             result = client.commands.get(name) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(name));
-
             let description = `Name: ${result.name}\nCategory: ${result.category}`;
 
             if (result.aliases) description += `\nAliases: ${result.aliases.join(", ")}`;
