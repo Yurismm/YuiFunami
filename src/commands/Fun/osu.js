@@ -1,6 +1,8 @@
 module.exports = {
     name:"osu",
     description: "Returns information about your osu name",
+    args: true,
+    usage: "<osuname>",
     category:"Fun",
     async execute(message,args){
         const osuname = args.join(" ");

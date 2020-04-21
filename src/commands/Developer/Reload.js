@@ -27,6 +27,7 @@ module.exports = {
                 const cmd = require(`../${c.ABSOLUTE_PATH}`);
                 if(!client.rawCategories.includes(cmd.category.toUpperCase())) return message.channel.send(`${cmd.name}'s category must match one of ${client.rawCategories}. Got ${cmd.category} instead.`);
                 cmd.ABSOLUTE_PATH = c.ABSOLUTE_PATH;
+                if (!cmd.permissions || typeof cmd.permissions !== "object") cmd.permissions = [];
                 client.commands.set(cmd.name, cmd);
             });
  
@@ -53,6 +54,7 @@ module.exports = {
             if(!client.rawCategories.includes(cmd.category.toUpperCase())) return message.channel.send(`${cmd.name}'s category must match one of ${client.rawCategories}. Got ${cmd.category} instead.`);
 
             cmd.ABSOLUTE_PATH = command.ABSOLUTE_PATH;
+            if (!cmd.permissions || typeof cmd.permissions !== "object") cmd.permissions = [];
             client.commands.set(cmd.name, cmd);
 
             return message.channel.send(`Successfully reloaded \`${cmd.name}\`. It's recommended you run \`$rebuild_auto\` now.`);
