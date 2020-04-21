@@ -11,7 +11,7 @@ module.exports = {
     async execute(message,args,client) {
         try {
             const mention = client.findMember(message,args[0],true);
-            const avatar = await loadImage(mention.user.displayAvatarURL({format: "jgp"}));
+            const avatar = await loadImage(mention.user.displayAvatarURL({format: "jpg"}));
             const text = mention.displayName;
             const base = await loadImage(join(__dirname, "..", "..", "..", "assets", "image", "bin", "challenger.jpg"));
             const canvas = createCanvas(base.width, base.height);
