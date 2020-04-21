@@ -18,9 +18,10 @@ class YuiClient extends Client {
         this.githubAPI = "https://api.github.com/repos/xgrvaeli/YuiFunami";
 
         this.developers = [
-            "228872946557386752",  //xgrvaeli
-            "210324193391149056",  //dodo
-            "358970589697933314"   //cherie
+            "228872946557386752",  // xgrvaeli
+            "210324193391149056",  // Dodo
+            "358970589697933314",  // Cherie
+            "205014454042099712"   // Meliodas 
         ];
 
         this.logger = Logger;
@@ -41,6 +42,12 @@ class YuiClient extends Client {
             "INFORMATION",
             "SEARCH",
             "UTILITY"
+        ];
+
+        this.rawPermissions = [
+            "DEVELOPER", // Developer Only
+            "GUILDONLY", // Guild Only
+            "DISABLED"   // Disabled
         ];
 
         this.cooldowns = new Collection();
@@ -176,13 +183,22 @@ class YuiClient extends Client {
     }
 
     /**
-     * Checks if user is the bot owner
+     * Checks if user is a bot developer
      * @param {User} user 
      */
-    isOwner(user) {
+    isDev(user) {
         if (this.developers.includes(user.id)) return true;
         else return false;
     } 
+
+    /**
+     * Check if the given permissions are valid.
+     * @param {Array} cmdPerms The command's `permissions` array
+     * @param {Array} permission The permission to check for
+     */
+    check(cmdPerms, permission) {
+        return cmdPerms.includes(this.rawPermissions[permission]);
+    }
 
 }
 
