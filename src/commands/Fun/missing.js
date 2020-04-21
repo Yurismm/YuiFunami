@@ -1,7 +1,7 @@
 const { createCanvas, loadImage, registerFont } = require("canvas");
 const { join } = require("path");
 const { shortenText } = require("../../util/Canvas");
-registerFont(join(__dirname, "..", "..", "..", "assets", "font", "Minecraftia.ttf"), { family: "Minecraftia" });
+
 
 module.exports = {
     name: "missing",

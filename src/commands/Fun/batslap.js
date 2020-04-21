@@ -1,6 +1,5 @@
 const {createCanvas, loadImage, registerFont} = require("canvas");
 const { join } = require("path");
-registerFont(join(__dirname, "..", "..", "..", "assets", "font", "Minecraftia.ttf"), { family: "Minecraftia" });
 
 module.exports = {
     name: "batslap",
