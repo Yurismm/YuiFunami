@@ -44,8 +44,8 @@ module.exports = async (client, message) => {
     }
 
     if (command.guildOnly && message.channel.type !== "text") return message.channel.send("Sorry, that command is restricted to server-usage only.");
-    if (command.disabled && !client.isOwner(message.author)) return message.channel.send("Unfortunately that command is either globally disabled, or doesn't exist.");
-    if (command.adminOnly && !client.isOwner(message.author)) return message.channel.send(`Unfortunately ${message.author} you lack the required clearance level for this command. Try contacting a system administrator for further assistance`);
+    if (command.disabled && !client.isDev(message.author)) return message.channel.send("Unfortunately that command is either globally disabled, or doesn't exist.");
+    if (command.adminOnly && !client.isDev(message.author)) return message.channel.send(`Unfortunately ${message.author} you lack the required clearance level for this command. Try contacting a system administrator for further assistance`);
 
     if (!client.cooldowns.has(command.name)) client.cooldowns.set(command.name, new Collection());
 
