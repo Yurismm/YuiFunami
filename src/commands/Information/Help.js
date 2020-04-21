@@ -59,7 +59,7 @@ module.exports = {
                 else return false;
             }).map(c => {
                 if(c.allCaps === true) return c.name.toUpperCase();
-                else return client.util.capitalize(c.name);
+                else return c.name.toLowerCase();
             });
 
             const embed = new MessageEmbed()
@@ -83,7 +83,7 @@ module.exports = {
             const embed = new MessageEmbed()
                 .setTitle("Help with arguments:")
                 .setColor("2f3136")
-                .setDescription(`Some of Yui's commands use things called arguments. Arguments are the words or symbols that come after a command, and are sometimes used to provide extra options for commands, or user input.\n\nIn the help panel, a command's arguments are explained in the **Usage** section. Usually it looks something like this: \n\nUsage: ${prefix}markov <?channel> <?user>\n\nThe arguments for this command are \`channel\` and \`user\`. We know this because they're surrounded by \`< >\`. Notice how they're prefixed with a \`?\`. This means that they're optional. In the case of the \`${prefix}generate\` command, if the arguments aren't supplied Yui defaults to using the channel the command was called it, and the user who called it.\n\nSometimes though, arguments will be shown like this:\n\nUsage: ${prefix}msnmacm <query|list>\n\nSee that \`|\` character? That means that the command will either take a query (number), or \`list\` for it's arguments.\n\nThat's it! You know everything there is to know about command arguments! Have fun!`);
+                .setDescription(`Some of Yui's commands use things called arguments. Arguments are the words or symbols that come after a command, and are sometimes used to provide extra options for commands, or user input.\n\nIn the help panel, a command's arguments are explained in the **Usage** section. Usually it looks something like this: \n\n\`\`\`xl\n${prefix}markov <?channel> <?user>\`\`\`\nThe arguments for this command are \`channel\` and \`user\`. We know this because they're surrounded by \`< >\`. Notice how they're prefixed with a \`?\`. This means that they're optional. In the case of the \`${prefix}generate\` command, if the arguments aren't supplied Yui defaults to using the channel the command was called it, and the user who called it.\n\nSometimes though, arguments will be shown like this:\n\n\`\`\`xl\n${prefix}msnmacm <query|list>\`\`\`\nSee that \`|\` character? That means that the command will either take a query (number), or \`list\` for it's arguments.\n\nThat's it! You know everything there is to know about command arguments! Have fun!`);
         
             return message.channel.send(embed);
         } else {
