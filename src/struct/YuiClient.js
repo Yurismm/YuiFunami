@@ -21,7 +21,9 @@ class YuiClient extends Client {
             "228872946557386752",  // xgrvaeli
             "210324193391149056",  // Dodo
             "358970589697933314",  // Cherie
-            "205014454042099712"   // Meliodas 
+            "205014454042099712",  // Meliodas
+            "460892852889845780",  //Mend The Miner
+            "293159670040887297"
         ];
 
         this.logger = Logger;
