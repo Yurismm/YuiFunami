@@ -3,11 +3,11 @@ const { performance } = require("perf_hooks");
 module.exports = {
     name: "unload",
     description: "Unload a command from the bot process",
-    category: "Administrative",
+    category: "Developer",
     args: true,
     usage: "<command|all>",
     aliases: ["ul"],
-    adminOnly: true,
+    permissions: ["DEVELOPER"],
     async execute(message, args, client) {
         if(args[0].toLowerCase() == "all" || args[0].toLowerCase() == "a") {
             let start = performance.now();

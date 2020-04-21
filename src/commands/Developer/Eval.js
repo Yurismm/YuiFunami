@@ -3,8 +3,8 @@ module.exports = {
     description: "Inject and evaluate code within the bot process.",
     args: true,
     usage: "<code>",
-    adminOnly: true,
-    category: "Administrative",
+    permissions: ["DEVELOPER"],
+    category: "Developer",
     preventDefaultError: true,
     async execute(message, args, client) {
         try {

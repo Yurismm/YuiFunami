@@ -37,7 +37,7 @@ class YuiClient extends Client {
         this.autoPatterns = [];
 
         this.rawCategories = [
-            "ADMINISTRATIVE",
+            "DEVELOPER",
             "FUN",
             "INFORMATION",
             "SEARCH",
@@ -47,7 +47,8 @@ class YuiClient extends Client {
         this.rawPermissions = [
             "DEVELOPER", // Developer Only
             "GUILDONLY", // Guild Only
-            "DISABLED"   // Disabled
+            "DISABLED",  // Disabled
+            "HIDDEN"     // Hidden
         ];
 
         this.cooldowns = new Collection();
@@ -129,6 +130,7 @@ class YuiClient extends Client {
             if(!this.rawCategories.includes(cmd.category.toUpperCase())) throw new Error(`Command category must match one of ${this.rawCategories}. Got ${cmd.category} instead.`);
 
             cmd.ABSOLUTE_PATH = File;
+            if(!cmd.permissions || typeof cmd.permissions !== "object") cmd.permissions = [];
             this.commands.set(cmd.name, cmd);
             if(this.debug) this.logger.info(`Loaded command: ${cmd.name}`);
         }
@@ -184,10 +186,11 @@ class YuiClient extends Client {
 
     /**
      * Checks if user is a bot developer
-     * @param {User} user 
+     * @param {User} userID the User's ID
      */
-    isDev(user) {
-        if (this.developers.includes(user.id)) return true;
+    isDev(id) {
+        if(typeof id !== "string") throw new Error("ID must be a string!");
+        if (this.developers.includes(id)) return true;
         else return false;
     } 
 

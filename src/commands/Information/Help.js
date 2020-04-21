@@ -62,6 +62,7 @@ module.exports = {
             });
 
             const embed = new MessageEmbed()
+                .setTitle(`Listing all commands in ${result}`)
                 .setDescription(`${categoryDescriptions[result.toLowerCase()]}`)
                 .addField("Available Commands:", cmds.sort().join(", "))
                 .setColor("2f3136")
@@ -73,7 +74,8 @@ module.exports = {
                 .setTitle("Listing all available commands:")
                 .setColor("2f3136")
                 .setDescription(`${client.commands.filter(cmd => {
-                    if(cmd.adminOnly || cmd.disabled || cmd.hidden) return false;
+                    if(!cmd.permissions) return true;
+                    if(client.check(cmd.permissions, 0) || client.check(cmd.permissions, 2) || client.check(cmd.permissions, 3)) return false;
                     else return true;
                 }).map(c => c.name).join(", ")}\n\nUse \`${prefix}help <category>\` to see more information about a specific category.\nUse \`${prefix}help <command>\` to see more information about a specific command.`);
             

@@ -1,14 +1,10 @@
-const { MessageEmbed } = require("discord.js");
-
 module.exports = {
     name:"osu",
-    description: "Returns infomation about your osu name",
+    description: "Returns information about your osu name",
     category:"Fun",
     async execute(message,args){
         const osuname = args.join(" ");
-        const embed = new MessageEmbed()
-        .setTitle("osu! Profile")
-        .setImage(`https://lemmmy.pw/osusig/sig.php?colour=hexff66aa&uname=${osuname}&pp=1&countryrank&flagshadow&flagstroke&opaqueavatar&avatarrounding=5&onlineindicator=undefined&xpbar&xpbarhex&random`);
-        message.channel.send(embed);
+
+        message.channel.send({ files: [{ attachment: `https://lemmmy.pw/osusig/sig.php?colour=hexff66aa&uname=${osuname}&pp=1&countryrank&flagshadow&flagstroke&opaqueavatar&avatarrounding=5&onlineindicator=undefined&xpbar&xpbarhex&random`, name: "missing.jpg" }] });
     }
 };

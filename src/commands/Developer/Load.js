@@ -5,11 +5,11 @@ const { performance } = require("perf_hooks");
 module.exports = {
     name: "load",
     description: "Load a command into the bot process",
-    category: "Administrative",
+    category: "Developer",
     usage: "<command|all>",
     args: true,
     aliases: ["l"],
-    adminOnly: true,
+    permissions: ["DEVELOPER"],
     async execute(message, args, client) {
         if(args[0].toLowerCase() == "all" || args[0].toLowerCase() == "a") {
             let start = performance.now();
