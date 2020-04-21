@@ -9,7 +9,7 @@ module.exports = {
   usage: "<@mention>",
   category: "Fun",
   preventDefaultError: true,
-  async execute(message) {
+  async execute(message,args,client) {
     try {
       const base = await loadImage(join(__dirname,"..","..","..","assets","image","bin","batslap.jpg"));
       const canvas = createCanvas(base.width, base.height);
@@ -22,15 +22,11 @@ module.exports = {
       ctx.closePath();
       ctx.clip();
 
-      const mentionAvatar = await loadImage(
-        message.mentions.users.first().displayAvatarURL({ format: "jpg" })
-      );
-
+      const mentionAvatar = await loadImage(client.findMember(message,args[0],true).user.displayAvatarURL({format: 'jpg'}))
+    
       ctx.drawImage(mentionAvatar, 220, 240, 300, 300);
-
-      const avatar = await loadImage(
-        message.member.user.displayAvatarURL({ format: "jpg" })
-      );
+      
+      const avatar = await loadImage(message.author.displayAvatarURL({format: 'jpg'}))
 
       ctx.drawImage(avatar, 580, 85, 300, 300);
 
