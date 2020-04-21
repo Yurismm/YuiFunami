@@ -1,6 +1,5 @@
 const {createCanvas, loadImage, registerFont} = require("canvas");
 const { join } = require("path");
-const { shortenText } = require("../../util/Canvas");
 registerFont(join(__dirname, "..", "..", "..", "assets", "font", "Minecraftia.ttf"), { family: "Minecraftia" });
 
 module.exports = {
@@ -8,7 +7,7 @@ module.exports = {
     aliases: ["slap"],
     description: "slap someone",
     args: true,
-    usage: '<@mention>',
+    usage: "<@mention>",
     category: "Fun",
     preventDefaultError: true,
     async execute(message, args) {
@@ -24,13 +23,13 @@ module.exports = {
 	        ctx.closePath();
             ctx.clip();
 
-            const mentionAvatar = await loadImage(message.mentions.users.first().displayAvatarURL({ format: 'jpg' }));
+            const mentionAvatar = await loadImage(message.mentions.users.first().displayAvatarURL({ format: "jpg" }));
 
-            ctx.drawImage(mentionAvatar,220,240,300,300)
+            ctx.drawImage(mentionAvatar,220,240,300,300);
 
-            const avatar = await loadImage(message.member.user.displayAvatarURL({ format: 'jpg' }));
+            const avatar = await loadImage(message.member.user.displayAvatarURL({ format: "jpg" }));
 
-            ctx.drawImage(avatar,580,85,300,300)
+            ctx.drawImage(avatar,580,85,300,300);
 
            
             return await message.channel.send({files: [{attachment: canvas.toBuffer(), name: "batslap.jpg"}]});

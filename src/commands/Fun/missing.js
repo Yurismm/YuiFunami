@@ -9,12 +9,12 @@ module.exports = {
     category: "Fun",
     preventDefaultError: true,
     async execute(message, args) {
-        let who = ''
+        let who = "";
         if(message.mentions.members.first()){
-             who = message.mentions.members.first()
+             who = message.mentions.members.first();
         }
         else{
-            who = message.member
+            who = message.member;
         } 
         try {
             const base = await loadImage(join(__dirname, "..", "..", "..", "assets", "image", "bin", "missing.jpg"));
@@ -29,8 +29,8 @@ module.exports = {
             ctx.arc(86, 296, 21, 0, Math.PI * 2, true);
 	        ctx.closePath();
             ctx.clip();
-            const avatar = await loadImage(who.user.displayAvatarURL({ format: 'jpg' }));
-            ctx.drawImage(avatar,62,275,50,50)
+            const avatar = await loadImage(who.user.displayAvatarURL({ format: "jpg" }));
+            ctx.drawImage(avatar,62,275,50,50);
 
             return await message.channel.send({files: [{attachment: canvas.toBuffer(), name: "missing.jpg"}]});
         }catch(error){
