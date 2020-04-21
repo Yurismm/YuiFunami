@@ -1,6 +1,6 @@
 module.exports = {
     name: "todo",
-    description: "Inject and evaluate code within the bot process.",
+    description: "Create a todo message with reactions.",
     args: true,
     usage: "<task>",
     permissions: ["DEVELOPER"],
