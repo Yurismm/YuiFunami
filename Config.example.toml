@@ -1,6 +1,6 @@
 [bot]
     prefix = "$"
-
+    todo_channel = 'id'
 [secret]
     token = "token"
     cb-token = "cb-token"
