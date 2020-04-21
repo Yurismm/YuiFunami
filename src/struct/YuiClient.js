@@ -22,8 +22,8 @@ class YuiClient extends Client {
             "210324193391149056",  // Dodo
             "358970589697933314",  // Cherie
             "205014454042099712",  // Meliodas
-            "460892852889845780",  //Mend The Miner
-            "293159670040887297"
+            "460892852889845780",  // MendtheMiner
+            "293159670040887297"   // mariobob
         ];
 
         this.logger = Logger;
