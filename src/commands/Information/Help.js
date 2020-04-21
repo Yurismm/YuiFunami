@@ -20,12 +20,14 @@ module.exports = {
         }
     ],
     execute(message, args, client) {
+        let prefix = client.prefixes.global;
+
         if(!args.length) {
             const embed = new MessageEmbed()
                 .setTitle("Command Categories:")
                 .setColor("2f3136")
                 .setDescription(client.rawCategories.map(c => `≫ ${client.util.capitalize(c.toLowerCase())}`).concat(["≫ All"]).sort().join("\n"))
-                .setFooter("Use $help <command> to see more information about a category, and the commands that fall into it.");
+                .setFooter(`Use ${prefix}help <command> to see more information about a category, and the commands that fall into it.`);
 
             return message.channel.send(embed);
         }
@@ -52,18 +54,18 @@ module.exports = {
             result = client.util.capitalize(args[0]);
 
             let cmds = client.commands.filter(c => {
-                if(c.category == result && (!c.disabled || !c.hidden || !c.adminOnly)) return true;
+                if(client.util.capitalize(c.category) == result && (!c.disabled || !c.hidden || !c.adminOnly)) return true;
                 else return false;
             }).map(c => {
                 if(c.allCaps === true) return c.name.toUpperCase();
-                else return client.util.capitalize(c.name);
+                else return c.name.toLowerCase();
             });
 
             const embed = new MessageEmbed()
                 .setDescription(`${categoryDescriptions[result.toLowerCase()]}`)
-                .addField("Available Commands:", cmds.join(", "))
+                .addField("Available Commands:", cmds.sort().join(", "))
                 .setColor("2f3136")
-                .setFooter("Use $help [COMMAND] to see more information about a command.");
+                .setFooter(`Use ${prefix}help [COMMAND] to see more information about a command.`);
 
             return message.channel.send(embed);
         } else if (args[0] == "all" || args[0] == "a") {         
@@ -73,18 +75,18 @@ module.exports = {
                 .setDescription(`${client.commands.filter(cmd => {
                     if(cmd.adminOnly || cmd.disabled || cmd.hidden) return false;
                     else return true;
-                }).map(c => c.name).join(", ")}\n\nUse \`$help <category>\` to see more information about a specific category.\nUse \`$help <command>\` to see more information about a specific command.`);
+                }).map(c => c.name).join(", ")}\n\nUse \`${prefix}help <category>\` to see more information about a specific category.\nUse \`${prefix}help <command>\` to see more information about a specific command.`);
             
             return message.channel.send(embed);
         } else if (args[0] == "args" || args[0] == "arguments") {
             const embed = new MessageEmbed()
                 .setTitle("Help with arguments:")
                 .setColor("2f3136")
-                .setDescription("Some of Yui's commands use things called arguments. Arguments are the words or symbols that come after a command, and are sometimes used to provide extra options for commands, or user input.\n\nIn the help panel, a command's arguments are explained in the **Usage** section. Usually it looks something like this: \n\nUsage: $markov <?channel> <?user>\n\nThe arguments for this command are `channel` and `user`. We know this because they're surrounded by `< >`. Notice how they're prefixed with a `?`. This means that they're optional. In the case of the `$generate` command, if the arguments aren't supplied Yui defaults to using the channel the command was called it, and the user who called it.\n\nSometimes though, arguments will be shown like this:\n\nUsage: $msnmacm <query|list>\n\nSee that `|` character? That means that the command will either take a query (number), or `list` for it's arguments.\n\nThat's it! You know everything there is to know about command arguments! Have fun!");
+                .setDescription(`Some of Yui's commands use things called arguments. Arguments are the words or symbols that come after a command, and are sometimes used to provide extra options for commands, or user input.\n\nIn the help panel, a command's arguments are explained in the **Usage** section. Usually it looks something like this: \n\n\`\`\`xl\n${prefix}markov <?channel> <?user>\`\`\`\nThe arguments for this command are \`channel\` and \`user\`. We know this because they're surrounded by \`< >\`. Notice how they're prefixed with a \`?\`. This means that they're optional. In the case of the \`${prefix}generate\` command, if the arguments aren't supplied Yui defaults to using the channel the command was called it, and the user who called it.\n\nSometimes though, arguments will be shown like this:\n\n\`\`\`xl\n${prefix}msnmacm <query|list>\`\`\`\nSee that \`|\` character? That means that the command will either take a query (number), or \`list\` for it's arguments.\n\nThat's it! You know everything there is to know about command arguments! Have fun!`);
         
             return message.channel.send(embed);
         } else {
-            return message.channel.send(`404 requested function (**${name}**) was not found.`);
+            return message.channel.send(`404 requested function (**${prefix}{name}**) was not found.`);
         }
     }
 };

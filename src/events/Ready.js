@@ -12,8 +12,8 @@ module.exports = async (client) => {
     if (client.debug) client.logger.info(grey("Started in DEBUG MODE"));
 
     await client.user.setActivity({
-        name: `with my internal structures | ${client.prefixes.global}help`,
-        type: 0
+        name: `Feel Good Inc. | ${client.prefixes.global}help`,
+        type: 2
     });
 
     setInterval(() => {

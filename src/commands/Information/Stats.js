@@ -7,13 +7,14 @@ module.exports = {
     description: "On the dot statistics.",
     aliases: ["statistics"],
     category: "Information",
-    async execute(message,client) {
+    async execute(message, args, client) {
         const sent = await message.channel.send("Performing calculations...");
 
         const { data: updated } = await axios({
             url: client.githubAPI + "/commits",
             method: "get",
             headers: {
+                "Authorization": `token ${client.config.secret["repo-token"]}`,
                 "User-Agent": "Yui Funami"
             }
         });

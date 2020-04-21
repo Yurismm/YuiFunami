@@ -2,6 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: "user",
+    aliases: ["userinfo"],
     description: "Display user information.",
     category: "Information",
     usage: "<?user>",

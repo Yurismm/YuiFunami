@@ -9,7 +9,7 @@ module.exports = {
     async execute(message, args, client) {
         try {
             const code = args.join(" ");
-            let evaled = await eval(`(async() => {${code}})()`);
+            let evaled = await eval(code);
 
             if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
             

@@ -18,9 +18,10 @@ class YuiClient extends Client {
         this.githubAPI = "https://api.github.com/repos/xgrvaeli/YuiFunami";
 
         this.developers = [
-            "228872946557386752",  //xgrvaeli
-            "210324193391149056",  //dodo
-            "358970589697933314"   //cherie
+            "228872946557386752",  // xgrvaeli
+            "210324193391149056",  // Dodo
+            "358970589697933314",  // Cherie
+            "205014454042099712"   // Meliodas 
         ];
 
         this.logger = Logger;
@@ -43,6 +44,12 @@ class YuiClient extends Client {
             "UTILITY"
         ];
 
+        this.rawPermissions = [
+            "DEVELOPER", // Developer Only
+            "GUILDONLY", // Guild Only
+            "DISABLED"   // Disabled
+        ];
+
         this.cooldowns = new Collection();
 
         this.prefixes = {
@@ -55,8 +62,10 @@ class YuiClient extends Client {
 
         this._presence = {
             activities: [
-                { title: "with Axel", type: 1 }
-            ],
+                { title: "with Axel", type: 0 },
+                { title: "with Cherie", type: 0 },
+                { title: "Dodo", type: 0 }
+            ],  
             random: () => {
                 return util.randomElementFromArray(this._presence.activities);
             }
@@ -159,9 +168,9 @@ class YuiClient extends Client {
      * @property {string} text The text to clean
      */
     clean(text) {
-        let cleanRegex = new RegExp(`${this.config.secret.token}|${this.config.secret["cb-token"]}`, "g");
+        let cleanRegex = new RegExp(`${this.config.secret.token}|${this.config.secret["cb-token"]}|${this.config.secret["repo-token"]}`, "g");
 
-        if (text.indexOf(this.config.secret.token) !== -1 && text.indexOf(this.config.secret["cb-token"]) !== -1) text = text.replace(cleanRegex, this.util.randomElementFromArray(["[redacted]", "[DATA EXPUNGED]", "[REMOVED]", "[SEE APPENDIUM INDEX A494-A]"]));
+        if (text.indexOf(this.config.secret.token) !== -1 || text.indexOf(this.config.secret["cb-token"]) !== -1 || text.indexOf(this.config.secret["repo-token"] !== -1)) text = text.replace(cleanRegex, this.util.randomElementFromArray(["[redacted]", "[DATA EXPUNGED]", "[REMOVED]", "[SEE APPENDIUM INDEX A494-A]"]));
         
         if (typeof (text) === "string") text = text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203),false);
 
@@ -174,13 +183,22 @@ class YuiClient extends Client {
     }
 
     /**
-     * Checks if user is the bot owner
+     * Checks if user is a bot developer
      * @param {User} user 
      */
-    isOwner(user) {
+    isDev(user) {
         if (this.developers.includes(user.id)) return true;
         else return false;
     } 
+
+    /**
+     * Check if the given permissions are valid.
+     * @param {Array} cmdPerms The command's `permissions` array
+     * @param {Array} permission The permission to check for
+     */
+    check(cmdPerms, permission) {
+        return cmdPerms.includes(this.rawPermissions[permission]);
+    }
 
 }
 

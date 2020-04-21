@@ -6,10 +6,11 @@ module.exports = {
     aliases: ["updates", "commits", "update", "cl"],
     description: "Responds with Yui's ten most recent Git commits.",
     category: "Information",
-    async execute(message,client) {
+    async execute(message, args, client) {
         const { data: res } = await axios({
             url: client.githubAPI + "/commits",
             headers: {
+                "Authorization": `token ${client.config.secret["repo-token"]}`,
                 "User-Agent": "Yui Funami",
             }
         });
