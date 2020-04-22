@@ -1,7 +1,7 @@
 const { Client, Collection } = require("discord.js");
 const { join } = require("path");
 const { readdirSync, readdir } = require("fs");
-const { js } = require("js-beautify");
+
 
 const Config = require("../helper/Config");
 
@@ -173,15 +173,15 @@ class YuiClient extends Client {
      */
     async clean(text) {
        
-        if (text && text.constructor.name == 'Promise') text = await text;
-        if (typeof text !== 'string')
-            text = require('util').inspect(text, { depth: 1 });
+        if (text && text.constructor.name == "Promise") text = await text;
+        if (typeof text !== "string")
+            text = require("util").inspect(text, { depth: 1 });
         let cleanRegex = new RegExp(`${this.config.secret.token}|${this.config.secret["cb-token"]}|${this.config.secret["repo-token"]}`, "g");
         if (text.indexOf(this.config.secret.token) !== -1 || text.indexOf(this.config.secret["cb-token"]) !== -1 || text.indexOf(this.config.secret["repo-token"] !== -1)) text = text.replace(cleanRegex, this.util.randomElementFromArray(["[redacted]", "[DATA EXPUNGED]", "[REMOVED]", "[SEE APPENDIUM INDEX A494-A]"]));
 
         text = text
-            .replace(/`/g, '`' + String.fromCharCode(8203))
-            .replace(/@/g, '@' + String.fromCharCode(8203))
+            .replace(/`/g, "`" + String.fromCharCode(8203))
+            .replace(/@/g, "@" + String.fromCharCode(8203));
 
         return text;
     }

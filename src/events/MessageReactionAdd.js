@@ -3,11 +3,11 @@ module.exports = async(client,reaction,user) => {
     if(reaction.message.author.id !== client.user.id) return;
     if(user.id === client.user.id) return;
     try{
-    let content = reaction.message.content.replace(/```/g,"").replace(/\n/g,"")
+    let content = reaction.message.content.replace(/```/g,"").replace(/\n/g,"");
     let usertag = user.tag;
     if(reaction.message.edits.length > 1){
         usertag = "";
-        content = content.replace("diff", "").replace("cs", "").slice(1)
+        content = content.replace("diff", "").replace("cs", "").slice(1);
     }
     switch(reaction.emoji.name){
         case "🟢": // green
@@ -21,6 +21,6 @@ module.exports = async(client,reaction,user) => {
             break;
     }
     }catch(error){
-        throw error.message
+        throw error.message;
     }
 };
