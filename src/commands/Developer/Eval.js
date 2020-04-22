@@ -5,20 +5,33 @@ module.exports = {
     usage: "<code>",
     permissions: ["DEVELOPER"],
     category: "Developer",
-    preventDefaultError: true,
     async execute(message, args, client) {
+        const code = args.join(' ');
+       
         try {
-            const code = args.join(" ");
-            let evaled = await eval(code);
-
-            if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
-            
-            return message.channel.send(client.clean(evaled), { code: "js", split: true });
-        } catch(error) {
-            throw error.message;
+            const evaled = await eval(`(async () => { ${code} })()`);
+            const clean = await client.clean(evaled);
+            const MAX_CHARS = 3 + 2 + clean.length + 3;
+            if (MAX_CHARS > 2000) {
+                message.channel.send(
+                    'Output exceeded 2000 characters. Sending as a file.',
+                    {
+                        files: [
+                            {
+                                attachment: Buffer.from(clean),
+                                name: 'output.txt',
+                            },
+                        ],
+                    }
+                );
+            }
+            message.channel.send(`\`\`\`js\n${clean}\n\`\`\``);
+        } catch (err) {
+            message.channel.send(
+                `\`ERROR\` \`\`\`xl\n${err}\n\`\`\``
+            );
         }
     },
-    async error(message, args, client, error) {
-        return message.channel.send(`\`ERROR\` \`\`\`xl\n${client.clean(error)}\n\`\`\``);
-    }
+    
 };
+
