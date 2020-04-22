@@ -14,7 +14,7 @@ module.exports = {
             const MAX_CHARS = 3+2+ clean.length + 3;
             if (MAX_CHARS > 2000) {
                 return message.channel.send(
-                    'Output exceeded 2000 characters. Sending as a file.',
+                    "Output exceeded 2000 characters. Sending as a file.",
                     {
                         files: [
                             {

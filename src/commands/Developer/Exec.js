@@ -13,7 +13,7 @@ module.exports = {
             const cmd = args.join(" ");
             exec(`${cmd}`, async (error, stdout) => {
                 if(error) return error;
-                stdout = await client.clean(stdout)
+                stdout = await client.clean(stdout);
                 return message.channel.send(stdout, { code: "xl", split: true });
             });
         } catch (error) {
