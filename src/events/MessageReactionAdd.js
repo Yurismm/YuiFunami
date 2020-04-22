@@ -5,7 +5,8 @@ module.exports = async(client,reaction,user) => {
     try{
     let content = reaction.message.content.replace(/```/g,"").replace(/\n/g,"");
     let usertag = user.tag;
-    if(reaction.message.edits.length > 1){
+    if(reaction.message.editedAt){
+        
         usertag = "";
         content = content.replace("diff", "").replace("cs", "").slice(1);
     }
