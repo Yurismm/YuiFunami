@@ -110,6 +110,7 @@ module.exports = class Util {
         return today;
     }
 
+   
     /**
      * Humanizes the bot's uptime
      * @returns {object} An object containing a formatted time-string and a humanized time string
