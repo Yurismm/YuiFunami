@@ -4,7 +4,7 @@ module.exports = {
     name: "guild",
     aliases: ["guildinfo"],
     description: "Retrieves information about the current guild",
-    guildOnly: true,
+    permissions: ["GUILDONLY"],
     category: "Information",
     execute(message) {
         const embed = new MessageEmbed()

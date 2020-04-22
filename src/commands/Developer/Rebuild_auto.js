@@ -3,8 +3,8 @@ const { performance } = require("perf_hooks");
 module.exports = {
     name: "rebuild_auto",
     description: "Rebuilds auto commands.",
-    category: "Administrative",
-    adminOnly: true,
+    category: "Developer",
+    permissions: ["DEVELOPER"],
     aliases: ["ra"],
     async execute(message, args, client) {
         const start = performance.now();

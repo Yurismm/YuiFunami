@@ -5,9 +5,9 @@ module.exports = {
     description: "Execute command-line level statements as if you were on the command line.",
     args: false,
     usage: "<command>",
-    adminOnly: true,
+    permissions: ["DEVELOPER"],
     preventDefaultError: true,
-    category: "Administrative",
+    category: "Developer",
     execute(message, args, client) {
         try {
             const cmd = args.join(" ");

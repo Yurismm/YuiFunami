@@ -21,7 +21,9 @@ class YuiClient extends Client {
             "228872946557386752",  // xgrvaeli
             "210324193391149056",  // Dodo
             "358970589697933314",  // Cherie
-            "205014454042099712"   // Meliodas 
+            "205014454042099712",  // Meliodas
+            "460892852889845780",  // MendtheMiner
+            "293159670040887297"   // mariobob
         ];
 
         this.logger = Logger;
@@ -37,7 +39,7 @@ class YuiClient extends Client {
         this.autoPatterns = [];
 
         this.rawCategories = [
-            "ADMINISTRATIVE",
+            "DEVELOPER",
             "FUN",
             "INFORMATION",
             "SEARCH",
@@ -47,7 +49,8 @@ class YuiClient extends Client {
         this.rawPermissions = [
             "DEVELOPER", // Developer Only
             "GUILDONLY", // Guild Only
-            "DISABLED"   // Disabled
+            "DISABLED",  // Disabled
+            "HIDDEN"     // Hidden
         ];
 
         this.cooldowns = new Collection();
@@ -129,6 +132,7 @@ class YuiClient extends Client {
             if(!this.rawCategories.includes(cmd.category.toUpperCase())) throw new Error(`Command category must match one of ${this.rawCategories}. Got ${cmd.category} instead.`);
 
             cmd.ABSOLUTE_PATH = File;
+            if(!cmd.permissions || typeof cmd.permissions !== "object") cmd.permissions = [];
             this.commands.set(cmd.name, cmd);
             if(this.debug) this.logger.info(`Loaded command: ${cmd.name}`);
         }
@@ -167,27 +171,27 @@ class YuiClient extends Client {
      * Replaces certain characters and fixes mentions in messages.
      * @property {string} text The text to clean
      */
-    clean(text) {
+    async clean(text) {
+       
+        if (text && text.constructor.name == 'Promise') text = await text;
+        if (typeof text !== 'string')
+            text = require('util').inspect(text, { depth: 1 });
         let cleanRegex = new RegExp(`${this.config.secret.token}|${this.config.secret["cb-token"]}|${this.config.secret["repo-token"]}`, "g");
-
         if (text.indexOf(this.config.secret.token) !== -1 || text.indexOf(this.config.secret["cb-token"]) !== -1 || text.indexOf(this.config.secret["repo-token"] !== -1)) text = text.replace(cleanRegex, this.util.randomElementFromArray(["[redacted]", "[DATA EXPUNGED]", "[REMOVED]", "[SEE APPENDIUM INDEX A494-A]"]));
-        
-        if (typeof (text) === "string") text = text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203),false);
 
-        text = js(text, {
-            indent_size: 4,
-            space_in_empty_paren: true
-        });
-        
+        text = text
+            .replace(/`/g, '`' + String.fromCharCode(8203))
+            .replace(/@/g, '@' + String.fromCharCode(8203))
+
         return text;
     }
-
     /**
      * Checks if user is a bot developer
-     * @param {User} user 
+     * @param {User} userID the User's ID
      */
-    isDev(user) {
-        if (this.developers.includes(user.id)) return true;
+    isDev(id) {
+        if(typeof id !== "string") throw new Error("ID must be a string!");
+        if (this.developers.includes(id)) return true;
         else return false;
     } 
 

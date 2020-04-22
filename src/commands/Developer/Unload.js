@@ -3,21 +3,21 @@ const { performance } = require("perf_hooks");
 module.exports = {
     name: "unload",
     description: "Unload a command from the bot process",
-    category: "Administrative",
+    category: "Developer",
     args: true,
     usage: "<command|all>",
     aliases: ["ul"],
-    adminOnly: true,
+    permissions: ["DEVELOPER"],
     async execute(message, args, client) {
         if(args[0].toLowerCase() == "all" || args[0].toLowerCase() == "a") {
             let start = performance.now();
 
-            let commands = client.commands.filter(c => c.category != "Administrative");
+            let commands = client.commands.filter(c => c.category != "Developer");
 
             let progress = await message.channel.send("Clearing require cache...");
 
             client.commands.each(async c => {
-                if(c.category == "Administrative") return;
+                if (c.category == "Developer") return;
 
                 delete require.cache[require.resolve(`../${c.ABSOLUTE_PATH}`)];
                 progress.edit(`Removed \`${c.name}\` from require cache...`);
@@ -25,7 +25,7 @@ module.exports = {
             
             progress.edit("Sweeping commands...");
 
-            client.commands.sweep(c => c.category != "Administrative");
+            client.commands.sweep(c => c.category != "Developer");
             client.autoCommands.sweep(() => true);
             client.autoPatterns = [];
 

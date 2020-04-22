@@ -5,11 +5,11 @@ const { performance } = require("perf_hooks");
 module.exports = {
     name: "load",
     description: "Load a command into the bot process",
-    category: "Administrative",
+    category: "Developer",
     usage: "<command|all>",
     args: true,
     aliases: ["l"],
-    adminOnly: true,
+    permissions: ["DEVELOPER"],
     async execute(message, args, client) {
         if(args[0].toLowerCase() == "all" || args[0].toLowerCase() == "a") {
             let start = performance.now();
@@ -38,6 +38,7 @@ module.exports = {
                 }
                 
                 cmd.ABSOLUTE_PATH = c;
+                if (!cmd.permissions || typeof cmd.permissions !== "object") cmd.permissions = [];
                 client.commands.set(cmd.name, cmd);
                 newCommands++;
             });
@@ -72,6 +73,7 @@ module.exports = {
             if (!client.rawCategories.includes(cmd.category.toUpperCase()) || !cmd.category) return message.channel.send(`${cmd.name}'s category must match one of ${client.rawCategories}. Got ${cmd.category ? cmd.category : "no category"} instead.`);
 
             cmd.ABSOLUTE_PATH = path;
+            if (!cmd.permissions || typeof cmd.permissions !== "object") cmd.permissions = [];
             client.commands.set(cmd.name, cmd);
 
             return message.channel.send(`Successfully loaded \`${cmd.name}\`. It's recommended you run \`$rebuild_auto\` now.`);
