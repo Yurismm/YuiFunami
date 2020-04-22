@@ -8,18 +8,19 @@ module.exports = {
     permissions: ["DEVELOPER"],
     preventDefaultError: true,
     category: "Developer",
-    execute(message, args, client) {
+    async execute(message, args, client) {
         try {
             const cmd = args.join(" ");
-            exec(`${cmd}`, (error, stdout) => {
+            exec(`${cmd}`, async (error, stdout) => {
                 if(error) return error;
-                return message.channel.send(client.clean(stdout), { code: "xl", split: true });
+                stdout = await client.clean(stdout)
+                return message.channel.send(stdout, { code: "xl", split: true });
             });
         } catch (error) {
             throw error.message;
         }
     },
     async error(message, args, client, error) {
-        return message.channel.send(`\`ERROR\` \`\`\`xl\n${client.clean(error)}\n\`\`\``);
+        return message.channel.send(`\`ERROR\` \`\`\`xl\n${await client.clean(error)}\n\`\`\``);
     }
 };
