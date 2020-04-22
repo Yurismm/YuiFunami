@@ -11,9 +11,10 @@ module.exports = {
         try {
             const evaled = await eval(`(async () => { ${code} })()`);
             const clean = await client.clean(evaled);
-            const MAX_CHARS = 3 + 2 + clean.length + 3;
+            const MAX_CHARS = 3+2+ clean.length + 3;
+	    console.log(MAX_CHARS)
             if (MAX_CHARS > 2000) {
-                message.channel.send(
+                return message.channel.send(
                     'Output exceeded 2000 characters. Sending as a file.',
                     {
                         files: [
