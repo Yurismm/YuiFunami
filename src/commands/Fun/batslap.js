@@ -10,6 +10,7 @@ module.exports = {
   category: "Fun",
   preventDefaultError: true,
   async execute(message,args,client) {
+    const conjoined = args.join(" ");
     try {
       const base = await loadImage(join(__dirname,"..","..","..","assets","image","bin","batslap.jpg"));
       const canvas = createCanvas(base.width, base.height);
@@ -22,7 +23,7 @@ module.exports = {
       ctx.closePath();
       ctx.clip();
 
-      const mentionAvatar = await loadImage(client.findMember(message,args[0],true).user.displayAvatarURL({format: "jpg"}));
+      const mentionAvatar = await loadImage(client.findMember(message,conjoined,true).user.displayAvatarURL({format: "jpg"}));
     
       ctx.drawImage(mentionAvatar, 220, 240, 300, 300);
       

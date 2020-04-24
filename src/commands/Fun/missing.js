@@ -8,8 +8,9 @@ module.exports = {
     category: "Fun",
     preventDefaultError: true,
     async execute(message,args,client) {
+        const conjoined = args.join(" ");
         try{
-            const mention = client.findMember(message,args[0],true);
+            const mention = client.findMember(message,conjoined,true);
             const avatar = await loadImage(mention.user.displayAvatarURL({format: "jpg"}));
             const base = await loadImage(join(__dirname,"..","..","..","assets","image","bin","missing.jpg"));
             const canvas = createCanvas(base.width, base.height);
