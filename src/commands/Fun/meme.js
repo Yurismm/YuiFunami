@@ -1,21 +1,21 @@
-const { MessageEmbed } = require('discord.js');
-const axios = require('axios');
+const { MessageEmbed } = require("discord.js");
+const axios = require("axios");
 
-const apiBase = 'https://meme-api.herokuapp.com/gimme';
+const apiBase = "https://meme-api.herokuapp.com/gimme";
 
-const getMemes = async (count = 1, sub = 'dankmemes') => {
+const getMemes = async (count = 1, sub = "dankmemes") => {
     let { data: data } = await axios({
         url: `${apiBase}/${sub}/${count}`,
-        method: 'get',
+        method: "get",
     });
 
     return data.memes;
 };
 
 module.exports = {
-    name: 'meme',
-    description: 'Gets you a meme.',
-    category: 'Fun',
+    name: "meme",
+    description: "Gets you a meme.",
+    category: "Fun",
     async execute(message, args, client) {
         let memes = await getMemes(args[0], args[1]);
 
