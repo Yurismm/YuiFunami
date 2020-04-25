@@ -2,11 +2,11 @@ const { Client, Collection } = require('discord.js');
 const { join } = require('path');
 const { readdirSync, readdir } = require('fs');
 
-const Config = require('../helper/Config');
+const Config = require('./helper/Config');
 
-const Logger = require('../helper/Logger');
+const Logger = require('./helper/Logger');
 
-const util = require('../util/Util');
+const util = require('./util/Util');
 
 class YuiClient extends Client {
     constructor(props) {
