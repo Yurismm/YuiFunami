@@ -5,7 +5,7 @@ const Trello = require("trello");
 
 module.exports = {
     name: "trello",
-    description: "Inject and evaluate code within the bot process.",
+    description: "Add or show stuff from the trello board.",
     args: true,
     usage: "<add|show> <info|todo|doing|done> <description>",
     permissions: ["DEVELOPER"],
@@ -13,16 +13,16 @@ module.exports = {
     async execute(message, args, client) {
         const trello = new Trello(client.config.secret["trello-key"], client.config.secret["trello-token"]);
         const idList = {
-           "info": "5ea147439683cb49d80f0a3d",
-           "todo": "5ea141d20cd9607af62ff09c",
-           "doing": "5ea141d20cd9607af62ff09d",
-           "done": "5ea141d20cd9607af62ff09e"
+            "info": "5ea147439683cb49d80f0a3d",
+            "todo": "5ea141d20cd9607af62ff09c",
+            "doing": "5ea141d20cd9607af62ff09d",
+            "done": "5ea141d20cd9607af62ff09e"
        };
         const listNames = {
-         "5ea147439683cb49d80f0a3d": "Basic info/rules" ,
-         "5ea141d20cd9607af62ff09c": "To Do",
-         "5ea141d20cd9607af62ff09d": "Doing",
-         "5ea141d20cd9607af62ff09e": "Done"
+            "5ea147439683cb49d80f0a3d": "Basic info/rules" ,
+            "5ea141d20cd9607af62ff09c": "To Do",
+            "5ea141d20cd9607af62ff09d": "Doing",
+            "5ea141d20cd9607af62ff09e": "Done"
     };
        const name = args.slice(2).join(" ");
        
@@ -33,7 +33,7 @@ module.exports = {
                 let msg = await message.channel.send("Posting to the board...");
                 let card  = await trello.addCard(name,"",idList[args[1].toLowerCase()]);
                 const embed = new MessageEmbed()
-                    .setTitle("Posted to the trello board")
+                    .setTitle("Posted to the Trello board")
                     .setURL(card.shortUrl)
                     .setDescription(`New Card in ${listNames[card.idList]}: ${card.name}`)
                     .setColor("2f3136");

@@ -35,8 +35,8 @@ class YuiClient extends Client {
         this.commandPath = join(__dirname, "..", "commands");
         this.eventPath = join(__dirname, "..", "events");
         this.commands = new Collection();
-        this.autoCommands = new Collection();
-        this.autoPatterns = [];
+        this.aliases = new Collection()
+
 
         this.rawCategories = [
             "DEVELOPER",
@@ -53,7 +53,7 @@ class YuiClient extends Client {
             "HIDDEN"     // Hidden
         ];
 
-        this.cooldowns = new Collection();
+
 
         this.prefixes = {
             global: this.config.bot.prefix,
@@ -90,9 +90,9 @@ class YuiClient extends Client {
                 let eventName = f.substring(0, f.indexOf(".")).split("");
                 eventName[0] = eventName[0].toLowerCase();
                 eventName = eventName.join("");
-                const event = require(join(path, f));
+                const event = new (require(join(path, f)))(this);
 
-                super.on(eventName, event.bind(null, this));
+                super.on(eventName,(...args) => event.execute(...args));
 
                 delete require.cache[require.resolve(join(path, f))]; // Clear cache
                 
@@ -118,24 +118,11 @@ class YuiClient extends Client {
         if(this.debug) this.logger.info(`${Commands.length} commands found`);
 
         for (const File of Commands) {
-            const cmd = require(`../commands/${File}`);
-
-            if(cmd.auto && cmd.patterns) {
-                cmd.patterns.forEach(p => {
-                    this.autoCommands.set(p, cmd);
-                    this.autoPatterns.push(p);
-                });
-                cmd.ABSOLUTE_PATH = File;
-                this.commands.set(cmd.name, cmd);
-            }
-
-            if(!this.rawCategories.includes(cmd.category.toUpperCase())) throw new Error(`Command category must match one of ${this.rawCategories}. Got ${cmd.category} instead.`);
-
-            cmd.ABSOLUTE_PATH = File;
-            if(!cmd.permissions || typeof cmd.permissions !== "object") cmd.permissions = [];
-            this.commands.set(cmd.name, cmd);
-            if(this.debug) this.logger.info(`Loaded command: ${cmd.name}`);
-        }
+            const cmd = new(require(`../commands/Information/Ping`))(this);
+                
+            this.commands.set(cmd.help.name, cmd);
+            cmd.help.aliases.forEach(a => this.aliases.set(a, cmd.help.name));
+           }      
 
         return this;
     }
