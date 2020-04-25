@@ -35,7 +35,7 @@ class YuiClient extends Client {
         this.commandPath = join(__dirname, "..", "commands");
         this.eventPath = join(__dirname, "..", "events");
         this.commands = new Collection();
-        this.aliases = new Collection()
+        this.aliases = new Collection();
 
 
         this.rawCategories = [
@@ -46,12 +46,6 @@ class YuiClient extends Client {
             "UTILITY"
         ];
 
-        this.rawPermissions = [
-            "DEVELOPER", // Developer Only
-            "GUILDONLY", // Guild Only
-            "DISABLED",  // Disabled
-            "HIDDEN"     // Hidden
-        ];
 
 
 
@@ -118,7 +112,7 @@ class YuiClient extends Client {
         if(this.debug) this.logger.info(`${Commands.length} commands found`);
 
         for (const File of Commands) {
-            const cmd = new(require(`../commands/Information/Ping`))(this);
+            const cmd = new(require("../commands/Developer/Eval"))(this); //NEEDS TO BE ${File} WHEN COMPLETELY REWRITTEN
                 
             this.commands.set(cmd.help.name, cmd);
             cmd.help.aliases.forEach(a => this.aliases.set(a, cmd.help.name));
@@ -182,14 +176,6 @@ class YuiClient extends Client {
         else return false;
     } 
 
-    /**
-     * Check if the given permissions are valid.
-     * @param {Array} cmdPerms The command's `permissions` array
-     * @param {Array} permission The permission to check for
-     */
-    check(cmdPerms, permission) {
-        return cmdPerms.includes(this.rawPermissions[permission]);
-    }
 
 }
 

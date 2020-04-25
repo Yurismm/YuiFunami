@@ -1,12 +1,12 @@
 const { MessageEmbed } = require("discord.js");
-const Command = require('../../struct/Command')
+const Command = require("../../struct/Command");
 module.exports = class Ping extends Command{
     constructor(client){
         super(client, {
             name: "ping",
             description: "Return the bots response times.",
             category: "Information"
-        })
+        });
     }
     async execute(message) {
         const sent = await message.channel.send("Performing calculations...");
@@ -18,5 +18,5 @@ module.exports = class Ping extends Command{
 
         return sent.edit("", { embed });
     }
-}    
+};    
     

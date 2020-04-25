@@ -3,7 +3,7 @@ const { version, dependencies } = require("../../package.json");
 
 module.exports =  class {
     constructor(client){
-        this.client = client
+        this.client = client;
     }
     async execute(){
     this.client.logger.info(`${magenta(this.client.user.username)} is online`);
@@ -27,6 +27,5 @@ module.exports =  class {
             type: activity.type
         });
     }, 300000);
-    await this.client.channels.cache.get(this.client.config.bot.todo_channel).messages.fetch();
 }
 }
