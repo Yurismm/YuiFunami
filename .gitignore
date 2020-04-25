@@ -1,4 +1,4 @@
 node_modules
-Config.toml
 log.txt
 yarn-error.log
+.env

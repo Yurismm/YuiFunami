@@ -1,9 +1,0 @@
-[bot]
-    prefix = "$"
-    todo_channel = 'id'
-[secret]
-    token = "token"
-    cb-token = "cb-token"
-    repo-token = "repo-token"
-    trello-key = "trello-key"
-    trello-token = "trello-token"
