@@ -1,5 +1,10 @@
 const { redBright } = require("chalk");
 
-module.exports = (client, error) => {
-    client.logger.error(redBright(error));
+module.exports = class{
+    constructor(client){
+        this.client = client
+    }
+    async execute(error){
+    this.client.logger.error(redBright(error));
+    }
 };

@@ -1,27 +1,32 @@
 const { magenta, blue, grey } = require("chalk");
 const { version, dependencies } = require("../../package.json");
 
-module.exports = async (client) => {
-    client.logger.info(`${magenta(client.user.username)} is online`);
-    client.logger.info(`Prefix set to: ${magenta(client.prefixes.global)}`);
-    client.logger.info(`${magenta(client.commands.size)} commands loaded`);
-    client.logger.info(`Program version: ${blue("v" + version)}`);
-    client.logger.info(`Node version: ${blue(process.version)}`);
-    client.logger.info(`Discord.js version: ${blue(dependencies["discord.js"].replace("^", "v"))}`);
+module.exports =  class {
+    constructor(client){
+        this.client = client
+    }
+    async execute(){
+    this.client.logger.info(`${magenta(this.client.user.username)} is online`);
+    this.client.logger.info(`Prefix set to: ${magenta(this.client.prefixes.global)}`);
+    this.client.logger.info(`${magenta(this.client.commands.size)} commands loaded`);
+    this.client.logger.info(`Program version: ${blue("v" + version)}`);
+    this.client.logger.info(`Node version: ${blue(process.version)}`);
+    this.client.logger.info(`Discord.js version: ${blue(dependencies["discord.js"].replace("^", "v"))}`);
 
-    if (client.debug) client.logger.info(grey("Started in DEBUG MODE"));
+    if (this.client.debug) this.client.logger.info(grey("Started in DEBUG MODE"));
 
-    await client.user.setActivity({
-        name: `Feel Good Inc. | ${client.prefixes.global}help`,
+    await this.client.user.setActivity({
+        name: `Feel Good Inc. | ${this.client.prefixes.global}help`,
         type: 2
     });
 
     setInterval(() => {
-        let activity = client._presence.random();
-        client.user.setActivity({
-            name: `${activity.title} | ${client.prefixes.global}help`,
+        let activity = this.client._presence.random();
+        this.client.user.setActivity({
+            name: `${activity.title} | ${this.client.prefixes.global}help`,
             type: activity.type
         });
     }, 300000);
-    await client.channels.cache.get(client.config.bot.todo_channel).messages.fetch();
-};
+    await this.client.channels.cache.get(this.client.config.bot.todo_channel).messages.fetch();
+}
+}

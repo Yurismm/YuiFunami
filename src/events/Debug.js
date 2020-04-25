@@ -1,5 +1,10 @@
 const { grey } = require("chalk");
 
-module.exports = (client, message) => {
-    client.logger.debug(grey(message));
-};
+module.exports = class {
+    constructor(client){
+        this.client = client
+    }
+    async execute(message){
+        this.client.logger.debug(grey(message));
+    }
+}
