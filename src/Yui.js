@@ -1,41 +1,30 @@
 const { Client, Collection } = require('discord.js');
-const { join } = require('path');
+const { join, parse, sep } = require('path');
 const { readdirSync, readdir } = require('fs');
+const klaw = require('klaw');
+const Enmap = require('enmap');
 
-const Config = require('../helper/Config');
+const Logger = require('./helper/Logger');
 
-const Logger = require('../helper/Logger');
-
-const util = require('../util/Util');
+const util = require('./util/Util');
 
 class YuiClient extends Client {
     constructor(props) {
         super(props);
 
-        this.InviteURL =
-            'https://discordapp.com/oauth2/authorize?client_id=456910763504697363&scope=bot&permissions=8';
-        this.githubURL = 'https://github.com/xgrvaeli/YuiFunami';
-        this.githubAPI = 'https://api.github.com/repos/xgrvaeli/YuiFunami';
-
-        this.developers = [
-            '228872946557386752', // xgrvaeli
-            '210324193391149056', // Dodo
-            '358970589697933314', // Cherie
-            '205014454042099712', // Meliodas
-            '460892852889845780', // MendtheMiner
-            '293159670040887297', // mariobob
-        ];
-
         this.logger = Logger;
 
-        this.config = new Config(join(__dirname, '..', '..', 'Config.toml'));
+        this.config = require('./config');
 
-        this.debug = this.config.debug || process.argv[2];
-
-        this.commandPath = join(__dirname, '..', 'commands');
-        this.eventPath = join(__dirname, '..', 'events');
         this.commands = new Collection();
         this.aliases = new Collection();
+
+        this.settings = new Enmap({
+            name: 'settings',
+            cloneLevel: 'deep',
+            fetchAll: false,
+            autoFetch: true,
+        });
 
         this.rawCategories = [
             'DEVELOPER',
@@ -51,10 +40,6 @@ class YuiClient extends Client {
             'DISABLED', // Disabled
             'HIDDEN', // Hidden
         ];
-
-        this.prefixes = {
-            global: this.config.bot.prefix,
-        };
 
         this.util = util;
 
@@ -72,160 +57,132 @@ class YuiClient extends Client {
         };
     }
 
-    /**
-     * Loads all available events
-     * @param {string} path
-     */
-    loadEvents(path = this.eventPath) {
-        readdir(path, (err, files) => {
-            if (err) this.logger.error(err);
-            files = files.filter((f) => f.split('.').pop() === 'js');
-            if (files.length === 0) return this.logger.warn('No events found');
-            if (this.debug)
-                this.logger.info(`${files.length} event(s) found...`);
+    permlevel(message) {
+        let permlvl = 0;
 
-            files.forEach((f) => {
-                let eventName = f.substring(0, f.indexOf('.')).split('');
-                eventName[0] = eventName[0].toLowerCase();
-                eventName = eventName.join('');
-                const event = new (require(join(path, f)))(this);
+        const permOrder = this.config.permLevels
+            .slice(0)
+            .sort((p, c) => (p.level < c.level ? 1 : -1));
 
-                super.on(eventName, (...args) => event.execute(...args));
+        while (permOrder.length) {
+            const currentLevel = permOrder.shift();
+            if (message.guild && currentLevel.guildOnly) continue;
+            if (currentLevel.check(message)) {
+                permlvl = currentLevel.level;
+                break;
+            }
+        }
+        return permlvl;
+    }
 
-                delete require.cache[require.resolve(join(path, f))]; // Clear cache
-
-                if (this.debug) this.logger.info(`Loading event: ${eventName}`);
+    loadCommand(commandPath, commandName) {
+        try {
+            const props = new (require(`${commandPath}${sep}${commandName}`))(
+                this
+            );
+            this.logger.info(`Loading Command: ${props.help.name}`);
+            props.conf.location = commandPath;
+            if (props.init) {
+                props.init(this);
+            }
+            this.commands.set(props.help.name, props);
+            props.conf.aliases.forEach((alias) => {
+                this.aliases.set(alias, props.help.name);
             });
-        });
-
-        return this;
-    }
-
-    /**
-     * Load all available commands.
-     * @param {string} path The path to load commands from. Defaults to client.commandPath
-     */
-    loadCommands(path = this.commandPath) {
-        let Commands = [];
-
-        util.getDirectories(path).forEach((d) => {
-            let commands = readdirSync(join(path, d))
-                .filter((file) => file.endsWith('.js'))
-                .map((path) => `${d}/${path}`);
-            Commands = Commands.concat(...commands);
-        });
-
-        if (this.debug) this.logger.info(`${Commands.length} commands found`);
-
-        for (const File of Commands) {
-            const cmd = new (require(`../commands/Information/Ping`))(this);
-
-            this.commands.set(cmd.help.name, cmd);
-            cmd.help.aliases.forEach((a) => this.aliases.set(a, cmd.help.name));
-        }
-
-        return this;
-    }
-
-    /**
-     * Initializes Yui
-     * .
-     * @param {string} token The bot token
-     */
-    init(token = this.config.secret.token) {
-        this.loadEvents();
-        this.loadCommands();
-        this.login(token);
-    }
-
-    /**
-     * Finds a member from a string, mention, or id
-     * @property {string} msg The message to process
-     * @property {string} suffix The username to search for
-     * @property {bool} self Whether or not to default to yourself if no results are returned. Defaults to false.
-     */
-    findMember(msg, suffix, self = false) {
-        if (!suffix) {
-            if (self) return msg.member;
-            else return null;
-        } else {
-            let member =
-                msg.mentions.members.first() ||
-                msg.guild.members.cache.get(suffix) ||
-                msg.guild.members.cache.find(
-                    (m) =>
-                        m.displayName
-                            .toLowerCase()
-                            .includes(suffix.toLowerCase()) ||
-                        m.user.username
-                            .toLowerCase()
-                            .includes(suffix.toLowerCase())
-                );
-            return member;
+            return false;
+        } catch (e) {
+            return `Unable to load command ${commandName}: ${e}`;
         }
     }
 
-    /**
-     * Replaces certain characters and fixes mentions in messages.
-     * @property {string} text The text to clean
-     */
+    async unloadCommand(commandPath, commandName) {
+        let command;
+        if (this.commands.has(commandName)) {
+            command = this.commands.get(commandName);
+        } else if (this.aliases.has(commandName)) {
+            command = this.commands.get(this.aliases.get(commandName));
+        }
+        if (!command)
+            return `The command \`${commandName}\` doesn't seem to exist, nor is it an alias. Try again!`;
+
+        if (command.shutdown) {
+            await command.shutdown(this);
+        }
+        delete require.cache[
+            require.resolve(`${commandPath}${path.sep}${commandName}.js`)
+        ];
+        return false;
+    }
+
     async clean(text) {
         if (text && text.constructor.name == 'Promise') text = await text;
         if (typeof text !== 'string')
             text = require('util').inspect(text, { depth: 1 });
-        let cleanRegex = new RegExp(
-            `${this.config.secret.token}|${this.config.secret['cb-token']}|${this.config.secret['repo-token']}`,
-            'g'
-        );
-        if (
-            text.indexOf(this.config.secret.token) !== -1 ||
-            text.indexOf(this.config.secret['cb-token']) !== -1 ||
-            text.indexOf(this.config.secret['repo-token'] !== -1)
-        )
-            text = text.replace(
-                cleanRegex,
-                this.util.randomElementFromArray([
-                    '[redacted]',
-                    '[DATA EXPUNGED]',
-                    '[REMOVED]',
-                    '[SEE APPENDIUM INDEX A494-A]',
-                ])
-            );
 
         text = text
             .replace(/`/g, '`' + String.fromCharCode(8203))
-            .replace(/@/g, '@' + String.fromCharCode(8203));
+            .replace(/@/g, '@' + String.fromCharCode(8203))
+            .replace(
+                this.token,
+                'mfa.VkO_2G4Qv3T--NO--lWetW_tjND--TOKEN--QFTm6YGtzq9PH--4U--tG0'
+            );
 
         return text;
     }
-    /**
-     * Checks if user is a bot developer
-     * @param {User} userID the User's ID
-     */
-    isDev(id) {
-        if (typeof id !== 'string') throw new Error('ID must be a string!');
-        if (this.developers.includes(id)) return true;
-        else return false;
+
+    getSettings(guild) {
+        const defaults = this.config.defaultSettings || {};
+        const guildData = this.settings.get(guild.id) || {};
+        const returnObject = {};
+        Object.keys(defaults).forEach((key) => {
+            returnObject[key] = guildData[key] ? guildData[key] : defaults[key];
+        });
+        return returnObject;
     }
 
-    /**
-     * Check if the given permissions are valid.
-     * @param {Array} cmdPerms The command's `permissions` array
-     * @param {Array} permission The permission to check for
-     */
-    check(cmdPerms, permission) {
-        return cmdPerms.includes(this.rawPermissions[permission]);
+    writeSettings(id, newSettings) {
+        const defaults = this.settings.get('default');
+        let settings = this.settings.get(id);
+        if (typeof settings != 'object') settings = {};
+        for (const key in newSettings) {
+            if (defaults[key] !== newSettings[key]) {
+                settings[key] = newSettings[key];
+            } else {
+                delete settings[key];
+            }
+        }
+        this.settings.set(id, settings);
     }
+
+    async awaitReply(msg, question, limit = 60000) {
+        const filter = (m) => m.author.id === msg.author.id;
+        await msg.channel.send(question);
+        try {
+            const collected = await msg.channel.awaitMessages(filter, {
+                max: 1,
+                time: limit,
+                errors: ['time'],
+            });
+            return collected.first().content;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    getDirectories = async (source) =>
+        readdirSync(source, { withFileTypes: true })
+            .filter((dirent) => dirent.isDirectory())
+            .map((dirent) => dirent.name);
 }
 
 const client = new YuiClient();
 
 const init = async () => {
-    const categories = await client.getDirs('./commands');
+    const categories = await client.getDirectories(join(__dirname, 'commands'));
 
     categories.forEach((c) => {
-        klaw(`./commands/${c}`).on('data', (item) => {
-            const cmdFile = path.parse(item.path);
+        klaw(join(__dirname, 'commands', c)).on('data', (item) => {
+            const cmdFile = parse(item.path);
             if (!cmdFile.ext || cmdFile.ext !== '.js') return;
             const response = client.loadCommand(
                 cmdFile.dir,
@@ -235,14 +192,14 @@ const init = async () => {
         });
     });
 
-    const evtFiles = await readdir('./events/');
-    client.logger.log(`Loading a total of ${evtFiles.length} events.`, 'log');
+    const evtFiles = await readdirSync(join(__dirname, 'events'));
+    client.logger.info(`Loading a total of ${evtFiles.length} events.`);
     evtFiles.forEach((file) => {
         const eventName = file.split('.')[0];
-        client.logger.log(`Loading Event: ${eventName}`);
-        const event = new (require(`./events/${file}`))(client);
+        client.logger.info(`Loading Event: ${eventName}`);
+        const event = new (require(join(__dirname, 'events', file)))(client);
         client.on(eventName, (...args) => event.run(...args));
-        delete require.cache[require.resolve(`./events/${file}`)];
+        delete require.cache[require.resolve(join(__dirname, 'events', file))];
     });
 
     client.levelCache = {};

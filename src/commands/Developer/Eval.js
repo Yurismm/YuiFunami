@@ -1,25 +1,31 @@
-module.exports = {
-    name: "eval",
-    description: "Inject and evaluate code within the bot process.",
-    args: true,
-    usage: "<code>",
-    permissions: ["DEVELOPER"],
-    category: "Developer",
-    async execute(message, args, client) {
-        const code = args.join(" ");
-       
+const Command = require('../../struct/Command');
+
+class Eval extends Command {
+    constructor(client) {
+        super(client, {
+            name: 'eval',
+            description: 'Evaluates arbitrary Javascript.',
+            category: 'System',
+            usage: 'eval <expression>',
+            aliases: ['ev'],
+            permLevel: 'Bot Admin',
+        });
+    }
+
+    async run(message, args, level) {
+        const code = args.join(' ');
         try {
-            const evaled = await eval(`(async () => { ${code} })()`);
-            const clean = await client.clean(evaled);
-            const MAX_CHARS = 3+2+ clean.length + 3;
+            const evaled = await eval(code);
+            const clean = await this.client.clean(evaled);
+            const MAX_CHARS = 3 + 2 + clean.length + 3;
             if (MAX_CHARS > 2000) {
-                return message.channel.send(
-                    "Output exceeded 2000 characters. Sending as a file.",
+                message.channel.send(
+                    'Output exceeded 2000 characters. Sending as a file.',
                     {
                         files: [
                             {
                                 attachment: Buffer.from(clean),
-                                name: "output.txt",
+                                name: 'output.txt',
                             },
                         ],
                     }
@@ -28,10 +34,13 @@ module.exports = {
             message.channel.send(`\`\`\`js\n${clean}\n\`\`\``);
         } catch (err) {
             message.channel.send(
-                `\`ERROR\` \`\`\`xl\n${err}\n\`\`\``
+                `\`ERROR\` \`\`\`xl\n${await this.client.clean(
+                    this.client,
+                    err
+                )}\n\`\`\``
             );
         }
-    },
-    
-};
+    }
+}
 
+module.exports = Eval;
