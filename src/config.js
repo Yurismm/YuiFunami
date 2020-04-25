@@ -1,4 +1,8 @@
+require('dotenv').config();
+
 const config = {
+    ownerID: '358970589697933314',
+
     admins: [
         '228872946557386752', // xgrvaeli
         '210324193391149056', // Dodo
@@ -23,6 +27,11 @@ const config = {
             'Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D',
         welcomeEnabled: 'false',
     },
+
+    inviteURL:
+        'https://discordapp.com/oauth2/authorize?client_id=456910763504697363&scope=bot&permissions=8',
+    githubURL: 'https://github.com/xgrvaeli/YuiFunami',
+    githubAPI: 'https://api.github.com/repos/xgrvaeli/YuiFunami',
 
     permLevels: [
         {
@@ -95,7 +104,7 @@ const config = {
             level: 10,
             name: 'Bot Owner',
             check: (message) =>
-                message.client.appInfo.owner.id === message.author.id,
+                message.client.config.ownerID === message.author.id,
         },
     ],
 };

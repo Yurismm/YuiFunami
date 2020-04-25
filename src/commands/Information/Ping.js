@@ -1,4 +1,4 @@
-const Command = require('../base/Command.js');
+const Command = require('../../struct/Command');
 
 class Ping extends Command {
     constructor(client) {
@@ -18,7 +18,7 @@ class Ping extends Command {
             msg.edit(
                 `🏓 Pong! (Roundtrip took: ${
                     msg.createdTimestamp - message.createdTimestamp
-                }ms. 💙: ${Math.round(this.client.ping)}ms.)`
+                }ms. 💙: ${Math.round(this.client.ws.ping)}ms.)`
             );
         } catch (e) {
             console.log(e);
