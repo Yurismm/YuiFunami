@@ -1,9 +1,0 @@
-[bot]
-    prefix = ">$"
-
-[secret]
-    token = "NzAxNTE3NzcwNjc1ODQ3MTk4.XpypWg.dI2y_jQmkWZrGf5SBnyGDfnDc3w"
-    cb-token = "4e4f6972-8e2d-4852-adea-bd81b11c0f19"
-    repo-token = '0344704bdbf68c4bd0566a18e24ed6aafab286f1'
-    trello-key = "7b399a5fe22c484244c224f742db1f14"
-    trello-token = "f77b8ae294cdb4607f0a74303c511c9d847db729e0bc0c6ced48d21df956fc6e"

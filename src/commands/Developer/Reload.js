@@ -35,7 +35,7 @@ module.exports = {
 
             return progress.edit(`Done. Reloaded ${toReload.length} command${toReload.length > 1 ? "s" : ""} in ${(stop - start).toFixed(2)} ms. It's recommended you run \`$rebuild_auto\` now.`);
         } else if(args[0].toLowerCase() == "config" || args[0].toLowerCase() == "c") {
-            let config = new Config(join(__dirname, "..", "..", "..", "Config.toml"));
+            let config = new Config(join(__dirname, "..", "..", "..", "config.js"));
 
             client.config = config;
 

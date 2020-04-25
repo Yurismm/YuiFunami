@@ -1,4 +1,4 @@
-const { parse } = require("toml");
+
 const { existsSync, readFileSync } = require("fs");
 
 class Config {

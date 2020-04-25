@@ -28,7 +28,7 @@ class YuiClient extends Client {
 
         this.logger = Logger;
 
-        this.config = new Config(join(__dirname, '..', '..', 'Config.toml'));
+        this.config = require('./config.js');
 
         this.debug = this.config.debug || process.argv[2];
 
