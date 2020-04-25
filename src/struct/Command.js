@@ -1,4 +1,5 @@
 class Command {
+<<<<<<< HEAD
     /**
      * 
      * @param {YuiClient} client 
@@ -32,8 +33,28 @@ class Command {
     }
     setMessage(message){
         this.message = message;
+=======
+    constructor(
+        client,
+        {
+            name = null,
+            description = 'No description provided.',
+            category = 'Miscellaneous',
+            usage = 'No usage provided.',
+            enabled = true,
+            guildOnly = false,
+            aliases = new Array(),
+            permLevel = 'User',
+        }
+    ) {
+        this.client = client;
+        this.conf = { enabled, guildOnly, aliases, permLevel };
+        this.help = { name, description, category, usage };
+>>>>>>> 18e6e9412ebc882f16970a3aa8b71a388439d225
     }
-
-
 }
+<<<<<<< HEAD
 module.exports = Command;
+=======
+module.exports = Command;
+>>>>>>> 18e6e9412ebc882f16970a3aa8b71a388439d225
