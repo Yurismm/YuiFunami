@@ -5,7 +5,6 @@ module.exports = class Discriminator extends Command {
       name: "discriminator",
       aliases: ["discrim", "search-discrim", "search-discriminator"],
       description: "Searches for other users with your desired discriminator",
-      category: "Search",
     });
   }
   async run(message, args) {

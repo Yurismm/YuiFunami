@@ -1,34 +1,37 @@
 const Config = require("../../helper/Config");
 const { join } = require("path");
 const { performance } = require("perf_hooks");
-
-module.exports = {
+const Command = require('../../struct/Command')
+module.exports = class Reload extends Command{
+    constructor(client){
+        super(client, {
+    
     name: "reload",
     description: "Reload a command within the bot process",
-    category: "Developer",
-    args: true,
     usage: "<command|all|config>",
     aliases: ["rl"],
-    permissions: ["DEVELOPER"],
-    async execute(message, args, client) {
+    permissions: ["Bot Admin"],
+        })
+    }
+    async run(message, args) {
         if(args[0].toLowerCase() == "all" || args[0].toLowerCase() == "a") {
             let start = performance.now();
 
             let progress = await message.channel.send("Sweeping Commands...");
 
-            let toReload = client.commands.array();
+            let toReload = this.client.commands.array();
 
-            client.commands.sweep(() => true);
+            this.client.commands.sweep(() => true);
 
             progress.edit("Commands swept. Scraping command directories...");
 
             toReload.forEach(c => {
                 delete require.cache[require.resolve(`../${c.ABSOLUTE_PATH}`)];
                 const cmd = require(`../${c.ABSOLUTE_PATH}`);
-                if(!client.rawCategories.includes(cmd.category.toUpperCase())) return message.channel.send(`${cmd.name}'s category must match one of ${client.rawCategories}. Got ${cmd.category} instead.`);
+                if(!this.client.rawCategories.includes(cmd.category.toUpperCase())) return message.channel.send(`${cmd.name}'s category must match one of ${this.client.rawCategories}. Got ${cmd.category} instead.`);
                 cmd.ABSOLUTE_PATH = c.ABSOLUTE_PATH;
                 if (!cmd.permissions || typeof cmd.permissions !== "object") cmd.permissions = [];
-                client.commands.set(cmd.name, cmd);
+                this.client.commands.set(cmd.name, cmd);
             });
  
             let stop = performance.now();
@@ -37,25 +40,25 @@ module.exports = {
         } else if(args[0].toLowerCase() == "config" || args[0].toLowerCase() == "c") {
             let config = new Config(join(__dirname, "..", "..", "..", "config.js"));
 
-            client.config = config;
+            this.client.config = config;
 
             message.channel.send("Successfully reloaded config.");
 
         } else {          
-            let command = client.commands.get(args[0]);
+            let command = this.client.commands.get(args[0]);
 
             if (!command) return message.channel.send(`That command couldn't be found within my processes. Try loading it with \`$load ${args[0]}\``);
 
             delete require.cache[require.resolve(`../${command.ABSOLUTE_PATH}`)];
-            client.commands.delete(command.name);
+            this.client.commands.delete(command.name);
 
-            const cmd = require(join(client.commandPath, `${command.ABSOLUTE_PATH}`));
+            const cmd = require(join(this.client.commandPath, `${command.ABSOLUTE_PATH}`));
 
-            if(!client.rawCategories.includes(cmd.category.toUpperCase())) return message.channel.send(`${cmd.name}'s category must match one of ${client.rawCategories}. Got ${cmd.category} instead.`);
+            if(!this.client.rawCategories.includes(cmd.category.toUpperCase())) return message.channel.send(`${cmd.name}'s category must match one of ${this.client.rawCategories}. Got ${cmd.category} instead.`);
 
             cmd.ABSOLUTE_PATH = command.ABSOLUTE_PATH;
             if (!cmd.permissions || typeof cmd.permissions !== "object") cmd.permissions = [];
-            client.commands.set(cmd.name, cmd);
+            this.client.commands.set(cmd.name, cmd);
 
             return message.channel.send(`Successfully reloaded \`${cmd.name}\`. It's recommended you run \`$rebuild_auto\` now.`);
         }

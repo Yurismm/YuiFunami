@@ -2,16 +2,21 @@
 
 const {MessageEmbed} = require("discord.js");
 const Trello = require("trello");
+const Command = require('../../struct/Command')
+module.exports = class Trello extends Command{
+    constructor(client){
+        super(client, {
 
-module.exports = {
+        
+    
     name: "trello",
     description: "Add or show stuff from the trello board.",
-    args: true,
     usage: "<add|show> <info|todo|doing|done> <description>",
-    permissions: ["DEVELOPER"],
-    category: "Developer",
-    async execute(message, args, client) {
-        const trello = new Trello(client.config.secret["trello-key"], client.config.secret["trello-token"]);
+    permissions: ["Bot Admin"],
+        })
+    }
+    async run(message, args) {
+        const trello = new Trello(this.client.config.trello_key, this.client.config.trello_token);
         const idList = {
             "info": "5ea147439683cb49d80f0a3d",
             "todo": "5ea141d20cd9607af62ff09c",

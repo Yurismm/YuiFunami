@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const Command = require('../../struct/Command')
 const categoryDescriptions = {
-    administrative: "Commands related to Yui's core process.\n\nUsage restricted to bot-owners only.",
+    developer: "Commands related to Yui's core process.\n\nUsage restricted to bot-owners only.",
     fun: "Commands that are fun in some way, such as being a game, or being funny.",
     information: "Commands related to Yui, such as statistics, or general information.\n\nAlso includes some commands to gather general information related to things such as users or servers.",
     search: "Search commands. Usually this means they query an outside API or service, but it can vary.",
@@ -11,7 +11,6 @@ const categoryDescriptions = {
 module.exports = class Help extends Command{
     constructor(client){
         super(client, {
-    
     name: "help",
     description: "Lists all of my commands or information related to a singularity",
     usage: "<?command|category|args>",
@@ -36,7 +35,7 @@ module.exports = class Help extends Command{
 
         if(!this.client.categories.includes(args[0].toUpperCase()) && this.client.commands.get(name) || !this.client.categories.includes(args[0].toUpperCase()) && this.client.commands.find(cmd => cmd.conf.aliases && cmd.conf.aliases.includes(name))) {
             result = this.client.commands.get(name) || this.client.commands.find(cmd => cmd.conf.aliases && cmd.conf.aliases.includes(name));
-            let description = `Name: ${result.name}\nCategory: ${result.category}`;
+            let description = `Name: ${result.help.name}\nCategory: ${result.category}`;
 
             if (result.conf.aliases) description += `\nAliases: ${result.conf.aliases.join(", ")}`;
             if (result.help.description) description += `\nDescription: ${result.help.description}`;
@@ -53,12 +52,12 @@ module.exports = class Help extends Command{
             result = this.client.util.capitalize(args[0]);
             
             let cmds = this.client.commands.filter(c => {
-                console.log(c.conf.location)
-                if(this.client.util.capitalize(c.conf.location) == result && (!c.disabled || !c.hidden || !c.adminOnly)) return true;
+                
+                if(this.client.util.capitalize(c.help.category) == result && (!c.disabled || !c.hidden || !c.adminOnly)) return true;
                 else return false;
             }).map(c => {
-                if(c.allCaps === true) return c.name.toUpperCase();
-                else return c.name.toLowerCase();
+                if(c.allCaps === true) return c.help.name.toUpperCase();
+                else return c.help.name.toLowerCase();
             });
 
             const embed = new MessageEmbed()
@@ -73,7 +72,7 @@ module.exports = class Help extends Command{
             const embed = new MessageEmbed()
                 .setTitle("Listing all available commands:")
                 .setColor("2f3136")
-                .setDescription(`${this.client.commands.map(c => c.name).join(", ")}\n\nUse \`${prefix}help <category>\` to see more information about a specific category.\nUse \`${prefix}help <command>\` to see more information about a specific command.`);
+                .setDescription(`${this.client.commands.map(c => c.help.name).join(", ")}\n\nUse \`${prefix}help <category>\` to see more information about a specific category.\nUse \`${prefix}help <command>\` to see more information about a specific command.`);
             
             return message.channel.send(embed);
         } else if (args[0] == "args" || args[0] == "arguments") {

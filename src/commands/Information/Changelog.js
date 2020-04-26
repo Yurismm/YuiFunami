@@ -8,14 +8,13 @@ module.exports = class Changelog extends Command{
     name: "changelog",
     aliases: ["updates", "commits", "update", "cl"],
     description: "Responds with Yui's ten most recent Git commits.",
-    category: "Information",
 })
 }
     async run(message, args) {
         const { data: res } = await axios({
             url: this.client.githubAPI + "/commits",
             headers: {
-                "Authorization": `token ${this.client.config.secret["repo-token"]}`,
+                "Authorization": `token ${this.client.config.repo_token}`,
                 "User-Agent": "Yui Funami",
             }
         });

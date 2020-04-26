@@ -7,7 +7,6 @@ module.exports = class Npm extends Command{
         super(client, {
             name: "npm",
             description: "Search NPM for the supplied package.",
-            category: "Search",
             args: true,
             usage: "<package>",
             allCaps: true,

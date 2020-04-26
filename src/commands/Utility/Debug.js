@@ -9,7 +9,6 @@ module.exports = class Debug extends Command{
     name: "debug",
     description: "Yui debug information.",
     aliases: ["information"],
-    category: "Utility"
         })
     }
     async run(message, args) {

@@ -23,7 +23,7 @@ module.exports =  class {
     setInterval(() => {
         let activity = this.client._presence.random();
         this.client.user.setActivity({
-            name: `${activity.title} | ${this.client.prefixes.global}help`,
+            name: `${activity.title} | ${this.client.config.defaultSettings.prefix}help`,
             type: activity.type
         });
     }, 300000);

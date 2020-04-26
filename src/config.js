@@ -15,6 +15,10 @@ const config = {
     support: [],
 
     token: process.env.BOT_TOKEN,
+    cb_token:process.env.cb_token,
+    repo_token:process.env.repo_token,
+    trello_key:process.env.trello_key,
+    trello_token:process.env.trello_token,
 
     defaultSettings: {
         prefix: '>$',
@@ -39,6 +43,7 @@ const config = {
             name: 'User',
             check: () => true,
         },
+        
 
         {
             level: 2,

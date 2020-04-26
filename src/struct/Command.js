@@ -4,10 +4,10 @@ class Command {
         {
             name = null,
             description = 'No description provided.',
-            category = 'Miscellaneous',
+            category = 'Information',
             usage = 'No usage provided.',
             enabled = true,
-            guildOnly = false,
+            guildOnly = true,
             aliases = new Array(),
             permLevel = 'User',
         }

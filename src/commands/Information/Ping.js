@@ -5,7 +5,6 @@ class Ping extends Command {
         super(client, {
             name: 'ping',
             description: 'Latency and API response times.',
-            category: 'Information',
             usage: 'ping',
             aliases: ['pong'],
         });

@@ -7,7 +7,6 @@ module.exports = class Avatar extends Command{
     name: "avatar",
     description: "Returns the avatar of the given user, or returns your own if no user is supplied.",
     usage: "<?username|mention>",
-    category: "Search",
         })
     }
     async run(message, args) {

@@ -75,7 +75,7 @@ class YuiClient extends Client {
         return permlvl;
     }
 
-    loadCommand(commandPath, commandName) {
+    loadCommand(commandPath, commandName,category) {
         try {
             const props = new (require(`${commandPath}${sep}${commandName}`))(
                 this
@@ -89,6 +89,7 @@ class YuiClient extends Client {
             props.conf.aliases.forEach((alias) => {
                 this.aliases.set(alias, props.help.name);
             });
+            props.help.category = category
             return false;
         } catch (e) {
             return `Unable to load command ${commandName}: ${e}`;
@@ -180,16 +181,21 @@ const client = new YuiClient();
 
 const init = async () => {
     const categories = await client.getDirectories(join(__dirname, 'commands'));
-    client.categories  = categories
+    client.categories  = categories.map(c => c.toUpperCase())
     categories.forEach((c) => {
         klaw(join(__dirname, 'commands', c)).on('data', (item) => {
             const cmdFile = parse(item.path);
             if (!cmdFile.ext || cmdFile.ext !== '.js') return;
             const response = client.loadCommand(
                 cmdFile.dir,
-                `${cmdFile.name}${cmdFile.ext}`
+                `${cmdFile.name}${cmdFile.ext}`,c
+            
             );
-            if (response) client.logger.error(response);
+           
+            
+            if (response) {
+                client.logger.error(response)
+            };
         });
     });
 

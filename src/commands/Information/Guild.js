@@ -6,8 +6,7 @@ module.exports = class Guild extends Command {
       name: "guild",
       aliases: ["guildinfo"],
       description: "Retrieves information about the current guild",
-      permissions: ["GUILDONLY"],
-      category: "Information",
+      permissions: ["User"],
     });
   }
   run(message) {
