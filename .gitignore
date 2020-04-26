@@ -2,3 +2,4 @@ node_modules
 log.txt
 yarn-error.log
 .env
+data
