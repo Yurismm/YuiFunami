@@ -3,7 +3,7 @@ module.exports = class {
         this.client = client;
     }
 
-    async run(message) {
+    async execute(message) {
         
         if (message.author.bot) return;
 

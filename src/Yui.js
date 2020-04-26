@@ -198,7 +198,7 @@ const init = async () => {
         const eventName = file.split('.')[0];
         client.logger.info(`Loading Event: ${eventName}`);
         const event = new (require(join(__dirname, 'events', file)))(client);
-        client.on(eventName, (...args) => event.run(...args));
+        client.on(eventName.toLowerCase(), (...args) => event.execute(...args));
         delete require.cache[require.resolve(join(__dirname, 'events', file))];
     });
 
