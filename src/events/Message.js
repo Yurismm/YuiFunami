@@ -1,30 +1,18 @@
-<<<<<<< HEAD
-module.exports = class{
-    constructor(client){
-=======
 module.exports = class {
     constructor(client) {
->>>>>>> 2759f1ede7c8711d52a43b9a83f534ab8defce14
         this.client = client;
     }
 
     async run(message) {
+        
         if (message.author.bot) return;
 
-<<<<<<< HEAD
-        if (!cmd) return;
-        if(cmd.conf.args && !args.length){
-            let reply = "No arguments provided";
-            if (command.usage) reply += `\nThe proper usage of that command is: \`${client.prefixes.global}${command.name} ${command.usage}\``;
-            await message.channel.send(reply);
-=======
         if (
             message.guild &&
             !message.channel
                 .permissionsFor(message.guild.me)
                 .missing('SEND_MESSAGES')
         )
->>>>>>> 2759f1ede7c8711d52a43b9a83f534ab8defce14
             return;
 
         const settings = this.client.getSettings(message.guild);
@@ -37,12 +25,6 @@ module.exports = class {
                 `My prefix on this guild is \`${settings.prefix}\``
             );
         }
-<<<<<<< HEAD
-        if (cmd.cooldown.has(message.author.id)) {
-            let msg = await message.channel.send("That command is on cooldown");
-            message.delete(1000);
-            msg.delete(3000);
-=======
 
         if (message.content.indexOf(settings.prefix) !== 0) return;
 
@@ -88,7 +70,6 @@ module.exports = class {
         message.flags = [];
         while (args[0] && args[0][0] === '-') {
             message.flags.push(args.shift().slice(1));
->>>>>>> 2759f1ede7c8711d52a43b9a83f534ab8defce14
         }
 
         this.client.logger.info(
@@ -102,8 +83,4 @@ module.exports = class {
 
         cmd.run(message, args, level);
     }
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> 2759f1ede7c8711d52a43b9a83f534ab8defce14

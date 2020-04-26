@@ -4,15 +4,8 @@ const { readdirSync, readdir } = require('fs');
 const klaw = require('klaw');
 const Enmap = require('enmap');
 
-<<<<<<< HEAD
-const Config = require('./helper/Config');
-
 const Logger = require('./helper/Logger');
 
-=======
-const Logger = require('./helper/Logger');
-
->>>>>>> 2759f1ede7c8711d52a43b9a83f534ab8defce14
 const util = require('./util/Util');
 
 class YuiClient extends Client {
@@ -21,13 +14,7 @@ class YuiClient extends Client {
 
         this.logger = Logger;
 
-<<<<<<< HEAD
-        this.config = require('./config.js');
-
-        this.debug = this.config.debug || process.argv[2];
-=======
         this.config = require('./config');
->>>>>>> 2759f1ede7c8711d52a43b9a83f534ab8defce14
 
         this.commands = new Collection();
         this.aliases = new Collection();
