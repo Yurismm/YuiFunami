@@ -1,13 +1,18 @@
 const { MessageEmbed } = require("discord.js");
 const { join } = require("path");
 const { readdirSync } = require("fs");
+const Command = require('../../struct/Command');
 
-module.exports = {
+module.exports = class Debug extends Command{
+    constructor(client){
+        super(client, {    
     name: "debug",
     description: "Yui debug information.",
     aliases: ["information"],
-    category: "Utility",
-    async execute(message, args, client) {
+    category: "Utility"
+        })
+    }
+    async run(message, args) {
         let prefixes = [];
         let allCommands = [];
 
@@ -15,23 +20,21 @@ module.exports = {
             prefixes.push([prefix, client.prefixes[prefix]]);
         }
 
-        client.util.getDirectories(join(__dirname, "..")).forEach(d => {
+        this.client.util.getDirectories(join(__dirname, "..")).forEach(d => {
             let commands = readdirSync(join(__dirname, "..", d)).filter(file => file.endsWith(".js")).map(path => `${d}/${path}`);
             
             allCommands = allCommands.concat(...commands);
         });
 
-        let availableCommands = allCommands.length - client.commands.size;
+        let availableCommands = allCommands.length - this.client.commands.size;
         
         const embed = new MessageEmbed()
             .setTitle("Debug for Yui Funami:")
             .setColor("2f3136")
             .addField("Web:", "Inactive")
-            .addField("Prefixes:", `${prefixes.map(p => `${client.util.capitalize(p[0])}: ${p[1]}`)}`)
-            .addField("Commands:", `Loaded: ${client.commands.size}\nAvailable: ${availableCommands}`)
-            .addField("Auto:", `Loaded: ${client.autoCommands.size}\nPatterns: ${client.autoPatterns.map(p => `\`${p}\``).join(", ")}`)
+            .addField("Commands:", `Loaded: ${this.client.commands.size}\nAvailable: ${availableCommands}`)
             .addField("Permissions:", `Add Reactions: ${message.guild.me.hasPermission("ADD_REACTIONS")}\nManage Messages: ${message.guild.me.hasPermission("MANAGE_MESSAGES")}\nRead Messages: ${message.guild.me.hasPermission("VIEW_CHANNEL")}\nRead Message History: ${message.guild.me.hasPermission("READ_MESSAGE_HISTORY")}\nSend Messages: ${message.guild.me.hasPermission("SEND_MESSAGES")}`);
 
         return message.channel.send(embed);
     }
-};
+}

@@ -63,6 +63,22 @@ module.exports = class Util {
         }).join("");
     }
 
+       /**
+     * Finds a member from a string, mention, or id
+     * @property {string} msg The message to process
+     * @property {string} suffix The username to search for
+     * @property {bool} self Whether or not to default to yourself if no results are returned. Defaults to false.
+     */
+    static findMember(msg, suffix, self = false) {
+        if (!suffix) {
+            if (self) return msg.member;
+            else return null;
+        } else {
+            let member = msg.mentions.members.first() || msg.guild.members.cache.get(suffix) || msg.guild.members.cache.find(m => m.displayName.toLowerCase().includes(suffix.toLowerCase()) || m.user.username.toLowerCase().includes(suffix.toLowerCase()));
+            return member;
+        }
+    }
+
     static wide(text) {
         return text.split("").join(" ");
     }

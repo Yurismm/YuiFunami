@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-
+const Command = require('../../struct/Command')
 const categoryDescriptions = {
     administrative: "Commands related to Yui's core process.\n\nUsage restricted to bot-owners only.",
     fun: "Commands that are fun in some way, such as being a game, or being funny.",
@@ -8,25 +8,24 @@ const categoryDescriptions = {
     utility: "Utility commands. There to be helpful... Sometimes..."
 };
 
-module.exports = {
+module.exports = class Help extends Command{
+    constructor(client){
+        super(client, {
+    
     name: "help",
     description: "Lists all of my commands or information related to a singularity",
     usage: "<?command|category|args>",
-    category: "Information",
-    credits: [
-        {
-            name: "Async",
-            for: "Inspiration"
-        }
-    ],
-    execute(message, args, client) {
-        let prefix = client.prefixes.global;
+})
+}
+    async run(message, args) {
+        const settings = this.client.getSettings(message.guild);
+        const prefix = settings.prefix || this.client.config.defaultSettings.prefix
 
         if(!args.length) {
             const embed = new MessageEmbed()
                 .setTitle("Command Categories:")
                 .setColor("2f3136")
-                .setDescription(client.rawCategories.map(c => `≫ ${client.util.capitalize(c.toLowerCase())}`).concat(["≫ All"]).sort().join("\n"))
+                .setDescription(this.client.categories.map(c => `≫ ${this.client.util.capitalize(c.toLowerCase())}`).concat(["≫ All"]).sort().join("\n"))
                 .setFooter(`Use ${prefix}help <command> to see more information about a category, and the commands that fall into it.`);
 
             return message.channel.send(embed);
@@ -35,13 +34,13 @@ module.exports = {
         const name = args[0].toLowerCase();
         let result;
 
-        if(!client.rawCategories.includes(args[0].toUpperCase()) && client.commands.get(name) || !client.rawCategories.includes(args[0].toUpperCase()) && client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(name))) {
-            result = client.commands.get(name) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(name));
+        if(!this.client.categories.includes(args[0].toUpperCase()) && this.client.commands.get(name) || !this.client.categories.includes(args[0].toUpperCase()) && this.client.commands.find(cmd => cmd.conf.aliases && cmd.conf.aliases.includes(name))) {
+            result = this.client.commands.get(name) || this.client.commands.find(cmd => cmd.conf.aliases && cmd.conf.aliases.includes(name));
             let description = `Name: ${result.name}\nCategory: ${result.category}`;
 
-            if (result.aliases) description += `\nAliases: ${result.aliases.join(", ")}`;
-            if (result.description) description += `\nDescription: ${result.description}`;
-            if (result.usage) description += `\nUsage: ${client.prefixes.global}${result.name} ${result.usage}`;
+            if (result.conf.aliases) description += `\nAliases: ${result.conf.aliases.join(", ")}`;
+            if (result.help.description) description += `\nDescription: ${result.help.description}`;
+            if (result.help.usage) description += `\nUsage: ${prefix}${result.help.name} ${result.help.usage}`;
 
             description += `\nCooldown: ${result.cooldown || 3} second(s)`;
 
@@ -50,11 +49,12 @@ module.exports = {
                 .setColor("2f3136");
 
             return message.channel.send(embed);
-        } else if(client.rawCategories.includes(args[0].toUpperCase())) {
-            result = client.util.capitalize(args[0]);
-
-            let cmds = client.commands.filter(c => {
-                if(client.util.capitalize(c.category) == result && (!c.disabled || !c.hidden || !c.adminOnly)) return true;
+        } else if(this.client.categories.includes(args[0].toUpperCase())) {
+            result = this.client.util.capitalize(args[0]);
+            
+            let cmds = this.client.commands.filter(c => {
+                console.log(c.conf.location)
+                if(this.client.util.capitalize(c.conf.location) == result && (!c.disabled || !c.hidden || !c.adminOnly)) return true;
                 else return false;
             }).map(c => {
                 if(c.allCaps === true) return c.name.toUpperCase();
@@ -73,11 +73,7 @@ module.exports = {
             const embed = new MessageEmbed()
                 .setTitle("Listing all available commands:")
                 .setColor("2f3136")
-                .setDescription(`${client.commands.filter(cmd => {
-                    if(!cmd.permissions) return true;
-                    if(client.check(cmd.permissions, 0) || client.check(cmd.permissions, 2) || client.check(cmd.permissions, 3)) return false;
-                    else return true;
-                }).map(c => c.name).join(", ")}\n\nUse \`${prefix}help <category>\` to see more information about a specific category.\nUse \`${prefix}help <command>\` to see more information about a specific command.`);
+                .setDescription(`${this.client.commands.map(c => c.name).join(", ")}\n\nUse \`${prefix}help <category>\` to see more information about a specific category.\nUse \`${prefix}help <command>\` to see more information about a specific command.`);
             
             return message.channel.send(embed);
         } else if (args[0] == "args" || args[0] == "arguments") {

@@ -17,7 +17,7 @@ const config = {
     token: process.env.BOT_TOKEN,
 
     defaultSettings: {
-        prefix: '-',
+        prefix: '>$',
         modLogChannel: 'mod-log',
         modRole: 'Moderator',
         adminRole: 'Administrator',

@@ -16,9 +16,9 @@ class YuiClient extends Client {
 
         this.config = require('./config');
 
+        
         this.commands = new Collection();
         this.aliases = new Collection();
-
         this.settings = new Enmap({
             name: 'settings',
             cloneLevel: 'deep',
@@ -175,11 +175,12 @@ class YuiClient extends Client {
             .map((dirent) => dirent.name);
 }
 
+
 const client = new YuiClient();
 
 const init = async () => {
     const categories = await client.getDirectories(join(__dirname, 'commands'));
-
+    client.categories  = categories
     categories.forEach((c) => {
         klaw(join(__dirname, 'commands', c)).on('data', (item) => {
             const cmdFile = parse(item.path);

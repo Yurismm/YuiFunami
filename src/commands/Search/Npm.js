@@ -1,15 +1,20 @@
 const axios = require("axios");
 const { MessageEmbed } = require("discord.js");
 const { format } = require("date-fns");
-
-module.exports = {
-    name: "npm",
-    description: "Search NPM for the supplied package.",
-    category: "Search",
-    args: true,
-    usage: "<package>",
-    allCaps: true,
-    async execute(message, args, client) {
+const Command = require('../../struct/Command')
+module.exports = class Npm extends Command{
+    constructor(client){
+        super(client, {
+            name: "npm",
+            description: "Search NPM for the supplied package.",
+            category: "Search",
+            args: true,
+            usage: "<package>",
+            allCaps: true,
+    })
+}
+   
+    async run(message, args) {
         let search = args.join(" ");
         let notFound = false;
 
@@ -24,8 +29,8 @@ module.exports = {
         if (res.time.unpublished) return message.channel.send("That package is no longer available.");
 
 		const version = res.versions[res["dist-tags"].latest];
-		const maintainers = client.util.trimArray(res.maintainers.map(user => user.name));
-		const dependencies = version.dependencies ? client.util.trimArray(Object.keys(version.dependencies), 10, `https://npmjs.com/${search}?activeTab=dependencies`) : undefined;
+		const maintainers = this.client.util.trimArray(res.maintainers.map(user => user.name));
+		const dependencies = version.dependencies ? this.client.util.trimArray(Object.keys(version.dependencies), 10, `https://npmjs.com/${search}?activeTab=dependencies`) : undefined;
 
         const embed = new MessageEmbed()
             .setColor("2f3136")

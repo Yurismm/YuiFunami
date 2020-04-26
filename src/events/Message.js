@@ -18,18 +18,19 @@ module.exports = class {
         const settings = this.client.getSettings(message.guild);
 
         message.settings = settings;
+        const prefix = settings.prefix || this.client.config.defaultSettings.prefix
 
         const prefixMention = new RegExp(`^<@!?${this.client.user.id}> ?$`);
         if (message.content.match(prefixMention)) {
             return message.reply(
-                `My prefix on this guild is \`${settings.prefix}\``
+                `My prefix on this guild is \`${prefix}\``
             );
         }
-
+      
         if (message.content.indexOf(settings.prefix) !== 0) return;
 
         const args = message.content
-            .slice(this.client.config.defaultSettings.prefix.length)
+            .slice(prefix.length)
             .trim()
             .split(/ +/g);
         const command = args.shift().toLowerCase();
@@ -72,14 +73,6 @@ module.exports = class {
             message.flags.push(args.shift().slice(1));
         }
 
-        this.client.logger.info(
-            `${
-                this.client.config.permLevels.find((l) => l.level === level)
-                    .name
-            } ${message.author.username} (${message.author.id}) ran command ${
-                cmd.help.name
-            }`
-        );
 
         cmd.run(message, args, level);
     }
