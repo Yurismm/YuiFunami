@@ -21,7 +21,7 @@ const config = {
     trello_token:process.env.trello_token,
 
     defaultSettings: {
-        prefix: ">$",
+        prefix: "$",
         modLogChannel: "mod-log",
         modRole: "Moderator",
         adminRole: "Administrator",

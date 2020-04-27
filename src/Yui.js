@@ -110,9 +110,13 @@ class YuiClient extends Client {
             .replace(/`/g, '`' + String.fromCharCode(8203))
             .replace(/@/g, '@' + String.fromCharCode(8203))
             .replace(
-                this.token,
-                'mfa.VkO_2G4Qv3T--NO--lWetW_tjND--TOKEN--QFTm6YGtzq9PH--4U--tG0'
-            );
+                this.config.token,
+                '[REMOVED]'
+            )
+            .replace(this.config.cb_token, '[REDACTED]')
+            .replace(this.config.repo_token, '[CENSORED]')
+            .replace(this.config.trello_key, '[CLASSIFIED]')
+            .replace(this.config.trello_token,'[FORBIDDEN]')
 
         return text;
     }

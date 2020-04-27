@@ -3,3 +3,4 @@ log.txt
 yarn-error.log
 .env
 data
+src\config.js
