@@ -1,17 +1,19 @@
 const { createCanvas, loadImage, registerFont } = require("canvas");
 const { join } = require("path");
 registerFont(join(__dirname, "..", "..", "..", "assets", "font", "Smash.ttf"), { family: "Smash" });
-
-module.exports = {
+const Command = require("../../struct/Command");
+module.exports = class Challenger extends Command{
+    constructor(client){
+        super(client,{
     name: "challenger",
     aliases: ["smash"],
     description: "Sends a smash announcement.",
-    category: "Fun",
-    preventDefaultError: true,
-    async execute(message,args,client) {
+    });
+}
+    async run(message,args) {
         const conjoined = args.join(" ");
         try {
-            const mention = client.findMember(message,conjoined,true);
+            const mention = this.client.util.findMember(message,conjoined,true);
             const avatar = await loadImage(mention.user.displayAvatarURL({format: "jpg"}));
             const text = mention.displayName;
             const base = await loadImage(join(__dirname, "..", "..", "..", "assets", "image", "bin", "challenger.jpg"));
@@ -20,7 +22,7 @@ module.exports = {
             ctx.drawImage(base, 0, 0);
             ctx.font = "50px Smash";
             ctx.fillStyle = "#ffffff";
-            radians = (-3 * Math.PI / 180);
+            let radians = (-3 * Math.PI / 180);
             ctx.rotate(radians);
             ctx.fillText(text, 500, 170);
             ctx.rotate(-radians);
@@ -33,8 +35,8 @@ module.exports = {
         }catch(error){
             throw error.message;
         }
-    },
-    async error(message, args, client, error) {
+    }
+    async error(message, args, error) {
         return message.channel.send(`\`\`\`${error}\`\`\``);
     }
 };

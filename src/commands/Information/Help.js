@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const Command = require('../../struct/Command')
+const Command = require("../../struct/Command");
 const categoryDescriptions = {
     developer: "Commands related to Yui's core process.\n\nUsage restricted to bot-owners only.",
     fun: "Commands that are fun in some way, such as being a game, or being funny.",
@@ -14,17 +14,17 @@ module.exports = class Help extends Command{
     name: "help",
     description: "Lists all of my commands or information related to a singularity",
     usage: "<?command|category|args>",
-})
+});
 }
     async run(message, args) {
         const settings = this.client.getSettings(message.guild);
-        const prefix = settings.prefix || this.client.config.defaultSettings.prefix
+        const prefix = settings.prefix || this.client.config.defaultSettings.prefix;
 
         if(!args.length) {
             const embed = new MessageEmbed()
                 .setTitle("Command Categories:")
                 .setColor("2f3136")
-                .setDescription(this.client.categories.map(c => `≫ ${this.client.util.capitalize(c.toLowerCase())}`).concat(["≫ All"]).sort().join("\n"))
+                .setDescription(this.client.categories.map(c => `≫ ${this.client.util.firstUpperCase(c)}`).concat(["≫ All"]).sort().join("\n"))
                 .setFooter(`Use ${prefix}help <command> to see more information about a category, and the commands that fall into it.`);
 
             return message.channel.send(embed);
@@ -33,7 +33,7 @@ module.exports = class Help extends Command{
         const name = args[0].toLowerCase();
         let result;
 
-        if(!this.client.categories.includes(args[0].toUpperCase()) && this.client.commands.get(name) || !this.client.categories.includes(args[0].toUpperCase()) && this.client.commands.find(cmd => cmd.conf.aliases && cmd.conf.aliases.includes(name))) {
+        if(!this.client.categories.includes(this.client.util.firstUpperCase(args[0])) && this.client.commands.get(name) || !this.client.categories.includes(this.client.util.firstUpperCase(args[0])) && this.client.commands.find(cmd => cmd.conf.aliases && cmd.conf.aliases.includes(name))) {
             result = this.client.commands.get(name) || this.client.commands.find(cmd => cmd.conf.aliases && cmd.conf.aliases.includes(name));
             let description = `Name: ${result.help.name}\nCategory: ${result.category}`;
 
@@ -48,16 +48,17 @@ module.exports = class Help extends Command{
                 .setColor("2f3136");
 
             return message.channel.send(embed);
-        } else if(this.client.categories.includes(args[0].toUpperCase())) {
-            result = this.client.util.capitalize(args[0]);
+        } else if(this.client.categories.includes(this.client.util.firstUpperCase(args[0]))) {
+            result = this.client.util.firstUpperCase(args[0]);
             
             let cmds = this.client.commands.filter(c => {
                 
-                if(this.client.util.capitalize(c.help.category) == result && (!c.disabled || !c.hidden || !c.adminOnly)) return true;
-                else return false;
+                if(c.help.category == result) {
+                    return true;
+                }
+                else {return false;}
             }).map(c => {
-                if(c.allCaps === true) return c.help.name.toUpperCase();
-                else return c.help.name.toLowerCase();
+                return c.help.name;
             });
 
             const embed = new MessageEmbed()
@@ -72,7 +73,7 @@ module.exports = class Help extends Command{
             const embed = new MessageEmbed()
                 .setTitle("Listing all available commands:")
                 .setColor("2f3136")
-                .setDescription(`${this.client.commands.map(c => c.help.name).join(", ")}\n\nUse \`${prefix}help <category>\` to see more information about a specific category.\nUse \`${prefix}help <command>\` to see more information about a specific command.`);
+                .setDescription(`${this.client.commands.map(c => c.help.name).sort().join(", ")}\n\nUse \`${prefix}help <category>\` to see more information about a specific category.\nUse \`${prefix}help <command>\` to see more information about a specific command.`);
             
             return message.channel.send(embed);
         } else if (args[0] == "args" || args[0] == "arguments") {

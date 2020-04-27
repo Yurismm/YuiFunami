@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { join } = require("path");
 const { readdirSync } = require("fs");
-const Command = require('../../struct/Command');
+const Command = require("../../struct/Command");
 
 module.exports = class Debug extends Command{
     constructor(client){
@@ -9,7 +9,7 @@ module.exports = class Debug extends Command{
     name: "debug",
     description: "Yui debug information.",
     aliases: ["information"],
-        })
+        });
     }
     async run(message, args) {
         let prefixes = [];
@@ -36,4 +36,4 @@ module.exports = class Debug extends Command{
 
         return message.channel.send(embed);
     }
-}
+};

@@ -12,7 +12,7 @@ module.exports = class Info extends Command {
   }
   async run(message, args) {
     const { data: updated } = await axios({
-      url: this.client.githubAPI + "/commits",
+      url: this.client.config.githubAPI + "/commits",
       method: "get",
       headers: {
         Authorization: `token ${this.client.config.repo_token}`,

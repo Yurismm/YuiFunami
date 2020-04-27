@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const axios = require("axios");
-const Command = require('../../struct/Command')
+const Command = require("../../struct/Command");
 module.exports = class Changelog extends Command{
     constructor(client){
         super(client, {
@@ -8,11 +8,11 @@ module.exports = class Changelog extends Command{
     name: "changelog",
     aliases: ["updates", "commits", "update", "cl"],
     description: "Responds with Yui's ten most recent Git commits.",
-})
+});
 }
     async run(message, args) {
         const { data: res } = await axios({
-            url: this.client.githubAPI + "/commits",
+            url: this.client.config.githubAPI + "/commits",
             headers: {
                 "Authorization": `token ${this.client.config.repo_token}`,
                 "User-Agent": "Yui Funami",

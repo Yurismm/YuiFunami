@@ -1,15 +1,15 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const config = {
-    ownerID: '358970589697933314',
+    ownerID: "358970589697933314",
 
     admins: [
-        '228872946557386752', // xgrvaeli
-        '210324193391149056', // Dodo
-        '358970589697933314', // Cherie
-        '205014454042099712', // Meliodas
-        '460892852889845780', // MendtheMiner
-        '293159670040887297', // mariobob
+        "228872946557386752", // xgrvaeli
+        "210324193391149056", // Dodo
+        "358970589697933314", // Cherie
+        "205014454042099712", // Meliodas
+        "460892852889845780", // MendtheMiner
+        "293159670040887297", // mariobob
     ],
 
     support: [],
@@ -21,33 +21,33 @@ const config = {
     trello_token:process.env.trello_token,
 
     defaultSettings: {
-        prefix: '>$',
-        modLogChannel: 'mod-log',
-        modRole: 'Moderator',
-        adminRole: 'Administrator',
-        systemNotice: 'true',
-        welcomeChannel: 'welcome',
+        prefix: ">$",
+        modLogChannel: "mod-log",
+        modRole: "Moderator",
+        adminRole: "Administrator",
+        systemNotice: "true",
+        welcomeChannel: "welcome",
         welcomeMessage:
-            'Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D',
-        welcomeEnabled: 'false',
+            "Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D",
+        welcomeEnabled: "false",
     },
 
     inviteURL:
-        'https://discordapp.com/oauth2/authorize?client_id=456910763504697363&scope=bot&permissions=8',
-    githubURL: 'https://github.com/xgrvaeli/YuiFunami',
-    githubAPI: 'https://api.github.com/repos/xgrvaeli/YuiFunami',
+        "https://discordapp.com/oauth2/authorize?client_id=456910763504697363&scope=bot&permissions=8",
+    githubURL: "https://github.com/xgrvaeli/YuiFunami",
+    githubAPI: "https://api.github.com/repos/xgrvaeli/YuiFunami",
 
     permLevels: [
         {
             level: 0,
-            name: 'User',
+            name: "User",
             check: () => true,
         },
         
 
         {
             level: 2,
-            name: 'Moderator',
+            name: "Moderator",
             check: (message) => {
                 try {
                     const modRole = message.guild.roles.cache.find(
@@ -65,7 +65,7 @@ const config = {
 
         {
             level: 3,
-            name: 'Administrator',
+            name: "Administrator",
             check: (message) => {
                 try {
                     const adminRole = message.guild.roles.cache.find(
@@ -84,9 +84,9 @@ const config = {
         },
         {
             level: 4,
-            name: 'Server Owner',
+            name: "Server Owner",
             check: (message) =>
-                message.channel.type === 'text'
+                message.channel.type === "text"
                     ? message.guild.owner.user.id === message.author.id
                         ? true
                         : false
@@ -95,19 +95,19 @@ const config = {
 
         {
             level: 8,
-            name: 'Bot Support',
+            name: "Bot Support",
             check: (message) => config.support.includes(message.author.id),
         },
 
         {
             level: 9,
-            name: 'Bot Admin',
+            name: "Bot Admin",
             check: (message) => config.admins.includes(message.author.id),
         },
 
         {
             level: 10,
-            name: 'Bot Owner',
+            name: "Bot Owner",
             check: (message) =>
                 message.client.config.ownerID === message.author.id,
         },

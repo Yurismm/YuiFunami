@@ -3,13 +3,13 @@ class Command {
         client,
         {
             name = null,
-            description = 'No description provided.',
-            category = 'Information',
-            usage = 'No usage provided.',
+            description = "No description provided.",
+            category = "Information",
+            usage = "No usage provided.",
             enabled = true,
             guildOnly = true,
             aliases = new Array(),
-            permLevel = 'User',
+            permLevel = "User",
         }
     ) {
         this.client = client;

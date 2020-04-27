@@ -1,14 +1,13 @@
-const Command = require('../../struct/Command');
+const Command = require("../../struct/Command");
 
-class Eval extends Command {
+module.exports = class Eval extends Command {
     constructor(client) {
         super(client, {
-            name: 'eval',
-            description: 'Evaluates arbitrary Javascript.',
-            category: 'System',
-            usage: 'eval <expression>',
-            aliases: ['ev'],
-            permLevel: 'Bot Admin',
+            name: "eval",
+            description: "Evaluates arbitrary Javascript.",
+            usage: "eval <expression>",
+            aliases: ["ev"],
+            permLevel: "Bot Admin",
         });
     }
 
@@ -39,6 +38,5 @@ class Eval extends Command {
             );
         }
     }
-}
+};
 
-module.exports = Eval;

@@ -1,7 +1,7 @@
 const { join } = require("path");
 const { readdirSync } = require("fs");
 const { performance } = require("perf_hooks");
-const Command = require('../../struct/Command')
+const Command = require("../../struct/Command");
 module.exports = class Load extends Command{
     constructor(client){
         super(client, {
@@ -11,7 +11,7 @@ module.exports = class Load extends Command{
     usage: "<command|all>",
     aliases: ["l"],
     permissions: ["Bot Admin"],
-        })
+        });
     }
     async run(message, args) {
         if(args[0].toLowerCase() == "all" || args[0].toLowerCase() == "a") {
@@ -32,7 +32,7 @@ module.exports = class Load extends Command{
                 const cmd = require(`../${c}`);
                 
                 if(this.client.commands.get(cmd.name)) return;
-                if (!this.client.rawCategories.includes(cmd.category.toUpperCase())) return message.channel.send(`${cmd.name}'s category must match one of ${this.client.rawCategories}. Got ${cmd.category} instead.`);
+                if (!this.client.categories.includes(cmd.help.category)) return message.channel.send(`${cmd.help.name}'s category must match one of ${this.client.categories}. Got ${cmd.help.category} instead.`);
                 if(cmd.auto && cmd.patterns) {
                     cmd.patterns.forEach(p => {
                         this.client.autoCommands.set(p, cmd);
@@ -40,9 +40,8 @@ module.exports = class Load extends Command{
                     });
                 }
                 
-                cmd.ABSOLUTE_PATH = c;
-                if (!cmd.permissions || typeof cmd.permissions !== "object") cmd.permissions = [];
-                this.client.commands.set(cmd.name, cmd);
+                
+                this.client.commands.set(cmd.help.name, cmd);
                 newCommands++;
             });
 
@@ -66,20 +65,13 @@ module.exports = class Load extends Command{
             
             let cmd = require(`../${path}`);
 
-            if(cmd.auto && cmd.patterns) {
-                cmd.patterns.forEach(p => {
-                    this.client.autoCommands.set(p, cmd);
-                    this.client.autoPatterns.push(p);
-                });
-            }
 
-            if (!this.client.rawCategories.includes(cmd.category.toUpperCase()) || !cmd.category) return message.channel.send(`${cmd.name}'s category must match one of ${this.client.rawCategories}. Got ${cmd.category ? cmd.category : "no category"} instead.`);
+            if (!this.client.categories.includes(cmd.help.category)) return message.channel.send(`${cmd.help.name}'s category must match one of ${this.client.categories}. Got ${cmd.help.category ? cmd.help.category : "no category"} instead.`);
 
-            cmd.ABSOLUTE_PATH = path;
-            if (!cmd.permissions || typeof cmd.permissions !== "object") cmd.permissions = [];
-            this.client.commands.set(cmd.name, cmd);
+          
+            this.client.commands.set(cmd.help.name, cmd);
 
-            return message.channel.send(`Successfully loaded \`${cmd.name}\`. It's recommended you run \`$rebuild_auto\` now.`);
+            return message.channel.send(`Successfully loaded \`${cmd.help.name}\`. It's recommended you run \`$rebuild_auto\` now.`);
         }
     }
 };

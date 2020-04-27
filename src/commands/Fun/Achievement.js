@@ -2,15 +2,16 @@ const { createCanvas, loadImage, registerFont } = require("canvas");
 const { join } = require("path");
 const { shortenText } = require("../../util/Canvas");
 registerFont(join(__dirname, "..", "..", "..", "assets", "font", "Minecraftia.ttf"), { family: "Minecraftia" });
-
-module.exports = {
+const Command = require("../../struct/Command");
+module.exports = class Achievement extends Command{
+    constructor(client){
+        super(client, {
     name: "achievement",
     aliases: ["minecraft-achievement"],
     description: "Sends a Minecraft achievement with the text of your choice.",
-    args: true,
-    category: "Fun",
-    preventDefaultError: true,
-    async execute(message, args) {
+        });
+    }
+    async run(message, args) {
         try {
             const text = args.join(" ");
             const base = await loadImage(join(__dirname, "..", "..", "..", "assets", "image", "bin", "achievement.png"));
@@ -26,8 +27,8 @@ module.exports = {
         }catch(error){
             throw error.message;
         }
-    },
-    async error(message, args, client, error) {
+    }
+    async error(message, args, error) {
         return message.channel.send(`\`\`\`${error}\`\`\``);
     }
 };

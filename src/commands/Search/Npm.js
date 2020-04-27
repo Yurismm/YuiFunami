@@ -1,16 +1,14 @@
 const axios = require("axios");
 const { MessageEmbed } = require("discord.js");
 const { format } = require("date-fns");
-const Command = require('../../struct/Command')
+const Command = require("../../struct/Command");
 module.exports = class Npm extends Command{
     constructor(client){
         super(client, {
             name: "npm",
             description: "Search NPM for the supplied package.",
-            args: true,
             usage: "<package>",
-            allCaps: true,
-    })
+    });
 }
    
     async run(message, args) {

@@ -11,14 +11,14 @@ module.exports = class {
             message.guild &&
             !message.channel
                 .permissionsFor(message.guild.me)
-                .missing('SEND_MESSAGES')
+                .missing("SEND_MESSAGES")
         )
             return;
 
         const settings = this.client.getSettings(message.guild);
 
         message.settings = settings;
-        const prefix = settings.prefix || this.client.config.defaultSettings.prefix
+        const prefix = settings.prefix || this.client.config.defaultSettings.prefix;
 
         const prefixMention = new RegExp(`^<@!?${this.client.user.id}> ?$`);
         if (message.content.match(prefixMention)) {
@@ -47,11 +47,11 @@ module.exports = class {
 
         if (cmd && !message.guild && cmd.conf.guildOnly)
             return message.channel.send(
-                'This command is unavailable via private message. Please run this command in a guild.'
+                "This command is unavailable via private message. Please run this command in a guild."
             );
 
         if (level < this.client.levelCache[cmd.conf.permLevel]) {
-            if (settings.systemNotice === 'true') {
+            if (settings.systemNotice === "true") {
                 return message.channel
                     .send(`You do not have permission to use this command.
         Your permission level is ${level} (${
@@ -69,7 +69,7 @@ module.exports = class {
         message.author.permLevel = level;
 
         message.flags = [];
-        while (args[0] && args[0][0] === '-') {
+        while (args[0] && args[0][0] === "-") {
             message.flags.push(args.shift().slice(1));
         }
 

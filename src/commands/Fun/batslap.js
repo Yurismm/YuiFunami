@@ -1,15 +1,17 @@
 const { createCanvas, loadImage } = require("canvas");
 const { join } = require("path");
-
-module.exports = {
+const Command = require("../../struct/Command");
+module.exports = class Batslap extends Command{
+  constructor(client){
+    super(client, {
+  
   name: "batslap",
   aliases: ["slap"],
   description: "slap someone",
-  args: true,
   usage: "<@mention>",
-  category: "Fun",
-  preventDefaultError: true,
-  async execute(message,args,client) {
+    });
+  }
+  async run(message,args) {
     const conjoined = args.join(" ");
     try {
       const base = await loadImage(join(__dirname,"..","..","..","assets","image","bin","batslap.jpg"));
@@ -23,7 +25,7 @@ module.exports = {
       ctx.closePath();
       ctx.clip();
 
-      const mentionAvatar = await loadImage(client.findMember(message,conjoined,true).user.displayAvatarURL({format: "jpg"}));
+      const mentionAvatar = await loadImage(this.client.util.findMember(message,conjoined,true).user.displayAvatarURL({format: "jpg"}));
     
       ctx.drawImage(mentionAvatar, 220, 240, 300, 300);
       
@@ -37,8 +39,8 @@ module.exports = {
     } catch (error) {
       throw error.message;
     }
-  },
-  async error(message, args, client, error) {
+  }
+  async error(message, args,error) {
     return message.channel.send(`\`\`\`${error}\`\`\``);
-  },
+  }
 };

@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const axios = require("axios");
 const { format } = require("date-fns");
-const Command = require('../../struct/Command')
+const Command = require("../../struct/Command");
 module.exports = class Stars extends Command{
     constructor(client){
         super(client, {
@@ -9,13 +9,13 @@ module.exports = class Stars extends Command{
     name: "stats",
     description: "On the dot statistics.",
     aliases: ["statistics"],
-})
+});
 }
     async run(message, args) {
         const sent = await message.channel.send("Performing calculations...");
 
         const { data: updated } = await axios({
-            url: this.client.githubAPI + "/commits",
+            url: this.client.config.githubAPI + "/commits",
             method: "get",
             headers: {
                 "Authorization": `token ${this.client.config.repo_token}`,

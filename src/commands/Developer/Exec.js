@@ -1,5 +1,5 @@
 const { exec } = require("child_process");
-const Command = require('../../struct/Command')
+const Command = require("../../struct/Command");
 module.exports = class Execute extends Command{
     constructor(client){
         super(client,{
@@ -8,8 +8,7 @@ module.exports = class Execute extends Command{
     description: "Execute command-line level statements as if you were on the command line.",
     usage: "<command>",
     permissions: ["Bot Admin"],
-    preventDefaultError: true,
-        })
+        });
     }
     async run(message, args) {
         try {

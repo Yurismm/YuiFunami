@@ -1,14 +1,17 @@
 const axios = require("axios");
 const { MessageEmbed } = require("discord.js");
-
-module.exports = {
+const Command = require("../../struct/Command");
+module.exports = class Cat extends Command{
+    constructor(client){
+        super(client,{
     name: "cat",
     description: "Finds cat.",
-    category: "Fun",
-    async execute(message, args, client) {
+    });
+}
+    async run(message, args, ) {
         const { data: cat } = await axios.get("https://api.chewey-bot.top/cat", {
             headers: {
-                "Authorization": client.config.secret["cb-token"] 
+                "Authorization": this.client.config.cb_token
             }
         });
         const embed = new MessageEmbed()

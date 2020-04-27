@@ -1,16 +1,18 @@
 const { createCanvas, loadImage } = require("canvas");
 const { join } = require("path");
 const { shortenText } = require("../../util/Canvas");
-
-module.exports = {
+const Command = require("../../struct/Command");
+module.exports = class Missing extends Command{
+    constructor(client){
+        super(client,{
     name: "missing",
     description: "Person is missing.",
-    category: "Fun",
-    preventDefaultError: true,
-    async execute(message,args,client) {
+        });
+    }
+    async run(message,args) {
         const conjoined = args.join(" ");
         try{
-            const mention = client.findMember(message,conjoined,true);
+            const mention = this.client.util.findMember(message,conjoined,true);
             const avatar = await loadImage(mention.user.displayAvatarURL({format: "jpg"}));
             const base = await loadImage(join(__dirname,"..","..","..","assets","image","bin","missing.jpg"));
             const canvas = createCanvas(base.width, base.height);
@@ -33,9 +35,9 @@ module.exports = {
         } catch (error) {
             throw error.message;
         }
-    },
-    async error(message, args, client, error) {
+    }
+    async error(message, args,error) {
         return message.channel.send(`\`\`\`${error}\`\`\``);
-    },
+    }
 };
  

@@ -26,20 +26,6 @@ class YuiClient extends Client {
             autoFetch: true,
         });
 
-        this.rawCategories = [
-            'DEVELOPER',
-            'FUN',
-            'INFORMATION',
-            'SEARCH',
-            'UTILITY',
-        ];
-
-        this.rawPermissions = [
-            'DEVELOPER', // Developer Only
-            'GUILDONLY', // Guild Only
-            'DISABLED', // Disabled
-            'HIDDEN', // Hidden
-        ];
 
         this.util = util;
 
@@ -181,7 +167,7 @@ const client = new YuiClient();
 
 const init = async () => {
     const categories = await client.getDirectories(join(__dirname, 'commands'));
-    client.categories  = categories.map(c => c.toUpperCase())
+    client.categories  = categories
     categories.forEach((c) => {
         klaw(join(__dirname, 'commands', c)).on('data', (item) => {
             const cmdFile = parse(item.path);
