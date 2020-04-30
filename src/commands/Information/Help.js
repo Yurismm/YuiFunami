@@ -35,7 +35,7 @@ module.exports = class Help extends Command{
 
         if(!this.client.categories.includes(this.client.util.firstUpperCase(args[0])) && this.client.commands.get(name) || !this.client.categories.includes(this.client.util.firstUpperCase(args[0])) && this.client.commands.find(cmd => cmd.conf.aliases && cmd.conf.aliases.includes(name))) {
             result = this.client.commands.get(name) || this.client.commands.find(cmd => cmd.conf.aliases && cmd.conf.aliases.includes(name));
-            let description = `Name: ${result.help.name}\nCategory: ${result.category}`;
+            let description = `Name: ${result.help.name}\nCategory: ${result.help.category}`;
 
             if (result.conf.aliases) description += `\nAliases: ${result.conf.aliases.join(", ")}`;
             if (result.help.description) description += `\nDescription: ${result.help.description}`;
