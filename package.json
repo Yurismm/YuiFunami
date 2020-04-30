@@ -29,8 +29,6 @@
     "simple-ssh": "^1.0.0",
     "toml": "^3.0.0",
     "trello": "^0.10.0",
-    "trello-node-api": "^0.0.9",
-    "trello_tools": "^0.0.3",
     "winston": "^3.2.1"
   },
   "devDependencies": {

@@ -113,7 +113,7 @@ class YuiClient extends Client {
                 this.config.token,
                 '[REMOVED]'
             )
-            replace(this.config.cb_token, '[REDACTED]')
+            .replace(this.config.cb_token, '[REDACTED]')
             .replace(this.config.repo_token, '[CENSORED]')
             .replace(this.config.trello_key, '[CLASSIFIED]')
             .replace(this.config.trello_token,'[FORBIDDEN]')
