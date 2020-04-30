@@ -1,5 +1,7 @@
 node_modules
 log.txt
 yarn-error.log
+src/config.js
 .env
 data
+
