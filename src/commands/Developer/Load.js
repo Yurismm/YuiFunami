@@ -10,7 +10,7 @@ module.exports = class Load extends Command{
     description: "Load a command into the bot process",
     usage: "<command|all>",
     aliases: ["l"],
-    permissions: ["Bot Admin"],
+    permissions: "Bot Admin",
         });
     }
     async run(message, args) {

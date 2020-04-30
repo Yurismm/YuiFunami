@@ -7,7 +7,7 @@ module.exports = class Execute extends Command{
     name: "exec",
     description: "Execute command-line level statements as if you were on the command line.",
     usage: "<command>",
-    permissions: ["Bot Admin"],
+    permissions: "Bot Admin",
         });
     }
     async run(message, args) {

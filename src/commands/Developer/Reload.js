@@ -11,7 +11,7 @@ module.exports = class Reload extends Command{
     description: "Reload a command within the bot process",
     usage: "<command|all|config>",
     aliases: ["rl"],
-    permissions: ["Bot Admin"],
+    permissions: "Bot Admin",
         });
     }
     async run(message, args) {

@@ -10,7 +10,7 @@ module.exports = class Unload extends Command{
     description: "Unload a command from the bot process",
     usage: "<command|all>",
     aliases: ["ul"],
-    permissions: ["Bot Admin"],
+    permissions: "Bot Admin",
 });
 }
     async run(message, args) {

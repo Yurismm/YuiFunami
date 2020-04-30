@@ -2,8 +2,7 @@ const { Client, Collection } = require('discord.js');
 const { join, parse, sep } = require('path');
 const { readdirSync, readdir } = require('fs');
 const klaw = require('klaw');
-const Enmap = require('enmap');
-
+const Keyv = require('keyv')
 const Logger = require('./helper/Logger');
 
 const util = require('./util/Util');
@@ -19,12 +18,7 @@ class YuiClient extends Client {
         
         this.commands = new Collection();
         this.aliases = new Collection();
-        this.settings = new Enmap({
-            name: 'settings',
-            cloneLevel: 'deep',
-            fetchAll: false,
-            autoFetch: true,
-        });
+        this.prefixes = new Keyv('sqlite://data/prefixes.sqlite',{namespace: 'prefixes'});
 
 
         this.util = util;
@@ -121,28 +115,8 @@ class YuiClient extends Client {
         return text;
     }
 
-    getSettings(guild) {
-        const defaults = this.config.defaultSettings || {};
-        const guildData = this.settings.get(guild.id) || {};
-        const returnObject = {};
-        Object.keys(defaults).forEach((key) => {
-            returnObject[key] = guildData[key] ? guildData[key] : defaults[key];
-        });
-        return returnObject;
-    }
-
-    writeSettings(id, newSettings) {
-        const defaults = this.settings.get('default');
-        let settings = this.settings.get(id);
-        if (typeof settings != 'object') settings = {};
-        for (const key in newSettings) {
-            if (defaults[key] !== newSettings[key]) {
-                settings[key] = newSettings[key];
-            } else {
-                delete settings[key];
-            }
-        }
-        this.settings.set(id, settings);
+    async writeSettings(id) {
+     await this.prefixes.set(id, this.config.defaultSettings.prefix)
     }
 
     async awaitReply(msg, question, limit = 60000) {
@@ -195,7 +169,7 @@ const init = async () => {
         const eventName = file.split('.')[0];
         client.logger.info(`Loading Event: ${eventName}`);
         const event = new (require(join(__dirname, 'events', file)))(client);
-        client.on(eventName.toLowerCase(), (...args) => event.execute(...args));
+        client.on(eventName, (...args) => event.execute(...args));
         delete require.cache[require.resolve(join(__dirname, 'events', file))];
     });
 

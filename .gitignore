@@ -4,3 +4,4 @@ yarn-error.log
 src/config.js
 .env
 data
+database.sqlite

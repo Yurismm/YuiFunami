@@ -11,7 +11,7 @@ module.exports = class Trello extends Command{
     name: "trello",
     description: "Add or show stuff from the trello board.",
     usage: "<add|show> <info|todo|doing|done> <description>",
-    permissions: ["Bot Admin"],
+    permissions: "Bot Admin",
         });
     }
     async run(message, args) {

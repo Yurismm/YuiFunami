@@ -15,10 +15,9 @@ module.exports = class {
         )
             return;
 
-        const settings = this.client.getSettings(message.guild);
+        const prefixes = this.client.prefixes
 
-        message.settings = settings;
-        const prefix = settings.prefix || this.client.config.defaultSettings.prefix;
+        const prefix = await prefixes.get(message.guild.id) || this.client.config.defaultSettings.prefix;
 
         const prefixMention = new RegExp(`^<@!?${this.client.user.id}> ?$`);
         if (message.content.match(prefixMention)) {
@@ -27,7 +26,7 @@ module.exports = class {
             );
         }
       
-        if (message.content.indexOf(settings.prefix) !== 0) return;
+        if (message.content.indexOf(prefix) !== 0) return;
 
         const args = message.content
             .slice(prefix.length)
@@ -51,7 +50,6 @@ module.exports = class {
             );
 
         if (level < this.client.levelCache[cmd.conf.permLevel]) {
-            if (settings.systemNotice === "true") {
                 return message.channel
                     .send(`You do not have permission to use this command.
         Your permission level is ${level} (${
@@ -61,9 +59,7 @@ module.exports = class {
         This command requires level ${
             this.client.levelCache[cmd.conf.permLevel]
         } (${cmd.conf.permLevel})`);
-            } else {
-                return;
-            }
+        
         }
 
         message.author.permLevel = level;

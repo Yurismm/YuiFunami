@@ -5,7 +5,8 @@ const categoryDescriptions = {
     fun: "Commands that are fun in some way, such as being a game, or being funny.",
     information: "Commands related to Yui, such as statistics, or general information.\n\nAlso includes some commands to gather general information related to things such as users or servers.",
     search: "Search commands. Usually this means they query an outside API or service, but it can vary.",
-    utility: "Utility commands. There to be helpful... Sometimes..."
+    utility: "Utility commands. There to be helpful... Sometimes...",
+    config: "Commands to change settings for your guild"
 };
 
 module.exports = class Help extends Command{
@@ -17,8 +18,7 @@ module.exports = class Help extends Command{
 });
 }
     async run(message, args) {
-        const settings = this.client.getSettings(message.guild);
-        const prefix = settings.prefix || this.client.config.defaultSettings.prefix;
+        const prefix = await this.client.prefixes.get(message.guild.id) || this.client.config.defaultSettings.prefix;
 
         if(!args.length) {
             const embed = new MessageEmbed()
