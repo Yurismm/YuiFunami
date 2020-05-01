@@ -38,13 +38,7 @@ module.exports = class Info extends Command {
       )
       .addField(
         "Links:",
-        `Yui's source-code is available on [GitHub](${this.client.githubURL}).${
-          message.guild.ownerID == message.author.id
-            ? ""
-            : "\nYou can invite Yui to your server [here](" +
-              this.client.InviteURL +
-              ")."
-        }`
+        `Yui's source-code is available on [GitHub](${this.client.config.githubURL}).\nYou can invite Yui to your server [here](${this.client.config.inviteURL}).`
       )
       .setFooter(
         `Code last updated ${format(
