@@ -5,7 +5,7 @@ module.exports = class Starboard extends Command{
         super(client,{
             name: "starboard",
             description: "Set the starboard channel | Toggle starboard on and off",
-            usage: "<channel>",
+            usage: "<channel> or No arguments to disable",
             permLevel: "Administrator"
         });
     }
