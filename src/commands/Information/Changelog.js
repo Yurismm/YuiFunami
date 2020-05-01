@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const axios = require("axios");
 const Command = require("../../struct/Command");
+const colors = require('../../util/Colors')
 module.exports = class Changelog extends Command{
     constructor(client){
         super(client, {
@@ -24,7 +25,7 @@ module.exports = class Changelog extends Command{
 
         const embed = new MessageEmbed()
             .setTitle("[YuiBotRewrite:master] Latest Commits")
-            .setColor("2f3136")
+            .setColor(colors.embeds)
             .setURL(this.client.github)
             .setDescription(
                 commits.map(commit => {

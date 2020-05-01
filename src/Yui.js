@@ -19,6 +19,7 @@ class YuiClient extends Client {
         this.commands = new Collection();
         this.aliases = new Collection();
         this.prefixes = new Keyv('sqlite://data/prefixes.sqlite',{namespace: 'prefixes'});
+        this.starboards = new Keyv('sqlite://data/starboards.sqlite', {namespace: 'starboards'})
 
 
         this.util = util;
@@ -115,9 +116,6 @@ class YuiClient extends Client {
         return text;
     }
 
-    async writeSettings(id) {
-     await this.prefixes.set(id, this.config.defaultSettings.prefix)
-    }
 
     async awaitReply(msg, question, limit = 60000) {
         const filter = (m) => m.author.id === msg.author.id;

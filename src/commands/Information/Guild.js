@@ -1,5 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const Command = require("../../struct/Command");
+const colors = require('../../util/Colors')
 module.exports = class Guild extends Command {
   constructor(client) {
     super(client, {
@@ -26,7 +27,7 @@ module.exports = class Guild extends Command {
         `${message.guild.owner} (${message.guild.ownerID})`,
         true
       )
-      .setColor("2f3136");
+      .setColor(colors.embeds);
 
     return message.channel.send(embed);
   }

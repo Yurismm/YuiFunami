@@ -1,6 +1,8 @@
 const axios = require("axios");
 const { MessageEmbed } = require("discord.js");
 const Command = require("../../struct/Command");
+const colors = require('../util/Colors')
+
 module.exports = class Bird extends Command{
     constructor(client){
         super(client, {
@@ -18,7 +20,7 @@ module.exports = class Bird extends Command{
         const embed = new MessageEmbed()
             .setImage(birb.data)
             .setFooter("Powered by api.chewey-bot.top")
-            .setColor("2f3136");
+            .setColor(colors.embeds);
 
         return message.channel.send(embed);
     }

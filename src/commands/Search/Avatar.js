@@ -1,5 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const Command = require("../../struct/Command");
+const colors = require('../../util/Colors')
 module.exports = class Avatar extends Command{
     constructor(client){
         super(client, {
@@ -15,7 +16,7 @@ module.exports = class Avatar extends Command{
         const embed = new MessageEmbed()
             .setTitle(`${member.displayName}'s avatar:`)
             .setImage(member.user.displayAvatarURL({ size: 512, dynamic: true }))
-            .setColor("2f3136");
+            .setColor(colors.embeds);
 
         return message.channel.send(embed);
     }

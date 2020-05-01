@@ -2,6 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const axios = require("axios");
 const { format } = require("date-fns");
 const Command = require("../../struct/Command");
+const colors = require('../../util/Colors')
 module.exports = class Info extends Command {
   constructor(client) {
     super(client, {
@@ -24,7 +25,7 @@ module.exports = class Info extends Command {
       .setDescription(
         "Yui Funami is a blazing-fast Discord bot designed to help you have fun!"
       )
-      .setColor("2f3136")
+      .setColor(colors.embeds)
       .addField(
         "Programmed with:",
         "<:JS:691370643886702725>  <:DiscordJS:691370753836449834>  <:TOML:691370861294387220>",

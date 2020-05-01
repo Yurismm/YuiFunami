@@ -5,6 +5,8 @@ const Trello = require("trello");
 const config = require("../../config");
 const trello = new Trello(config.trello_key,config.trello_token);
 const Command = require("../../struct/Command");
+const colors = require('../util/Colors')
+
 module.exports = class Trello extends Command{
     constructor(client){
         super(client, {
@@ -40,7 +42,7 @@ module.exports = class Trello extends Command{
                     .setTitle("Posted to the Trello board")
                     .setURL(card.shortUrl)
                     .setDescription(`New Card in ${listNames[card.idList]}: ${card.name}`)
-                    .setColor("2f3136");
+                    .setColor(colors.embeds);
                     await msg.edit("",{embed:embed});
                         
                     }catch(error){
@@ -53,12 +55,12 @@ module.exports = class Trello extends Command{
                 }
                 let msg = await message.channel.send("Fetching from the list...");
                 const list = await trello.getCardsOnList(idList[args[1].toLowerCase()]);
-                if(list.length < 1) return msg.edit(new MessageEmbed().setTitle(`Nothing in list ${listNames[idList[args[1]]]}`).setURL("https://trello.com/b/MoygwbXE/yui-funami").setColor("2f3136"));
+                if(list.length < 1) return msg.edit(new MessageEmbed().setTitle(`Nothing in list ${listNames[idList[args[1]]]}`).setURL("https://trello.com/b/MoygwbXE/yui-funami").setColor(colors.embeds));
                 let description = "";
                 const embed = new MessageEmbed()
                     .setTitle(`${listNames[idList[args[1]]]} list`)
                     .setURL("https://trello.com/b/MoygwbXE/yui-funami")
-                    .setColor("2f3136");
+                    .setColor(colors.embeds);
                 const cards  = list.filter(c => c.idList === idList[args[1].toLowerCase()]);
                 
                 description = cards.map(c => {

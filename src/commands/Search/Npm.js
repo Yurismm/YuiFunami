@@ -2,6 +2,7 @@ const axios = require("axios");
 const { MessageEmbed } = require("discord.js");
 const { format } = require("date-fns");
 const Command = require("../../struct/Command");
+const colors = require('../../util/Colors')
 module.exports = class Npm extends Command{
     constructor(client){
         super(client, {
@@ -30,7 +31,7 @@ module.exports = class Npm extends Command{
 		const dependencies = version.dependencies ? this.client.util.trimArray(Object.keys(version.dependencies), 10, `https://npmjs.com/${search}?activeTab=dependencies`) : undefined;
 
         const embed = new MessageEmbed()
-            .setColor("2f3136")
+            .setColor(colors.embeds)
             .setURL(`https://npmjs.com/${search}`)
             .setTitle(res.name)
             .setDescription(res.description)
