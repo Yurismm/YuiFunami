@@ -1,6 +1,6 @@
 const Command = require("../../struct/Command");
 const {MessageEmbed} = require("discord.js");
-const colors = require('../../util/Colors')
+const colors = require("../../util/Colors");
 module.exports = class Ping extends Command {
     constructor(client) {
         super(client, {

@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const { join } = require("path");
 const { readdirSync } = require("fs");
 const Command = require("../../struct/Command");
-const colors = require('../../util/Colors')
+const colors = require("../../util/Colors");
 
 module.exports = class Debug extends Command{
     constructor(client){

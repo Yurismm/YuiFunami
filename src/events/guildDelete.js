@@ -1,8 +1,8 @@
 module.exports = class {
     constructor(client){
-        this.client = client
+        this.client = client;
     }
     async execute(guild){
-        await this.client.prefixes.delete(guild.id)
+        await this.client.prefixes.delete(guild.id);
     }
-}
+};

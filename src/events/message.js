@@ -15,7 +15,7 @@ module.exports = class {
         )
             return;
 
-        const prefixes = this.client.prefixes
+        const prefixes = this.client.prefixes;
 
         const prefix = await prefixes.get(message.guild.id) || this.client.config.defaultSettings.prefix;
 

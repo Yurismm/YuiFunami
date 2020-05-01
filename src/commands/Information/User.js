@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const Command  = require("../../struct/Command");
-const colors = require('../../util/Colors')
+const colors = require("../../util/Colors");
 module.exports = class User extends Command{
     constructor(client){
         super(client, {

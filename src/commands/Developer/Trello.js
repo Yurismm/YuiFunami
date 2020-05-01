@@ -5,7 +5,7 @@ const Trello = require("trello");
 const config = require("../../config");
 const trello = new Trello(config.trello_key,config.trello_token);
 const Command = require("../../struct/Command");
-const colors = require('../util/Colors')
+const colors = require("../../util/Colors");
 
 module.exports = class Trello extends Command{
     constructor(client){

@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const axios = require("axios");
 const { format } = require("date-fns");
 const Command = require("../../struct/Command");
-const colors = require('../../util/Colors')
+const colors = require("../../util/Colors");
 module.exports = class Stars extends Command{
     constructor(client){
         super(client, {

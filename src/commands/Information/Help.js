@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const Command = require("../../struct/Command");
-const colors = require('../../util/Colors')
+const colors = require("../../util/Colors");
 const categoryDescriptions = {
     developer: "Commands related to Yui's core process.\n\nUsage restricted to bot-owners only.",
     fun: "Commands that are fun in some way, such as being a game, or being funny.",

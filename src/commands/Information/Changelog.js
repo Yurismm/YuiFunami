@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const axios = require("axios");
 const Command = require("../../struct/Command");
-const colors = require('../../util/Colors')
+const colors = require("../../util/Colors");
 module.exports = class Changelog extends Command{
     constructor(client){
         super(client, {
