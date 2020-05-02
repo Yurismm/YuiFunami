@@ -28,6 +28,7 @@
     "nekos.life": "^2.0.5",
     "node-fetch": "^2.6.0",
     "simple-ssh": "^1.0.0",
+    "superfetch": "^1.1.1",
     "toml": "^3.0.0",
     "trello": "^0.10.0",
     "winston": "^3.2.1"
