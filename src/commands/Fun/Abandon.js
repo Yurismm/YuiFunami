@@ -14,7 +14,6 @@ module.exports = class Abandon extends Command {
       .get("localhost:800/api/abandon")
       .query({ text: text });
     const attachment = new MessageAttachment(res.body, "abandon.png");
-    message.channel.startTyping();
     await message.channel.send(attachment);
   }
 };
