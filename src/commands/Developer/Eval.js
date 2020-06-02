@@ -14,17 +14,11 @@ module.exports = class Eval extends Command {
   }
 
   async run(message, args, level) {
-    var code = args.join(" ");
+    const code = args.join(" ");
     if (!code) return message.channel.send(`I can't eval nothing.`);
-    if (
-      code.toLowerCase() === "this.client.token" ||
-      code.toLowerCase() === "process"
-    )
-      return message.channel.send("no");
-    if (code.toLowerCase().includes("process.exit"))
-      return message.channel.send("reboot instead");
+
     try {
-      var evaled = eval(code);
+      let evaled = await eval(`(async () => { ${code} })()`);
 
       if (typeof evaled !== "string") evaled = util.inspect(evaled);
       const checkCharLength = clean(evaled);
