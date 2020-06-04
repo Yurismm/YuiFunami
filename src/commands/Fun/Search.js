@@ -5,15 +5,17 @@ const superagent = require("superagent");
 module.exports = class Abandon extends Command {
   constructor(client) {
     super(client, {
-      name: "abandon",
-      description: "Abandon someone.",
+      name: "search",
+      description: "The smartest man??",
     });
   }
   async run(message, args) {
     const res = await superagent
-      .get("localhost:4000/api/abandon")
-      .query({ text: args.join(' ') });
-    const attachment = new MessageAttachment(res.body, "abandon.png");
+      .get("localhost:4000/api/thesearch")
+      .query({ 
+          text: args.join(' ')
+        });
+    const attachment = new MessageAttachment(res.body, "search.png");
     await message.channel.send(attachment);
   }
 };

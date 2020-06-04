@@ -1,0 +1,541 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20200604.140944.7234.0.001.json",
+    "dumpEventTime": "2020-06-04T14:09:44Z",
+    "dumpEventTimeStamp": "1591272584522",
+    "processId": 7234,
+    "cwd": "/home/dries/Desktop/desktop/nodejs/Discord bots/yui",
+    "commandLine": [
+      "/home/dries/.nvm/versions/node/v12.16.1/bin/node",
+      "src/Yui.js"
+    ],
+    "nodejsVersion": "v12.16.1",
+    "glibcVersionRuntime": "2.27",
+    "glibcVersionCompiler": "2.17",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "linux",
+    "componentVersions": {
+      "node": "12.16.1",
+      "v8": "7.8.279.23-node.31",
+      "uv": "1.34.0",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.40.0",
+      "napi": "5",
+      "llhttp": "2.0.4",
+      "http_parser": "2.9.3",
+      "openssl": "1.1.1d",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019c",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "lts": "Erbium",
+      "headersUrl": "https://nodejs.org/download/release/v12.16.1/node-v12.16.1-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.16.1/node-v12.16.1.tar.gz"
+    },
+    "osName": "Linux",
+    "osRelease": "4.15.0-72-generic",
+    "osVersion": "#81-Ubuntu SMP Tue Nov 26 12:20:02 UTC 2019",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i3-6006U CPU @ 2.00GHz",
+        "speed": 2000,
+        "user": 1391700,
+        "nice": 696000,
+        "sys": 343600,
+        "idle": 647100,
+        "irq": 0
+      },
+      {
+        "model": "Intel(R) Core(TM) i3-6006U CPU @ 2.00GHz",
+        "speed": 2000,
+        "user": 1042300,
+        "nice": 1015600,
+        "sys": 278300,
+        "idle": 786300,
+        "irq": 0
+      },
+      {
+        "model": "Intel(R) Core(TM) i3-6006U CPU @ 2.00GHz",
+        "speed": 2000,
+        "user": 1249800,
+        "nice": 897000,
+        "sys": 282200,
+        "idle": 1036300,
+        "irq": 0
+      },
+      {
+        "model": "Intel(R) Core(TM) i3-6006U CPU @ 2.00GHz",
+        "speed": 2000,
+        "user": 1226200,
+        "nice": 722900,
+        "sys": 287900,
+        "idle": 667600,
+        "irq": 0
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "name": "lo",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "127.0.0.1",
+        "netmask": "255.0.0.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "wlp1s0",
+        "internal": false,
+        "mac": "fc:01:7c:27:68:af",
+        "address": "192.168.1.29",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "anbox0",
+        "internal": false,
+        "mac": "8e:52:f2:50:3f:1c",
+        "address": "192.168.250.1",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "lo",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "::1",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "wlp1s0",
+        "internal": false,
+        "mac": "fc:01:7c:27:68:af",
+        "address": "fdc7:171c:71a7:0:7d5b:5888:5c48:6858",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "wlp1s0",
+        "internal": false,
+        "mac": "fc:01:7c:27:68:af",
+        "address": "2a02:a03f:4c0c:5700:4df2:1f86:8ff0:1728",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "wlp1s0",
+        "internal": false,
+        "mac": "fc:01:7c:27:68:af",
+        "address": "fe80::c94f:edcb:a2ce:8dcf",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 3
+      },
+      {
+        "name": "ham0",
+        "internal": false,
+        "mac": "7a:79:00:00:00:00",
+        "address": "fe80::7879:ff:fe00:0",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 5
+      },
+      {
+        "name": "anbox0",
+        "internal": false,
+        "mac": "8e:52:f2:50:3f:1c",
+        "address": "fe80::8c52:f2ff:fe50:3f1c",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 6
+      }
+    ],
+    "host": "dries-Inspiron-15-3567"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x0000000000b278f5",
+      "symbol": "report::TriggerNodeReport(v8::Isolate*, node::Environment*, char const*, char const*, std::string const&, v8::Local<v8::String>) [/home/dries/.nvm/versions/node/v12.16.1/bin/node]"
+    },
+    {
+      "pc": "0x00000000009f13ec",
+      "symbol": "node::OnFatalError(char const*, char const*) [/home/dries/.nvm/versions/node/v12.16.1/bin/node]"
+    },
+    {
+      "pc": "0x0000000000b5da9e",
+      "symbol": "v8::Utils::ReportOOMFailure(v8::internal::Isolate*, char const*, bool) [/home/dries/.nvm/versions/node/v12.16.1/bin/node]"
+    },
+    {
+      "pc": "0x0000000000b5de19",
+      "symbol": "v8::internal::V8::FatalProcessOutOfMemory(v8::internal::Isolate*, char const*, bool) [/home/dries/.nvm/versions/node/v12.16.1/bin/node]"
+    },
+    {
+      "pc": "0x0000000000d0a765",
+      "symbol": " [/home/dries/.nvm/versions/node/v12.16.1/bin/node]"
+    },
+    {
+      "pc": "0x0000000000d0adf6",
+      "symbol": "v8::internal::Heap::RecomputeLimits(v8::internal::GarbageCollector) [/home/dries/.nvm/versions/node/v12.16.1/bin/node]"
+    },
+    {
+      "pc": "0x0000000000d1760a",
+      "symbol": "v8::internal::Heap::PerformGarbageCollection(v8::internal::GarbageCollector, v8::GCCallbackFlags) [/home/dries/.nvm/versions/node/v12.16.1/bin/node]"
+    },
+    {
+      "pc": "0x0000000000d18515",
+      "symbol": "v8::internal::Heap::CollectGarbage(v8::internal::AllocationSpace, v8::internal::GarbageCollectionReason, v8::GCCallbackFlags) [/home/dries/.nvm/versions/node/v12.16.1/bin/node]"
+    },
+    {
+      "pc": "0x0000000000d1afcc",
+      "symbol": "v8::internal::Heap::AllocateRawWithRetryOrFail(int, v8::internal::AllocationType, v8::internal::AllocationOrigin, v8::internal::AllocationAlignment) [/home/dries/.nvm/versions/node/v12.16.1/bin/node]"
+    },
+    {
+      "pc": "0x0000000000ce19bb",
+      "symbol": "v8::internal::Factory::NewFillerObject(int, bool, v8::internal::AllocationType, v8::internal::AllocationOrigin) [/home/dries/.nvm/versions/node/v12.16.1/bin/node]"
+    },
+    {
+      "pc": "0x00000000010246ce",
+      "symbol": "v8::internal::Runtime_AllocateInYoungGeneration(int, unsigned long*, v8::internal::Isolate*) [/home/dries/.nvm/versions/node/v12.16.1/bin/node]"
+    },
+    {
+      "pc": "0x00000000013a71b9",
+      "symbol": " [/home/dries/.nvm/versions/node/v12.16.1/bin/node]"
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 2157502464,
+    "totalCommittedMemory": 2155679640,
+    "usedMemory": 2150699256,
+    "availableMemory": 43951280,
+    "memoryLimit": 2197815296,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 33088,
+        "capacity": 32808,
+        "used": 32808,
+        "available": 0
+      },
+      "new_space": {
+        "memorySize": 4718592,
+        "committedMemory": 3445688,
+        "capacity": 2356776,
+        "used": 1377992,
+        "available": 978784
+      },
+      "old_space": {
+        "memorySize": 2149728256,
+        "committedMemory": 2149484648,
+        "capacity": 2147285704,
+        "used": 2146982816,
+        "available": 302888
+      },
+      "code_space": {
+        "memorySize": 430080,
+        "committedMemory": 356576,
+        "capacity": 256576,
+        "used": 256576,
+        "available": 0
+      },
+      "map_space": {
+        "memorySize": 1052672,
+        "committedMemory": 1048920,
+        "capacity": 795440,
+        "used": 795440,
+        "available": 0
+      },
+      "large_object_space": {
+        "memorySize": 1261568,
+        "committedMemory": 1261568,
+        "capacity": 1250840,
+        "used": 1250840,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 49152,
+        "committedMemory": 49152,
+        "capacity": 2784,
+        "used": 2784,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 2356776,
+        "used": 0,
+        "available": 2356776
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 107.569,
+    "kernelCpuSeconds": 1.44304,
+    "cpuConsumptionPercent": 170.331,
+    "maxRss": 2257342464,
+    "pageFaults": {
+      "IORequired": 10,
+      "IONotRequired": 577556
+    },
+    "fsActivity": {
+      "reads": 2160,
+      "writes": 24
+    }
+  },
+  "uvthreadResourceUsage": {
+    "userCpuSeconds": 41.1064,
+    "kernelCpuSeconds": 1.013,
+    "cpuConsumptionPercent": 65.8115,
+    "fsActivity": {
+      "reads": 1992,
+      "writes": 16
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "GJS_DEBUG_TOPICS": "JS ERROR;JS LOG",
+    "LANGUAGE": "en_US:",
+    "LC_TIME": "nl_NL.UTF-8",
+    "USER": "dries",
+    "npm_config_version_commit_hooks": "true",
+    "npm_config_user_agent": "yarn/1.22.4 npm/? node/v12.16.1 linux x64",
+    "XDG_SEAT": "seat0",
+    "npm_config_bin_links": "true",
+    "GIT_ASKPASS": "/snap/code/33/usr/share/code/resources/app/extensions/git/dist/askpass.sh",
+    "SSH_AGENT_PID": "3622",
+    "XDG_SESSION_TYPE": "x11",
+    "npm_node_execpath": "/home/dries/.nvm/versions/node/v12.16.1/bin/node",
+    "npm_package_dependencies_node_fetch": "^2.6.0",
+    "npm_config_init_version": "1.0.0",
+    "SHLVL": "3",
+    "npm_package_dependencies_simple_ssh": "^1.0.0",
+    "CHROME_DESKTOP": "code-url-handler.desktop",
+    "HOME": "/home/dries",
+    "DESKTOP_SESSION": "ubuntu",
+    "NVM_BIN": "/home/dries/.nvm/versions/node/v12.16.1/bin",
+    "TERM_PROGRAM_VERSION": "1.45.1",
+    "npm_package_dependencies_superfetch": "^1.1.1",
+    "GIO_LAUNCHED_DESKTOP_FILE": "/var/lib/snapd/desktop/applications/code_code.desktop",
+    "npm_package_dependencies_ms": "^2.1.2",
+    "npm_config_init_license": "MIT",
+    "APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL": "true",
+    "GNOME_SHELL_SESSION_MODE": "ubuntu",
+    "GTK_MODULES": "gail:atk-bridge",
+    "VSCODE_GIT_ASKPASS_MAIN": "/snap/code/33/usr/share/code/resources/app/extensions/git/dist/askpass-main.js",
+    "YARN_WRAP_OUTPUT": "false",
+    "npm_config_version_tag_prefix": "v",
+    "LC_MONETARY": "nl_NL.UTF-8",
+    "VSCODE_GIT_ASKPASS_NODE": "/snap/code/33/usr/share/code/code",
+    "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/1001/bus",
+    "npm_package_dependencies_dotenv": "^8.2.0",
+    "COLORTERM": "truecolor",
+    "GIO_LAUNCHED_DESKTOP_FILE_PID": "4859",
+    "npm_package_dependencies_superagent": "^5.2.2",
+    "npm_package_description": "Petrify the competition.",
+    "NVM_DIR": "/home/dries/.nvm",
+    "npm_package_readmeFilename": "README.md",
+    "npm_package_dependencies_trello": "^0.10.0",
+    "MANDATORY_PATH": "/usr/share/gconf/ubuntu.mandatory.path",
+    "QT_QPA_PLATFORMTHEME": "appmenu-qt5",
+    "LOGNAME": "dries",
+    "npm_package_private": "true",
+    "DEFAULTS_PATH": "/usr/share/gconf/ubuntu.default.path",
+    "npm_config_registry": "https://registry.yarnpkg.com",
+    "TERM": "xterm-256color",
+    "USERNAME": "dries",
+    "XDG_SESSION_ID": "7",
+    "GNOME_DESKTOP_SESSION_ID": "this-is-deprecated",
+    "npm_package_scripts_start": "node src/Yui.js",
+    "npm_config_ignore_scripts": "",
+    "GTK2_MODULES": "overlay-scrollbar",
+    "WINDOWPATH": "2",
+    "npm_package_dependencies_nekos_life": "^2.0.5",
+    "npm_package_dependencies_klaw": "^3.0.0",
+    "npm_package_dependencies_axios": "^0.19.2",
+    "PATH": "/tmp/yarn--1591272520421-0.7814872315435195:/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/.bin:/home/dries/.config/yarn/link/node_modules/.bin:/home/dries/.yarn/bin:/home/dries/.nvm/versions/node/v12.16.1/libexec/lib/node_modules/npm/bin/node-gyp-bin:/home/dries/.nvm/versions/node/v12.16.1/lib/node_modules/npm/bin/node-gyp-bin:/home/dries/.nvm/versions/node/v12.16.1/bin/node_modules/npm/bin/node-gyp-bin:/home/dries/.nvm/versions/node/v12.16.1/bin:/home/dries/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+    "NODE": "/home/dries/.nvm/versions/node/v12.16.1/bin/node",
+    "SESSION_MANAGER": "local/dries-Inspiron-15-3567:@/tmp/.ICE-unix/3221,unix/dries-Inspiron-15-3567:/tmp/.ICE-unix/3221",
+    "npm_package_dependencies_js_beautify": "^1.10.3",
+    "npm_package_repository_type": "git",
+    "npm_package_name": "yui-funami",
+    "BAMF_DESKTOP_FILE_HINT": "/var/lib/snapd/desktop/applications/code_code.desktop",
+    "LC_ADDRESS": "nl_NL.UTF-8",
+    "XDG_MENU_PREFIX": "gnome-",
+    "XDG_RUNTIME_DIR": "/run/user/1001/snap.code",
+    "DISPLAY": ":0",
+    "LANG": "en_US.UTF-8",
+    "LC_TELEPHONE": "nl_NL.UTF-8",
+    "XDG_CURRENT_DESKTOP": "Unity",
+    "npm_package_devDependencies_eslint": "^6.8.0",
+    "npm_package_dependencies_winston": "^3.2.1",
+    "DESKTOP_MODE": "1",
+    "TERM_PROGRAM": "vscode",
+    "VSCODE_GIT_IPC_HANDLE": "/run/user/1001/snap.code/vscode-git-13a698f314.sock",
+    "XAUTHORITY": "/run/user/1001/gdm/Xauthority",
+    "XDG_SESSION_DESKTOP": "ubuntu",
+    "XMODIFIERS": "@im=ibus",
+    "npm_lifecycle_script": "node src/Yui.js",
+    "npm_package_dependencies_discord_js": "^12.0.2",
+    "npm_package_dependencies_better_sqlite3": "^7.0.0",
+    "npm_package_main": "src/Yui.js",
+    "GSETTINGS_SCHEMA_DIR": "/snap/code/33/usr/share/glib-2.0/schemas",
+    "SSH_AUTH_SOCK": "/run/user/1001/keyring/ssh",
+    "npm_package_dependencies_chalk": "^3.0.0",
+    "npm_package_dependencies__keyv_sqlite": "^2.0.2",
+    "npm_package_scripts_test": "eslint .",
+    "npm_config_version_git_message": "v%s",
+    "DISABLE_WAYLAND": "1",
+    "LC_NAME": "nl_NL.UTF-8",
+    "SHELL": "/usr/bin/fish",
+    "npm_lifecycle_event": "start",
+    "npm_package_repository_url": "https://github.com/Yurismm/YuiBotRewrite-Js-",
+    "npm_package_version": "2.0.0",
+    "GDMSESSION": "ubuntu",
+    "QT_ACCESSIBILITY": "1",
+    "npm_config_argv": "{\"remain\":[],\"cooked\":[\"run\",\"start\"],\"original\":[\"start\"]}",
+    "LC_MEASUREMENT": "nl_NL.UTF-8",
+    "npm_package_dependencies_canvas": "^2.6.1",
+    "npm_config_version_git_tag": "true",
+    "npm_config_version_git_sign": "",
+    "GJS_DEBUG_OUTPUT": "stderr",
+    "GPG_AGENT_INFO": "/run/user/1001/gnupg/S.gpg-agent:0:1",
+    "LC_IDENTIFICATION": "nl_NL.UTF-8",
+    "npm_package_license": "MIT",
+    "npm_config_strict_ssl": "true",
+    "QT_IM_MODULE": "ibus",
+    "XDG_VTNR": "2",
+    "PWD": "/home/dries/Desktop/desktop/nodejs/Discord bots/yui",
+    "npm_execpath": "/usr/share/yarn/bin/yarn.js",
+    "npm_package_dependencies_toml": "^3.0.0",
+    "XDG_CONFIG_DIRS": "/etc/xdg/xdg-ubuntu:/etc/xdg",
+    "XDG_DATA_DIRS": "/usr/share/ubuntu:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/var/lib/snapd/desktop",
+    "npm_package_author_name": "and Axel Greavette",
+    "LC_NUMERIC": "nl_NL.UTF-8",
+    "npm_package_dependencies_memejs": "^1.2.3",
+    "npm_package_dependencies_date_fns": "^2.11.0",
+    "npm_config_save_prefix": "^",
+    "npm_config_ignore_optional": "",
+    "LC_PAPER": "nl_NL.UTF-8",
+    "npm_package_dependencies_keyv": "^4.0.0",
+    "INIT_CWD": "/home/dries/Desktop/desktop/nodejs/Discord bots/yui",
+    "BOT_TOKEN": "NzAxNTE3NzcwNjc1ODQ3MTk4.XqVhMg.8of6MQgrMIPfaLTGe1Lnnp9b-jk",
+    "TOKEN_PLACEHOLDER": "NjA3OTM4Mzg1MDQ2MTQyOTk2.XnHfeg.5skw5bGWrv2cEtNYAo4G1peNkeM",
+    "cb_token": "4e4f6972-8e2d-4852-adea-bd81b11c0f19",
+    "repo_token": "4bde3b9f8ee0bf2d08ab2326149996a969221a0e",
+    "trello_key": "7b399a5fe22c484244c224f742db1f14",
+    "trello_token": "f77b8ae294cdb4607f0a74303c511c9d847db729e0bc0c6ced48d21df956fc6e"
+  },
+  "userLimits": {
+    "core_file_size_blocks": {
+      "soft": 0,
+      "hard": "unlimited"
+    },
+    "data_seg_size_kbytes": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "file_size_blocks": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "max_locked_memory_bytes": {
+      "soft": 16777216,
+      "hard": 16777216
+    },
+    "max_memory_size_kbytes": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "open_files": {
+      "soft": 1048576,
+      "hard": 1048576
+    },
+    "stack_size_bytes": {
+      "soft": 8388608,
+      "hard": "unlimited"
+    },
+    "cpu_time_seconds": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "max_user_processes": {
+      "soft": 30648,
+      "hard": 30648
+    },
+    "virtual_memory_kbytes": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    }
+  },
+  "sharedObjects": [
+    "linux-vdso.so.1",
+    "/lib/x86_64-linux-gnu/libdl.so.2",
+    "/usr/lib/x86_64-linux-gnu/libstdc++.so.6",
+    "/lib/x86_64-linux-gnu/libm.so.6",
+    "/lib/x86_64-linux-gnu/libgcc_s.so.1",
+    "/lib/x86_64-linux-gnu/libpthread.so.0",
+    "/lib/x86_64-linux-gnu/libc.so.6",
+    "/lib64/ld-linux-x86-64.so.2",
+    "/home/dries/node_modules/@discordjs/opus/prebuild/node-v72-linux-x64/opus.node",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/sqlite3/lib/binding/node-v72-linux-x64/node_sqlite3.node",
+    "/lib/x86_64-linux-gnu/libnss_files.so.2",
+    "/lib/x86_64-linux-gnu/libnss_mdns4_minimal.so.2",
+    "/lib/x86_64-linux-gnu/libnss_dns.so.2",
+    "/lib/x86_64-linux-gnu/libresolv.so.2",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/canvas.node",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libpixman-1.so.0",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libcairo.so.2",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libpng16.so.16",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libz.so.1",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libpangocairo-1.0.so.0",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libpango-1.0.so.0",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libgobject-2.0.so.0",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libglib-2.0.so.0",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libfreetype.so.6",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/librsvg-2.so.2",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libgio-2.0.so.0",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libgdk_pixbuf-2.0.so.0",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libjpeg.so.62",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libgif.so.7",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libfontconfig.so.1",
+    "/lib/x86_64-linux-gnu/librt.so.1",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libpangoft2-1.0.so.0",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libfribidi.so.0",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libffi.so.6",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libgthread-2.0.so.0",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libharfbuzz.so.0",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libpcre.so.1",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libexpat.so.1",
+    "/lib/x86_64-linux-gnu/libuuid.so.1",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libgmodule-2.0.so.0",
+    "/lib/x86_64-linux-gnu/libmount.so.1",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libcroco-0.6.so.3",
+    "/home/dries/Desktop/desktop/nodejs/Discord bots/yui/node_modules/canvas/build/Release/libxml2.so.2",
+    "/lib/x86_64-linux-gnu/libblkid.so.1",
+    "/lib/x86_64-linux-gnu/libselinux.so.1",
+    "/lib/x86_64-linux-gnu/libpcre.so.3",
+    "/usr/lib/x86_64-linux-gnu/gconv/MACINTOSH.so",
+    "/usr/lib/x86_64-linux-gnu/gconv/UTF-16.so"
+  ]
+}
