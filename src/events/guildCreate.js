@@ -3,7 +3,8 @@ module.exports = class {
         this.client = client;
     }
     async execute(guild){
-        console.log("hello");
+        if(!await this.client.prefixes.get(guild.id)){
         await this.client.prefixes.set(guild.id,this.client.config.defaultSettings.prefix);
+        }
     }
 };
