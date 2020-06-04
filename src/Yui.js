@@ -38,22 +38,9 @@ class YuiClient extends Client {
         };
     }
 
-    permlevel(message) {
-        let permlvl = 0;
-
-        const permOrder = this.config.permLevels
-            .slice(0)
-            .sort((p, c) => (p.level < c.level ? 1 : -1));
-
-        while (permOrder.length) {
-            const currentLevel = permOrder.shift();
-            if (message.guild && currentLevel.guildOnly) continue;
-            if (currentLevel.check(message)) {
-                permlvl = currentLevel.level;
-                break;
-            }
-        }
-        return permlvl;
+    permlevel(command,message) {
+        const perm = this.config.permLevels.find(permissions => permissions.name === command.conf.permLevel.toLowerCase() || permissions.level === command.conf.permLevel)
+        return perm.check(message)
     }
 
     loadCommand(commandPath, commandName,category) {

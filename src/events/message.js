@@ -37,8 +37,6 @@ module.exports = class {
         if (message.guild && !message.member)
             await message.guild.fetchMember(message.author);
 
-        const level = this.client.permlevel(message);
-
         const cmd =
             this.client.commands.get(command) ||
             this.client.commands.get(this.client.aliases.get(command));
@@ -48,21 +46,10 @@ module.exports = class {
             return message.channel.send(
                 "This command is unavailable via private message. Please run this command in a guild."
             );
+        const level = this.client.permlevel(cmd,message);
+        if(!level) return message.channel.send("You don't have permission to do that!")
 
-        if (level < this.client.levelCache[cmd.conf.permLevel]) {
-                return message.channel
-                    .send(`You do not have permission to use this command.
-        Your permission level is ${level} (${
-                    this.client.config.permLevels.find((l) => l.level === level)
-                        .name
-                })
-        This command requires level ${
-            this.client.levelCache[cmd.conf.permLevel]
-        } (${cmd.conf.permLevel})`);
-        
-        }
 
-        message.author.permLevel = level;
 
         message.flags = [];
         while (args[0] && args[0][0] === "-") {
@@ -70,6 +57,6 @@ module.exports = class {
         }
 
 
-        cmd.run(message, args, level);
+        cmd.run(message, args);
     }
 };
