@@ -11,7 +11,7 @@ module.exports = class Abandon extends Command {
   }
   async run(message, args) {
     const res = await superagent
-      .get("localhost:800/api/abandon")
+      .get("localhost:4000/api/abandon")
       .query({ text: args.join(' ') });
     const attachment = new MessageAttachment(res.body, "abandon.png");
     await message.channel.send(attachment);
