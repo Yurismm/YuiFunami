@@ -34,7 +34,7 @@ module.exports = class Eval extends Command {
       }
       const embed = new MessageEmbed()
         .setColor(0x36393f)
-        .addField(":inbox_tray: Input: ", `\`\`\`${code}\`\`\``)
+        .addField(":inbox_tray: Input: ", `\`\`\`js\n${code}\n\`\`\``)
         .addField(
           ":outbox_tray: Output: ",
           `\`\`\`js\n${await this.client.clean(evaled)}\n\`\`\``

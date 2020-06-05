@@ -5,22 +5,19 @@ const superagent = require("superagent");
 module.exports = class Abandon extends Command {
   constructor(client) {
     super(client, {
-      name: "bed",
-      description: "Who's that monster in your bed?",
+      name: "dab",
+      description: "*Dabs*",
       usage: "[user]"
 
     });
   }
   async run(message, args) {
     const conjoined = args.join(" ");
-    const mentionAvatar = this.client.util.findMember(message,conjoined,true).user.displayAvatarURL({format: "png"});
+    const mentionAvatar = this.client.util.findMember(message,conjoined,true).user.displayAvatarURL({format: "jpg"});
      const res = await superagent
-      .get("localhost:4000/api/bed")
-      .query({
-        avatar1: message.author.displayAvatarURL({format: "png"}),
-        avatar2: mentionAvatar  
-    });
-    const attachment = new MessageAttachment(res.body, "bed.png");
+      .get("localhost:4000/api/dab")
+      .query({ avatar1: mentionAvatar});
+    const attachment = new MessageAttachment(res.body, "dab.png");
     await message.channel.send(attachment);
   }
 };

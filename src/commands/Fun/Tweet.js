@@ -5,17 +5,17 @@ const superagent = require("superagent");
 module.exports = class Abandon extends Command {
   constructor(client) {
     super(client, {
-      name: "armor",
-      description: "Penetrate armor",
-      usage: "[text]"
+      name: "tweet",
+      description: "The president tweeted again!",
+      usage: "[Text]"
 
     });
   }
   async run(message, args) {
     const res = await superagent
-      .get("localhost:4000/api/armor")
+      .get("localhost:4000/api/tweet")
       .query({ text: args.join(' ') });
-    const attachment = new MessageAttachment(res.body, "armor.png");
+    const attachment = new MessageAttachment(res.body, "tweet.png");
     await message.channel.send(attachment);
   }
 };

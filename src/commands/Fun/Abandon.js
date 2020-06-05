@@ -7,6 +7,7 @@ module.exports = class Abandon extends Command {
     super(client, {
       name: "abandon",
       description: "Abandon someone.",
+      usage: "[text]"
     });
   }
   async run(message, args) {
