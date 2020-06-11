@@ -1,39 +1,41 @@
-const { MessageEmbed } = require("discord.js");
+const {randomRange} = require("../../util/Util");
+const {MessageEmbed} = require("discord.js");
 const axios = require("axios");
-const Command = require("../../struct/Command");
-const apiBase = "https://meme-api.herokuapp.com/gimme";
+const Command = require('../../struct/Command')
 
-const subs = ["dankmemes","wholesomememes", "memes"];
-
-const getMemes = async (count = 1, sub = "dankmemes") => {
-    let { data: data } = await axios({
-        url: `${apiBase}/${sub}/${count}`,
-        method: "get",
+async function getPost(sub){
+    const { data: posts } = await axios({
+        url: `https://www.reddit.com/r/${sub}/random.json`,
+        method: "get"
     });
-
-    return data.memes;
-};
+    return posts;
+}
 
 module.exports = class Meme extends Command{
-    constructor(client){
-        super(client, {
-    name: "meme",
-    description: "Gets you a meme.",
-    });
-}  
-    async run(message, args) {
-        let sub = args[1];
-        if(!args[1]) sub = subs[this.client.util.randomRange(0,subs.length-1)]; 
-        let memes = await getMemes(args[0], sub);
-
-        for (let m of memes) {
-            let memeEmbed = new MessageEmbed()
-                .setTitle(m.title)
-                .setURL(m.postLink)
-                .setImage(m.url)
-                .setFooter(m.subreddit);
-
-            await message.channel.send(memeEmbed);
+  constructor(client){
+  super(client,{
+  name: "meme",
+  description: "Gets you a meme."
+})
+}
+ async run(message, args, client) {
+    const subReddits = ["wholesomememes", "meirl", "dankmemes"]; //ADD SUBREDDITS HERE <<<<<<<<
+    const random = subReddits[randomRange(0,subReddits.length-1)]; 
+    let posts = await getPost(random);
+    let msg = await message.channel.send("Getting meme...");
+    
+        let meme = posts[0].data.children[0].data;
+        while(!meme.is_reddit_media_domain || meme.is_video){
+            posts = await getPost(random);
+            meme = posts[0].data.children[0].data;
         }
-    }
+        const embed = new MessageEmbed()
+        .setTitle(meme.title)
+        .setURL(`https://www.reddit.com/${meme.permalink}`)
+        .setImage(meme.url)
+        .setAuthor(meme.subreddit)
+        .setFooter(meme.author)
+        .setColor("2f3136");
+        msg.edit("",{embed:embed});
+  }
 };
