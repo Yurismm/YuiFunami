@@ -7,13 +7,7 @@ module.exports = class {
         
         if (message.author.bot) return;
 
-        if (
-            message.guild &&
-            !message.channel
-                .permissionsFor(message.guild.me)
-                .missing("SEND_MESSAGES")
-        )
-            return;
+        if (message.guild &&!message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
 
         const prefixes = this.client.prefixes;
 
