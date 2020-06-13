@@ -7,14 +7,13 @@ module.exports = class Abandon extends Command {
     super(client, {
       name: "tweet",
       description: "The president tweeted again!",
-      usage: "[Text]"
-
+      usage: "[Text]",
     });
   }
   async run(message, args) {
     const res = await superagent
       .get("localhost:4000/api/tweet")
-      .query({ text: args.join(' ') });
+      .query({ text: args.join(" ") });
     const attachment = new MessageAttachment(res.body, "tweet.png");
     await message.channel.send(attachment);
   }

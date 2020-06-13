@@ -1,20 +1,30 @@
 const { createCanvas, loadImage } = require("canvas");
 const { join } = require("path");
 const Command = require("../../struct/Command");
-module.exports = class Batslap extends Command{
-  constructor(client){
+module.exports = class Batslap extends Command {
+  constructor(client) {
     super(client, {
-  
-  name: "batslap",
-  aliases: ["slap"],
-  description: "slap someone",
-  usage: "<@mention>",
+      name: "batslap",
+      aliases: ["slap"],
+      description: "slap someone",
+      usage: "<@mention>",
     });
   }
-  async run(message,args) {
+  async run(message, args) {
     const conjoined = args.join(" ");
     try {
-      const base = await loadImage(join(__dirname,"..","..","..","assets","image","bin","batslap.jpg"));
+      const base = await loadImage(
+        join(
+          __dirname,
+          "..",
+          "..",
+          "..",
+          "assets",
+          "image",
+          "bin",
+          "batslap.jpg"
+        )
+      );
       const canvas = createCanvas(base.width, base.height);
       const ctx = canvas.getContext("2d");
       ctx.drawImage(base, 0, 0);
@@ -25,11 +35,17 @@ module.exports = class Batslap extends Command{
       ctx.closePath();
       ctx.clip();
 
-      const mentionAvatar = await loadImage(this.client.util.findMember(message,conjoined,true).user.displayAvatarURL({format: "jpg"}));
-    
+      const mentionAvatar = await loadImage(
+        this.client.util
+          .findMember(message, conjoined, true)
+          .user.displayAvatarURL({ format: "jpg" })
+      );
+
       ctx.drawImage(mentionAvatar, 220, 240, 300, 300);
-      
-      const avatar = await loadImage(message.author.displayAvatarURL({format: "jpg"}));
+
+      const avatar = await loadImage(
+        message.author.displayAvatarURL({ format: "jpg" })
+      );
 
       ctx.drawImage(avatar, 580, 85, 300, 300);
 
@@ -40,7 +56,7 @@ module.exports = class Batslap extends Command{
       throw error.message;
     }
   }
-  async error(message, args,error) {
+  async error(message, args, error) {
     return message.channel.send(`\`\`\`${error}\`\`\``);
   }
 };

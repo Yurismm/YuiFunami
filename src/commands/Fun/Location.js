@@ -7,15 +7,15 @@ module.exports = class Abandon extends Command {
     super(client, {
       name: "location",
       description: "WHERE ARE YOU!",
-      uage: "[text]"
+      uage: "[text]",
     });
   }
   async run(message, args) {
     const res = await superagent
       .get("localhost:4000/api/knowyourlocation")
-      .query({ 
-          text: args.join(' ')
-        });
+      .query({
+        text: args.join(" "),
+      });
     const attachment = new MessageAttachment(res.body, "knowyourlocation.png");
     await message.channel.send(attachment);
   }
