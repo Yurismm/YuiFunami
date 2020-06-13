@@ -18,5 +18,3 @@ class Command {
     }
 }
 module.exports = Command;
-
-// Testing workflow, will delete after this

@@ -9,7 +9,8 @@
   "private": true,
   "scripts": {
     "start": "node src/Yui.js",
-    "test": "eslint ."
+    "test": "eslint .",
+    "format": "prettier --write '**/*.js'"
   },
   "dependencies": {
     "@keyv/sqlite": "^2.0.2",
