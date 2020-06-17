@@ -7,14 +7,13 @@ module.exports = class Abandon extends Command {
     super(client, {
       name: "note",
       description: "Don't pass notes in class!",
-      usage: "[Text]"
-
+      usage: "[Text]",
     });
   }
   async run(message, args) {
     const res = await superagent
       .get("localhost:4000/api/note")
-      .query({ text: args.join(' ') });
+      .query({ text: args.join(" ") });
     const attachment = new MessageAttachment(res.body, "note.png");
     await message.channel.send(attachment);
   }

@@ -1,16 +1,16 @@
-
 const { existsSync, readFileSync } = require("fs");
 
 class Config {
-    constructor(filePath) {
-        if(!existsSync(filePath)) throw new Error("That is not a valid config file path.");
+  constructor(filePath) {
+    if (!existsSync(filePath))
+      throw new Error("That is not a valid config file path.");
 
-        let results = parse(readFileSync(filePath));
+    let results = parse(readFileSync(filePath));
 
-        this.results = results;
+    this.results = results;
 
-        return results;
-    }
+    return results;
+  }
 }
 
 module.exports = Config;

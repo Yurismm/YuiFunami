@@ -10,11 +10,9 @@ module.exports = class Abandon extends Command {
     });
   }
   async run(message, args) {
-    const res = await superagent
-      .get("localhost:4000/api/thesearch")
-      .query({ 
-          text: args.join(' ')
-        });
+    const res = await superagent.get("localhost:4000/api/thesearch").query({
+      text: args.join(" "),
+    });
     const attachment = new MessageAttachment(res.body, "search.png");
     await message.channel.send(attachment);
   }

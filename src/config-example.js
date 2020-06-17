@@ -1,117 +1,110 @@
 require("dotenv").config();
 
 const config = {
-    ownerID: "358970589697933314",
+  ownerID: "358970589697933314",
 
-    admins: [
-        "228872946557386752", // xgrvaeli
-        "210324193391149056", // Dodo
-        "358970589697933314", // Cherie
-        "205014454042099712", // Meliodas
-        "460892852889845780", // MendtheMiner
-        "293159670040887297", // mariobob
-    ],
+  admins: [
+    "228872946557386752", // xgrvaeli
+    "210324193391149056", // Dodo
+    "358970589697933314", // Cherie
+    "205014454042099712", // Meliodas
+    "460892852889845780", // MendtheMiner
+    "293159670040887297", // mariobob
+  ],
 
-    support: [],
+  support: [],
 
-    token: process.env.BOT_TOKEN,
-    cb_token:process.env.cb_token,
-    repo_token:process.env.repo_token,
-    trello_key:process.env.trello_key,
-    trello_token:process.env.trello_token,
+  token: process.env.BOT_TOKEN,
+  cb_token: process.env.cb_token,
+  repo_token: process.env.repo_token,
+  trello_key: process.env.trello_key,
+  trello_token: process.env.trello_token,
 
-    defaultSettings: {
-        prefix: "$",
-        modLogChannel: "mod-log",
-        modRole: "Moderator",
-        adminRole: "Administrator",
-        systemNotice: "true",
-        welcomeChannel: "welcome",
-        welcomeMessage:
-            "Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D",
-        welcomeEnabled: "false",
+  defaultSettings: {
+    prefix: "$",
+    modLogChannel: "mod-log",
+    modRole: "Moderator",
+    adminRole: "Administrator",
+    systemNotice: "true",
+    welcomeChannel: "welcome",
+    welcomeMessage:
+      "Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D",
+    welcomeEnabled: "false",
+  },
+
+  inviteURL:
+    "https://discordapp.com/oauth2/authorize?client_id=456910763504697363&scope=bot&permissions=8",
+  githubURL: "https://github.com/xgrvaeli/YuiFunami",
+  githubAPI: "https://api.github.com/repos/xgrvaeli/YuiFunami",
+
+  permLevels: [
+    {
+      level: 0,
+      name: "User",
+      check: () => true,
     },
 
-    inviteURL:
-        "https://discordapp.com/oauth2/authorize?client_id=456910763504697363&scope=bot&permissions=8",
-    githubURL: "https://github.com/xgrvaeli/YuiFunami",
-    githubAPI: "https://api.github.com/repos/xgrvaeli/YuiFunami",
+    {
+      level: 2,
+      name: "Moderator",
+      check: (message) => {
+        try {
+          const modRole = message.guild.roles.cache.find(
+            (r) =>
+              r.name.toLowerCase() === message.settings.modRole.toLowerCase()
+          );
+          if (modRole && message.member.roles.cache.has(modRole.id))
+            return true;
+        } catch (e) {
+          return false;
+        }
+      },
+    },
 
-    permLevels: [
-        {
-            level: 0,
-            name: "User",
-            check: () => true,
-        },
-        
+    {
+      level: 3,
+      name: "Administrator",
+      check: (message) => {
+        try {
+          const adminRole = message.guild.roles.cache.find(
+            (r) =>
+              r.name.toLowerCase() === message.settings.adminRole.toLowerCase()
+          );
+          return adminRole && message.member.roles.cache.has(adminRole.id);
+        } catch (e) {
+          return false;
+        }
+      },
+    },
+    {
+      level: 4,
+      name: "Server Owner",
+      check: (message) =>
+        message.channel.type === "text"
+          ? message.guild.owner.user.id === message.author.id
+            ? true
+            : false
+          : false,
+    },
 
-        {
-            level: 2,
-            name: "Moderator",
-            check: (message) => {
-                try {
-                    const modRole = message.guild.roles.cache.find(
-                        (r) =>
-                            r.name.toLowerCase() ===
-                            message.settings.modRole.toLowerCase()
-                    );
-                    if (modRole && message.member.roles.cache.has(modRole.id))
-                        return true;
-                } catch (e) {
-                    return false;
-                }
-            },
-        },
+    {
+      level: 8,
+      name: "Bot Support",
+      check: (message) => config.support.includes(message.author.id),
+    },
 
-        {
-            level: 3,
-            name: "Administrator",
-            check: (message) => {
-                try {
-                    const adminRole = message.guild.roles.cache.find(
-                        (r) =>
-                            r.name.toLowerCase() ===
-                            message.settings.adminRole.toLowerCase()
-                    );
-                    return (
-                        adminRole &&
-                        message.member.roles.cache.has(adminRole.id)
-                    );
-                } catch (e) {
-                    return false;
-                }
-            },
-        },
-        {
-            level: 4,
-            name: "Server Owner",
-            check: (message) =>
-                message.channel.type === "text"
-                    ? message.guild.owner.user.id === message.author.id
-                        ? true
-                        : false
-                    : false,
-        },
+    {
+      level: 9,
+      name: "Bot Admin",
+      check: (message) => config.admins.includes(message.author.id),
+    },
 
-        {
-            level: 8,
-            name: "Bot Support",
-            check: (message) => config.support.includes(message.author.id),
-        },
-
-        {
-            level: 9,
-            name: "Bot Admin",
-            check: (message) => config.admins.includes(message.author.id),
-        },
-
-        {
-            level: 10,
-            name: "Bot Owner",
-            check: (message) =>
-                message.client.config.ownerID === message.author.id,
-        },
-    ],
+    {
+      level: 10,
+      name: "Bot Owner",
+      check: (message) => message.client.config.ownerID === message.author.id,
+    },
+  ],
 };
 
 module.exports = config;
