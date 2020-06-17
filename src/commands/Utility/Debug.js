@@ -16,8 +16,8 @@ module.exports = class Debug extends Command{
         let prefixes = [];
         let allCommands = [];
 
-        for(const prefix in client.prefixes) {
-            prefixes.push([prefix, client.prefixes[prefix]]);
+        for(const prefix in this.client.prefixes) {
+            prefixes.push([prefix, this.client.prefixes[prefix]]);
         }
 
         this.client.util.getDirectories(join(__dirname, "..")).forEach(d => {
@@ -32,7 +32,7 @@ module.exports = class Debug extends Command{
             .setTitle("Debug for Yui Funami:")
             .setColor(colors.embeds)
             .addField("Web:", "Inactive")
-            .addField("Commands:", `Loaded: ${this.client.commands.size}\nAvailable: ${availableCommands}`)
+            .addField("Commands:", `Loaded: ${this.client.commands.size}\nunavailable: ${availableCommands}`)
             .addField("Permissions:", `Add Reactions: ${message.guild.me.hasPermission("ADD_REACTIONS")}\nManage Messages: ${message.guild.me.hasPermission("MANAGE_MESSAGES")}\nRead Messages: ${message.guild.me.hasPermission("VIEW_CHANNEL")}\nRead Message History: ${message.guild.me.hasPermission("READ_MESSAGE_HISTORY")}\nSend Messages: ${message.guild.me.hasPermission("SEND_MESSAGES")}`);
 
         return message.channel.send(embed);
