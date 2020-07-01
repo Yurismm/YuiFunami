@@ -19,7 +19,7 @@ module.exports = class Meme extends Command {
     });
   }
   async run(message, args, client) {
-    const subReddits = ["wholesomememes", "meirl", "dankmemes"]; //ADD SUBREDDITS HERE <<<<<<<<
+    const subReddits = ["meirl", "dankmemes", "MemeEconomy","Memes_Of_The_Dank"]; //ADD SUBREDDITS HERE <<<<<<<<
     const random = subReddits[randomRange(0, subReddits.length - 1)];
     let posts = await getPost(random);
     let msg = await message.channel.send("Getting meme...");
